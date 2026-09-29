@@ -405,6 +405,51 @@ nav.path{top:calc(env(safe-area-inset-top,0px) + 78px)!important}
   html{scroll-padding-top:104px}
   nav.path{top:calc(env(safe-area-inset-top,0px) + 110px)!important}
 }
+/* ---- data menu & backups ---- */
+.navmenu{position:relative;flex:none;width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--panel);cursor:pointer;display:grid;place-content:center;color:var(--ink)}
+.navmenu:hover,.navmenu[aria-expanded="true"]{border-color:var(--acc)}
+.navmenu .bars{display:grid;gap:4px}
+.navmenu .bars i{display:block;width:18px;height:2px;border-radius:1px;background:currentColor;transition:transform .2s,opacity .2s}
+.navmenu[aria-expanded="true"] .bars i:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.navmenu[aria-expanded="true"] .bars i:nth-child(2){opacity:0}
+.navmenu[aria-expanded="true"] .bars i:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.navdot{position:absolute;top:6px;right:6px;width:9px;height:9px;border-radius:50%;background:var(--rose);box-shadow:0 0 0 2px var(--panel)}
+.dmenu{position:absolute;right:max(20px,calc((100vw - 1200px)/2 + 20px));top:calc(100% + 6px);width:400px;max-width:calc(100vw - 24px);max-height:calc(100vh - 90px);overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:18px;box-shadow:0 18px 50px rgba(0,0,0,.28);padding:16px 18px 14px;box-sizing:border-box;z-index:60}
+.dm-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.dm-head h2{font-family:var(--display);font-weight:400;font-size:22px;margin:0}
+.dm-x{width:32px;height:32px;border-radius:10px;border:1px solid var(--line);background:none;color:var(--muted);font-size:20px;line-height:1;cursor:pointer}
+.dm-status{margin:10px 0 12px;font-size:14px;border-radius:12px;padding:9px 12px;background:var(--panel-2);border:1px solid var(--line)}
+.dm-status b{display:block;font-size:14.5px}
+.dm-status span{display:block;color:var(--muted)}
+.dm-status.warn{border-color:var(--rose)}
+.dm-status.warn .dm-bk{color:var(--rose);font-weight:700}
+.dm-actions{display:grid;gap:8px}
+.dm-btn{display:block;text-align:left;border:1px solid var(--line);background:var(--panel-2);border-radius:12px;padding:9px 12px;cursor:pointer;color:var(--ink);font:inherit}
+.dm-btn:hover{border-color:var(--acc)}
+.dm-btn b{display:block;font-size:15px}
+.dm-btn small{display:block;color:var(--muted);font-size:13px}
+.dm-btn.primary{background:var(--acc);border-color:var(--acc);color:var(--bg)}
+.dm-btn.primary small{color:inherit;opacity:.85}
+.dm-linkbox{margin-top:10px}
+.dm-linkbox label{font-size:13px;font-weight:700;color:var(--muted)}
+.dm-linkbox textarea{width:100%;box-sizing:border-box;margin-top:4px;font:12px/1.4 ui-monospace,Menlo,Consolas,monospace;background:var(--panel-2);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:8px;resize:vertical;word-break:break-all}
+.dm-linkbox p{margin:4px 0 0;font-size:13px;color:var(--acc);font-weight:700}
+.dm-how{margin-top:14px;border-top:1px solid var(--line);padding-top:10px}
+.dm-how summary{cursor:pointer;font-weight:700;font-size:15px}
+.dm-body{font-size:14px;color:var(--ink)}
+.dm-body p{margin:8px 0}
+.dm-body ul{margin:4px 0 8px;padding-left:20px;color:var(--muted)}
+.dm-body li{margin:2px 0}
+.dm-body code{font-size:13px;background:var(--panel-2);border-radius:4px;padding:0 4px}
+.dm-persist{font-size:13px;color:var(--muted)}
+.dm-foot{margin:10px 0 0;font-size:12.5px;color:var(--muted)}
+.restorebar{position:relative;z-index:40;background:var(--acc);color:var(--bg)}
+.rb-in{max-width:1200px;margin:0 auto;padding:10px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;box-sizing:border-box}
+.rb-in p{margin:0;font-size:15px;flex:1;min-width:240px}
+.rb-btns{display:flex;flex-wrap:wrap;gap:6px}
+.dm-mini{border:1px solid currentColor;background:transparent;color:inherit;border-radius:999px;padding:5px 12px;cursor:pointer;font:inherit;font-size:14px}
+.dm-mini.primary{background:var(--bg);color:var(--acc);border-color:var(--bg);font-weight:700}
+@media (max-width:640px){ .dmenu{left:12px;right:12px;width:auto;max-width:none;top:calc(100% + 4px);max-height:calc(100vh - 130px)} .navmenu{width:36px;height:36px;margin-left:auto} }
 /* ---- gear tracker ---- */
 .gr-input{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin:16px 0 4px}
 .gr-il{display:flex;align-items:center;gap:10px;font-weight:700}
@@ -578,9 +623,42 @@ nav.path{top:calc(env(safe-area-inset-top,0px) + 78px)!important}
       <a href="#routine" data-sec="routine">Checklist<i class="new">New</i></a>
       <a href="#notes" data-sec="notes">Traps &amp; sources</a>
     </nav>
+    <button class="navmenu" id="navMenuBtn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="dataMenu" aria-label="Menu: backup and how your data is saved"><span class="bars" aria-hidden="true"><i></i><i></i><i></i></span><span class="navdot" id="navDot" hidden></span></button>
   </div>
   <div class="navprog" aria-hidden="true"><i id="navProg"></i></div>
+  <div class="dmenu" id="dataMenu" role="dialog" aria-modal="false" aria-labelledby="dmTitle" hidden>
+    <div class="dm-head"><h2 id="dmTitle">Your progress</h2><button class="dm-x" id="dmClose" type="button" aria-label="Close menu">×</button></div>
+    <div class="dm-status" id="dmStatus"></div>
+    <div class="dm-actions">
+      <button type="button" class="dm-btn primary" id="dmDownload"><b>Download backup file</b><small>A small .json file. Keep it anywhere.</small></button>
+      <button type="button" class="dm-btn" id="dmLink"><b>Copy backup link</b><small>Your progress packed into a link. Open it on any device to restore.</small></button>
+      <button type="button" class="dm-btn" id="dmRestore"><b>Restore from a file</b><small>Load a backup file you downloaded earlier.</small></button>
+    </div>
+    <div class="dm-linkbox" id="dmLinkBox" hidden><label for="dmLinkOut">Your backup link</label><textarea id="dmLinkOut" readonly rows="3"></textarea><p id="dmLinkMsg"></p></div>
+
+    <details class="dm-how" open>
+      <summary>How your data is saved</summary>
+      <div class="dm-body">
+        <p><b>Only in this browser, on this device.</b> Everything you tick or type is saved to your browser's local storage the moment you change it. There's no account and no server. Nothing you do here is sent anywhere, and there's no tracking.</p>
+        <p><b>What's saved:</b> your class, faction and main/alt picks; leveling, daily and weekly ticks; item level and gear steps; reset settings and any gates you corrected. Each class keeps its own progress.</p>
+        <p><b>What deletes it:</b></p>
+        <ul>
+          <li>Clearing <i>cookies and site data</i> (clearing only history or cache is fine)</li>
+          <li>Cleanup apps and "clear on exit" browser settings</li>
+          <li>Private or incognito windows, when you close them</li>
+          <li>Safari on iPhone and Mac, if you don't visit for 7 days</li>
+        </ul>
+        <p><b>Other devices don't see it.</b> Your phone, your PC, and even Chrome vs Edge on the same PC each have their own copy.</p>
+        <p><b>How backups work:</b> the file is a plain copy of your progress. The link carries the same data after the <code>#</code> in the address. Browsers never send that part to a website, so the Codex server never receives it. Anyone you share the link with can load your checklist, but there's nothing personal in it.</p>
+        <p class="dm-persist" id="dmPersist"></p>
+      </div>
+    </details>
+    <p class="dm-foot">Class Codex by PanicMonkeyxx · <a href="https://github.com/Cole-personal-projects/aion2-class-codex-noobs" target="_blank" rel="noopener">Source on GitHub</a></p>
+  </div>
 </header>
+<div class="restorebar" id="restoreBar" role="alertdialog" aria-labelledby="rbText" hidden>
+  <div class="rb-in"><p id="rbText"></p><div class="rb-btns"><button type="button" class="dm-mini primary" id="rbYes">Restore</button><button type="button" class="dm-mini" id="rbSave">Download my current progress first</button><button type="button" class="dm-mini" id="rbNo">Not now</button></div></div>
+</div>
 <div class="wrap" id="top">
 
   <section class="scene" id="scene" data-faction="elyos" aria-label="Selected class">
@@ -660,10 +738,10 @@ nav.path{top:calc(env(safe-area-inset-top,0px) + 78px)!important}
       </div>
     </div>
     <div class="row">
-      <span class="sync" id="sync">Saved on this device</span>
+      <span class="sync" id="sync">Saved in this browser only</span>
       <button class="theme" id="shareBtn" aria-label="Copy a link to this class">Copy link</button>
-      <button class="theme" id="exportBtn" aria-label="Export your progress to a file">Export</button>
-      <button class="theme" id="importBtn" aria-label="Import progress from a file">Import</button>
+      <button class="theme" id="exportBtn" aria-label="Download a backup file of your progress">Backup</button>
+      <button class="theme" id="importBtn" aria-label="Restore progress from a backup file">Restore</button>
       <input type="file" id="importFile" accept="application/json,.json" hidden>
       <button class="theme" id="themeBtn" aria-label="Toggle light or dark theme">Theme</button>
     </div>
@@ -1294,7 +1372,7 @@ var dbRef = null, writing = false, dirty = false, timer = null;
 var syncEl = document.getElementById("sync");
 function setSync(t, ok){ syncEl.textContent = t; syncEl.classList.toggle("ok", !!ok); }
 function touch(){
-  state.updatedAt = Date.now(); saveLocal();
+  state.updatedAt = Date.now(); saveLocal(); if(typeof renderMenu === "function") renderMenu();
   if(dbRef){ clearTimeout(timer); timer = setTimeout(function(){ timer = null; flush(); }, 1200); setSync("Saving…", true); }
 }
 function flush(){
@@ -1306,7 +1384,7 @@ function flush(){
   }, function(err){
     writing = false;
     if(err && err.code === "unavailable"){ setTimeout(flush, 1500 + Math.random()*1500); return; }
-    dbRef = null; setSync("Saved on this device", false);
+    dbRef = null; setSync("Saved in this browser only", false);
   });
 }
 function initSync(){
@@ -2262,33 +2340,152 @@ function renderSkills(){
 /* ---------------- sharing: deep links, export, import ---------------- */
 function classFromHash(){ var h = (location.hash||"").replace(/^#/,"").toLowerCase(); return CLASSES[h] ? h : null; }
 function syncHash(){ try{ history.replaceState(null, "", "#" + state.cls); }catch(e){} }
-window.addEventListener("hashchange", function(){ var sh = (location.hash||"").replace(/^#/,""); if(["skl","dvp","path","gear","playbook","routine","notes"].indexOf(sh) >= 0){ if(window.__navGo) window.__navGo(sh); syncHash(); return; } var k = classFromHash(); if(k && k !== state.cls){ state.cls = k; firstPaint = true; touch(); renderAll(); } });
+window.addEventListener("hashchange", function(){ var rc = restoreCodeFromHash(); if(rc){ offerRestore(rc); return; } var sh = (location.hash||"").replace(/^#/,""); if(["skl","dvp","path","gear","playbook","routine","notes"].indexOf(sh) >= 0){ if(window.__navGo) window.__navGo(sh); syncHash(); return; } var k = classFromHash(); if(k && k !== state.cls){ state.cls = k; firstPaint = true; touch(); renderAll(); } });
 function flash(btn, txt){ var o = btn.textContent; btn.textContent = txt; setTimeout(function(){ btn.textContent = o; }, 1600); }
 document.getElementById("shareBtn").addEventListener("click", function(){
   var url = location.href.split("#")[0] + "#" + state.cls, btn = this;
   if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(url).then(function(){ flash(btn,"Link copied"); }, function(){ prompt("Copy this link:", url); }); }
   else prompt("Copy this link:", url);
 });
-document.getElementById("exportBtn").addEventListener("click", function(){
-  var blob = new Blob([JSON.stringify(state, null, 1)], {type:"application/json"});
-  var a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "aion2-codex-progress.json";
-  document.body.appendChild(a); a.click(); setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 500);
-  flash(this, "Saved");
-});
+document.getElementById("exportBtn").addEventListener("click", function(){ downloadBackup(); flash(this, "Downloaded"); });
 document.getElementById("importBtn").addEventListener("click", function(){ document.getElementById("importFile").click(); });
 document.getElementById("importFile").addEventListener("change", function(e){
   var f = e.target.files && e.target.files[0]; if(!f) return;
   var r = new FileReader();
-  r.onload = function(){ try{ var d = JSON.parse(r.result); if(!d || !d.done) throw 0; adopt(d); state.updatedAt = Date.now(); saveLocal(); firstPaint = true; renderAll(); syncHash(); flash(document.getElementById("importBtn"), "Imported"); }catch(err){ alert("That file isn't a Class Codex progress export."); } };
+  r.onload = function(){ try{ var d = JSON.parse(r.result); if(!d || !d.done) throw 0; adopt(d); state.updatedAt = Date.now(); saveLocal(); firstPaint = true; renderAll(); syncHash(); flash(document.getElementById("importBtn"), "Restored"); markBackup(); closeMenu(); renderMenu(); }catch(err){ flash(document.getElementById("importBtn"), "Not a Codex backup"); var st = document.getElementById("dmStatus"); if(st && !document.getElementById("dataMenu").hidden){ st.className = "dm-status warn"; st.textContent = "That file isn't a Class Codex backup."; } } };
   r.readAsText(f); e.target.value = "";
 });
 
+/* ---------------- backups & data menu ---------------- */
+var LB_KEY = LS_KEY + "-lastbackup";
+function lastBackup(){ try{ return +localStorage.getItem(LB_KEY) || 0; }catch(e){ return 0; } }
+function markBackup(){ try{ localStorage.setItem(LB_KEY, String(Date.now())); }catch(e){} renderMenu(); }
+function hasProgress(){
+  return ORDER.some(function(k){
+    return (state.done[k] && Object.keys(state.done[k]).length) || (state.loop[k] && Object.keys(state.loop[k]).some(function(x){ return x.charAt(0) !== "_"; })) || (state.ilvl && state.ilvl[k]) || (state.gear && state.gear[k] && Object.keys(state.gear[k]).length);
+  });
+}
+function charCount(){ return ORDER.filter(function(k){ return (state.done[k] && Object.keys(state.done[k]).length) || (state.loop[k] && Object.keys(state.loop[k]).length) || (state.ilvl && state.ilvl[k]) || (state.gear && state.gear[k] && Object.keys(state.gear[k]).length); }).length; }
+function ago(ts){
+  if(!ts) return "never";
+  var m = Math.round((Date.now() - ts)/60000);
+  if(m < 1) return "just now"; if(m < 60) return m + " min ago";
+  var h = Math.round(m/60); if(h < 24) return h + " h ago";
+  var d = Math.round(h/24); return d === 1 ? "yesterday" : d + " days ago";
+}
+function downloadBackup(){
+  var d = new Date(), stamp = d.getFullYear() + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-" + ("0"+d.getDate()).slice(-2);
+  var blob = new Blob([JSON.stringify(state, null, 1)], {type:"application/json"});
+  var a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "class-codex-backup-" + stamp + ".json";
+  document.body.appendChild(a); a.click(); setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 800);
+  markBackup(); askPersist();
+}
+/* link codec: "d" + base64url(deflate-raw(json)) where supported, otherwise "j" + base64url(json) */
+function b64u(bytes){ var s = "", CH = 0x8000; for(var i = 0; i < bytes.length; i += CH) s += String.fromCharCode.apply(null, bytes.subarray(i, i + CH)); return btoa(s).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,""); }
+function unb64u(str){ str = str.replace(/-/g,"+").replace(/_/g,"/"); while(str.length % 4) str += "="; var bin = atob(str), out = new Uint8Array(bin.length); for(var i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i); return out; }
+function streamBytes(bytes, t){ return new Response(new Blob([bytes]).stream().pipeThrough(t)).arrayBuffer().then(function(b){ return new Uint8Array(b); }); }
+function encodeState(){
+  var json = JSON.stringify(state), raw = new TextEncoder().encode(json);
+  if(typeof CompressionStream === "function"){
+    try{ return streamBytes(raw, new CompressionStream("deflate-raw")).then(function(z){ return "d" + b64u(z); }).catch(function(){ return "j" + b64u(raw); }); }catch(e){}
+  }
+  return Promise.resolve("j" + b64u(raw));
+}
+function decodeState(code){
+  try{
+    var kind = code.charAt(0), bytes = unb64u(code.slice(1));
+    if(kind === "j") return Promise.resolve(JSON.parse(new TextDecoder().decode(bytes)));
+    if(kind === "d"){
+      if(typeof DecompressionStream !== "function") return Promise.reject(new Error("old-browser"));
+      return streamBytes(bytes, new DecompressionStream("deflate-raw")).then(function(b){ return JSON.parse(new TextDecoder().decode(b)); });
+    }
+  }catch(e){ return Promise.reject(e); }
+  return Promise.reject(new Error("bad"));
+}
+function backupLink(){ return encodeState().then(function(code){ return location.href.split("#")[0] + "#restore=" + code; }); }
+function askPersist(){
+  try{ if(navigator.storage && navigator.storage.persist && !/firefox/i.test(navigator.userAgent)) navigator.storage.persisted().then(function(p){ if(!p) return navigator.storage.persist(); }).then(renderPersist, function(){}); }catch(e){}
+}
+function renderPersist(){
+  var el2 = document.getElementById("dmPersist"); if(!el2) return;
+  if(!(navigator.storage && navigator.storage.persisted)){ el2.textContent = ""; return; }
+  navigator.storage.persisted().then(function(p){
+    el2.textContent = p ? "✓ This browser has agreed not to clear this data on its own. Clearing site data yourself still deletes it." : "This browser may clear this data on its own when space runs low (and Safari after 7 days away), so keep a backup.";
+  }, function(){});
+}
+function renderMenu(){
+  var st = document.getElementById("dmStatus"); if(!st) return;
+  var lb = lastBackup(), prog = hasProgress(), stale = prog && (!lb || (Date.now() - lb) > 7*86400000 || lb < state.updatedAt - 7*86400000);
+  st.className = "dm-status" + (stale ? " warn" : "");
+  st.textContent = "";
+  var n = charCount();
+  st.appendChild(el("b", null, prog ? "Saved in this browser · " + n + " character" + (n === 1 ? "" : "s") + " with progress" : "Nothing saved yet"));
+  st.appendChild(el("span", null, "Last change: " + (state.updatedAt ? ago(state.updatedAt) : "—")));
+  st.appendChild(el("span", "dm-bk", "Last backup: " + ago(lb) + (stale ? " — download one now" : "")));
+  var dot = document.getElementById("navDot"); if(dot) dot.hidden = !stale;
+  var btn = document.getElementById("navMenuBtn"); if(btn) btn.setAttribute("aria-label", "Menu: backup and how your data is saved" + (stale ? " (backup recommended)" : ""));
+}
+function closeMenu(){ var m = document.getElementById("dataMenu"), b = document.getElementById("navMenuBtn"); if(!m || m.hidden) return; m.hidden = true; b.setAttribute("aria-expanded","false"); }
+(function(){
+  var btn = document.getElementById("navMenuBtn"), menu = document.getElementById("dataMenu"); if(!btn) return;
+  function open(){ menu.hidden = false; btn.setAttribute("aria-expanded","true"); renderMenu(); renderPersist(); document.getElementById("dmDownload").focus(); }
+  btn.addEventListener("click", function(e){ e.stopPropagation(); if(menu.hidden) open(); else { closeMenu(); btn.focus(); } });
+  document.getElementById("dmClose").addEventListener("click", function(){ closeMenu(); btn.focus(); });
+  document.addEventListener("keydown", function(e){ if(e.key === "Escape" && !menu.hidden){ closeMenu(); btn.focus(); } });
+  document.addEventListener("click", function(e){ if(!e.isTrusted) return; if(!menu.hidden && !menu.contains(e.target) && e.target !== btn && !btn.contains(e.target)) closeMenu(); });
+  document.getElementById("dmDownload").addEventListener("click", function(){ downloadBackup(); var b = this.querySelector("b"), o = b.textContent; b.textContent = "Downloaded ✓"; setTimeout(function(){ b.textContent = o; }, 1600); });
+  document.getElementById("dmRestore").addEventListener("click", function(){ document.getElementById("importFile").click(); });
+  document.getElementById("dmLink").addEventListener("click", function(){
+    var box = document.getElementById("dmLinkBox"), out = document.getElementById("dmLinkOut"), msg = document.getElementById("dmLinkMsg");
+    backupLink().then(function(url){
+      box.hidden = false; out.value = url; msg.textContent = "";
+      function done(t){ msg.textContent = t; markBackup(); askPersist(); }
+      if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(function(){ done("Copied. Paste it somewhere safe: a DM to yourself, notes, or a bookmark."); }, function(){ out.focus(); out.select(); done("Select and copy the link above."); });
+      else { out.focus(); out.select(); done("Select and copy the link above."); }
+    });
+  });
+  document.getElementById("dmLinkOut").addEventListener("focus", function(){ this.select(); });
+  setInterval(function(){ if(!menu.hidden) renderMenu(); }, 60000);
+})();
+/* restore from a #restore= link */
+var pendingRestore = null;
+function offerRestore(code){
+  decodeState(code).then(function(d){
+    if(!d || typeof d !== "object" || !d.done) throw new Error("bad");
+    pendingRestore = d;
+    var ks = ORDER.filter(function(k){ return (d.done && d.done[k] && Object.keys(d.done[k]).length) || (d.loop && d.loop[k] && Object.keys(d.loop[k]).length) || (d.ilvl && d.ilvl[k]); });
+    var names = ks.map(function(k){ return CLASSES[k].name + (d.ilvl && d.ilvl[k] ? " " + Number(d.ilvl[k]).toLocaleString("en-US") + " iL" : ""); });
+    var when = d.updatedAt ? new Date(d.updatedAt).toLocaleString([], {month:"short", day:"numeric", hour:"numeric", minute:"2-digit"}) : "an unknown date";
+    document.getElementById("rbText").textContent = "This link has Class Codex progress from " + when + (names.length ? " (" + names.join(", ") + ")" : "") + ". Restoring replaces the progress in this browser.";
+    document.getElementById("rbSave").hidden = !hasProgress();
+    document.getElementById("restoreBar").hidden = false;
+  }).catch(function(e){
+    document.getElementById("rbText").textContent = e && e.message === "old-browser" ? "This backup link needs a newer browser to open. Try it in current Chrome, Edge, Firefox or Safari." : "This backup link looks damaged or incomplete, so nothing was restored. Try copying the whole link again.";
+    document.getElementById("rbYes").hidden = true; document.getElementById("rbSave").hidden = true; document.getElementById("rbNo").textContent = "OK";
+    document.getElementById("restoreBar").hidden = false;
+  });
+}
+(function(){
+  var bar = document.getElementById("restoreBar"); if(!bar) return;
+  function hide(){ bar.hidden = true; pendingRestore = null; document.getElementById("rbYes").hidden = false; document.getElementById("rbNo").textContent = "Not now"; syncHash(); }
+  document.getElementById("rbYes").addEventListener("click", function(){
+    if(!pendingRestore) return hide();
+    adopt(pendingRestore); state.updatedAt = Date.now(); saveLocal(); if(typeof flush === "function" && dbRef) flush(); firstPaint = true; renderAll(); markBackup();
+    document.getElementById("rbText").textContent = "Progress restored ✓"; document.getElementById("rbYes").hidden = true; document.getElementById("rbSave").hidden = true; document.getElementById("rbNo").textContent = "Close";
+    pendingRestore = null; syncHash();
+  });
+  document.getElementById("rbSave").addEventListener("click", function(){ downloadBackup(); this.textContent = "Downloaded ✓"; });
+  document.getElementById("rbNo").addEventListener("click", hide);
+})();
+function restoreCodeFromHash(){ var h = location.hash || ""; return h.indexOf("#restore=") === 0 ? h.slice(9) : null; }
+
 function renderAll(keep){
-  renderScene(); renderNav(); syncHash(); renderPicker(); renderControls(); renderKit(); renderSkills(); renderPlanner(); renderPhases(); renderLoop(); renderGear(); renderLucky(); renderSources();
+  renderScene(); renderNav(); syncHash(); renderPicker(); renderControls(); renderKit(); renderSkills(); renderPlanner(); renderPhases(); renderLoop(); renderGear(); renderLucky(); renderSources(); renderMenu();
 }
 
+var RESTORE_CODE = restoreCodeFromHash();
 var SECTION_HASH = (function(){ var h = (location.hash||"").replace(/^#/,""); return ["skl","dvp","path","gear","playbook","routine","notes"].indexOf(h) >= 0 ? h : null; })();
-loadLocal(); (function(){ var k = classFromHash(); if(k) state.cls = k; })(); buildMotes(); buildWings(); renderDates(); initPlanner(); renderAll(); initSync(); if(window.__navSpy) window.__navSpy(); if(SECTION_HASH && window.__navGo) setTimeout(function(){ window.__navGo(SECTION_HASH); }, 60);
+loadLocal(); (function(){ var k = classFromHash(); if(k) state.cls = k; })(); buildMotes(); buildWings(); renderDates(); initPlanner(); renderAll(); initSync(); if(window.__navSpy) window.__navSpy(); if(SECTION_HASH && window.__navGo) setTimeout(function(){ window.__navGo(SECTION_HASH); }, 60); if(RESTORE_CODE) offerRestore(RESTORE_CODE);
 })();
 </script>
 </body>
