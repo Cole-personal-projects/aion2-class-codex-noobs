@@ -369,6 +369,49 @@ ol.dvsteps li.st-done .sb{color:var(--acc);font-weight:700}
   .gate{margin:4px 14px 16px}
   ul.items{padding:4px 4px 6px}
 }
+/* ---- aLuckyRO playbook ---- */
+.lk{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:22px 22px 18px;margin:26px 0 8px}
+.lk-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 20px;align-items:flex-start}
+.lk h2{font-family:var(--display);font-weight:400;font-size:28px;margin:0}
+.lk .sub{margin:4px 0 0;color:var(--muted);max-width:72ch}
+.lk-vids{display:flex;flex-direction:column;gap:6px;min-width:0}
+.lk-vids a{display:block;text-decoration:none;border:1px solid var(--line);background:var(--panel-2);border-radius:12px;padding:7px 12px;font-size:14px;color:var(--ink);max-width:340px}
+.lk-vids a:hover{border-color:var(--acc)}
+.lk-vids small{display:block;color:var(--muted);font-size:12.5px}
+.lk-tabs{display:flex;gap:6px;margin:16px 0 4px;flex-wrap:wrap}
+.lk-tabs button{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:6px 14px;cursor:pointer;color:var(--ink);font:inherit;font-size:15px}
+.lk-tabs button[aria-selected="true"]{background:var(--acc);border-color:var(--acc);color:var(--bg)}
+.lk-pane[hidden]{display:none}
+.lk-groups{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-top:12px}
+.lk-group{border:1px solid var(--line);border-radius:16px;padding:12px 14px 6px;background:var(--panel-2)}
+.lk-group h3{font-family:var(--display);font-weight:400;font-size:19px;margin:0 0 4px;color:var(--acc)}
+.lk-tips{list-style:none;margin:0;padding:0;counter-reset:none}
+.lk-tips li{display:grid;grid-template-columns:28px 1fr;gap:0 8px;padding:9px 0;border-top:1px solid var(--line);font-size:15.5px}
+.lk-tips li:first-child{border-top:0}
+.lk-n{display:grid;place-content:center;width:24px;height:24px;border-radius:50%;background:color-mix(in srgb,var(--acc) 16%,transparent);color:var(--acc);font-size:12.5px;font-weight:800;font-variant-numeric:tabular-nums;margin-top:1px}
+.lk-tips b{display:block;color:var(--ink)}
+.lk-tips span.d{color:var(--muted)}
+.lk-ts{font-size:12.5px;white-space:nowrap;text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:0 7px;margin-left:4px;vertical-align:1px}
+.lk-ts:hover{border-color:var(--acc)}
+.lk-rule{margin:14px 0 4px;font-size:15.5px;border-left:3px solid var(--acc);padding:8px 12px;background:color-mix(in srgb,var(--acc) 9%,transparent);border-radius:0 10px 10px 0;max-width:80ch}
+.lk-locs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.lk-loc{border:1px solid var(--line);border-radius:16px;padding:14px 16px;background:var(--panel-2);position:relative}
+.lk-loc h3{font-family:var(--display);font-weight:400;font-size:20px;margin:0}
+.lk-loc .lk-where{color:var(--muted);font-size:14px;margin:0 0 8px}
+.lk-loc ol,.lk-loc ul{margin:6px 0 0;padding-left:20px;font-size:15px}
+.lk-loc li{margin:3px 0}
+.lk-stats{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 2px}
+.lk-stats span{font-size:13px;border:1px solid var(--line);border-radius:8px;padding:2px 8px;background:var(--panel)}
+.lk-you{display:none;position:absolute;top:12px;right:12px;font-size:12px;font-weight:700;border-radius:999px;padding:2px 9px;background:var(--acc);color:var(--bg)}
+.lk[data-faction="elyos"] .lk-loc[data-f="elyos"], .lk[data-faction="asmo"] .lk-loc[data-f="asmo"]{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc) inset}
+.lk[data-faction="elyos"] .lk-loc[data-f="elyos"] .lk-you, .lk[data-faction="asmo"] .lk-loc[data-f="asmo"] .lk-you{display:inline-block}
+.lk-loc.abyss{grid-column:1/-1}
+.lk-flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:8px 0 4px;font-size:14px}
+.lk-flow span{border:1px solid var(--line);border-radius:8px;padding:3px 9px;background:var(--panel)}
+.lk-flow i{font-style:normal;color:var(--muted)}
+.lk-foot{font-size:13px;color:var(--muted);margin:14px 0 0}
+@media (max-width:560px){ .lk{padding:16px 12px} .lk h2{font-size:24px} .lk-groups,.lk-locs{grid-template-columns:1fr} .lk-vids a{max-width:none} .lk-head{flex-direction:column} }
+
 @media (prefers-reduced-motion: reduce){ *{transition:none!important;animation:none!important} }
 </style>
 </head>
@@ -524,6 +567,120 @@ ol.dvsteps li.st-done .sb{color:var(--acc);font-weight:700}
     <main id="phases"></main>
   </div>
 
+  <section class="lk" id="playbook" data-faction="elyos" aria-labelledby="lkTitle">
+    <div class="lk-head">
+      <div>
+        <h2 id="lkTitle">Veteran playbook: after 45</h2>
+        <p class="sub">aLuckyRO's tips from ten months on the Korean and Taiwanese servers: how to set up your roster, gear up after 45, run your weekly routine and farm Kinah. All tips and numbers come from his two videos. Each <span class="lk-ts" style="margin:0">▶ time</span> link opens the video at that point.</p>
+      </div>
+      <div class="lk-vids">
+        <a href="https://www.youtube.com/watch?v=Bly7GFVX91Y" target="_blank" rel="noopener">17 Pro Tips &amp; Tricks From a Veteran KR Player<small>aLuckyRO · Beginner Guide · 34 min</small></a>
+        <a href="https://youtu.be/L7CDysKzkLw" target="_blank" rel="noopener">3 Best Kinah Farming Locations for Elyos &amp; Asmodians<small>aLuckyRO · Beginner Guide · 21 min</small></a>
+      </div>
+    </div>
+
+    <div class="lk-tabs" role="tablist" aria-label="Playbook sections">
+      <button role="tab" id="lkTabTips" aria-selected="true" aria-controls="lkTips">17 pro tips</button>
+      <button role="tab" id="lkTabKinah" aria-selected="false" aria-controls="lkKinah" tabindex="-1">Kinah farming spots</button>
+    </div>
+
+    <div class="lk-pane" id="lkTips" role="tabpanel" aria-labelledby="lkTabTips">
+      <div class="lk-groups">
+        <div class="lk-group">
+          <h3>Set up your roster</h3>
+          <ol class="lk-tips">
+            <li><span class="lk-n">1</span><div><b>Fill every character slot and take each to level 10.</b><span class="d">About ten minutes each once you can skip the cutscenes. Every alt's cube and warehouse is extra storage for crafting materials, and expanding a cube on a fresh alt costs about 120,000 Kinah. On a main past 100 slots it's closer to 10 million.</span> <a class="lk-ts" href="https://youtu.be/Bly7GFVX91Y?t=116" target="_blank" rel="noopener">▶ 1:56</a></div></li>
+            <li><span class="lk-n">2</span><div><b>Planning to play alts? Take them to 22 and park them.</b><span class="d">Odyle Energy only starts recharging after the level-22 red quest opens Expeditions. From then on it builds up while you play your main (cap 840 with a subscription, 540 without). Level them to 45 later using the banked energy.</span> <a class="lk-ts" href="https://youtu.be/Bly7GFVX91Y?t=264" target="_blank" rel="noopener">▶ 4:24</a></div></li>
+            <li><span class="lk-n">3</span><div><b>Hold the green quest that rewards a cube line.</b><span class="d">Early on, that line costs about 5,000 Kinah. Abandon the quest now and turn it in once the next line costs millions, because the quest unlocks it for free. Do every other regional green quest after 45.</span> <a class="lk-ts" href="https://youtu.be/Bly7GFVX91Y?t=768" target="_blank" rel="noopener">▶ 12:48</a></div></li>
+          </ol>
+        </div>
+
+        <div class="lk-group">
+          <h3>Leveling to 45</h3>
+          <ol class="lk-tips">
+            <li><span class="lk-n">4</span><div><b>Rush 45 before the first daily reset.</b><span class="d">Do only 3–4 sealed dungeons at 22 and again at 33 to fill the Ascension gauge (about 4% each). Skip strongholds, feathers and the rest, or you'll miss the first day of Duty Missions.</span> <a class="lk-ts" href="https://youtu.be/Bly7GFVX91Y?t=519" target="_blank" rel="noopener">▶ 8:39</a></div></li>
+            <li><span class="lk-n">5</span><div><b>Reroll Duty Missions for Hidden Cube keys, not crystals.</b><span class="d">The first reward slot is guaranteed. A key costs 50 Quna (premium currency) in the shop, while 600 crystals take about ten minutes to farm. Reroll until the key sits in the first slot.</span> <a class="lk-ts" href="https://youtu.be/Bly7GFVX91Y?t=621" target="_blank" rel="noopener">▶ 10:21</a></div></li>
+            <li><span class="lk-n">6</span><div><b>Solo the story dungeons.</b><span class="d">Bosses get stronger for every extra player. Krao Cave, Urugugu Canyon, Fire Temple and Draupnir are all soloable on any class, and you won't lose time waiting for a group.</span> <a class="lk-ts" href="https://youtu.be/Bly7GFVX91Y?t=932" target="_blank" rel="noopener">▶ 15:32</a></div></li>
+            <li><span class="lk-n">7</span><div><b>Ascension Trial: skip Easy.</b><span class="d">Save your weekly entry for Normal. He expects the global requirement to be around 1.3–1.4k. The mobs are easy; the item-level requirement is the only hurdle.</span> <a class="lk-ts" href="https://youtu.be/Bly7GFVX91Y?t=866" target="_blank" rel="noopener">▶ 14:26</a></div></li>
+          </ol>
+        </div>
+
+        <div class="lk-group">
+          <h3>Your first gear</h3>
+          <ol class="lk-tips">
+            <li><span class="lk-n">8</span><div><b>Only spend Odyle Energy on the right chests.</b><span class="d">Skip the Krao Cave and Urugugu Canyon chests during the story. Open Fire Temple once for a chance at the weapon, and don't farm it. Open Draupnir twice with a subscription or three times without to get the starting set.</span> <a class="lk-ts" href="https://youtu.be/Bly7GFVX91Y?t=982" target="_blank" rel="noopener">▶ 16:22</a></div></li>
+            <li><span class="lk-n">9</span><div><b>Make the Draupnir set your main gear.</b><span class="d">Run Krao Cave for the accessory (about 7 runs with a subscription). Then farm Draupnir: enchant to +10 and add manastones, but skip soul binding for now. Build power for Urugugu Canyon and Vakron, which are your next stage.</span> <a class="lk-ts" href="https://youtu.be/Bly7GFVX91Y?t=1038" target="_blank" rel="noopener">▶ 17:18</a></div></li>
+            <li><span class="lk-n">10</span><div><b>Never dissolve or sell gold items.</b><span class="d">Using a gold item as the material for a soul-bind reroll gives a 100% chance to reroll the stat you picked. Stockpile them.</span> <a class="lk-ts" href="https://youtu.be/Bly7GFVX91Y?t=1113" target="_blank" rel="noopener">▶ 18:33</a></div></li>
+          </ol>
+        </div>
+
+        <div class="lk-group">
+          <h3>Weekly routine</h3>
+          <ol class="lk-tips">
+            <li><span class="lk-n">11</span><div><b>Buy all 12 Command Merchant contracts a week.</b><span class="d">Common merchant in <span class="lk-fx" data-ely="Dawn Legion Base" data-asm="Nornir Assembly">your main city</span>, plus a second Command Merchant in the Abyss. The price rises with each contract but the rewards stay the same. Most new players never find it.</span> <a class="lk-ts" href="https://youtu.be/Bly7GFVX91Y?t=1153" target="_blank" rel="noopener">▶ 19:13</a></div></li>
+            <li><span class="lk-n">12</span><div><b>Faction artifact: go late in the week.</b><span class="d">It opens twice a week, only when your side holds the artifact. Enter on the last day, a few hours before reset, when you're at your strongest. The run lasts about 2 minutes, so kill as many mobs as you can for Abyss Points.</span> <a class="lk-ts" href="https://youtu.be/Bly7GFVX91Y?t=1307" target="_blank" rel="noopener">▶ 21:47</a></div></li>
+            <li><span class="lk-n">13</span><div><b>Always open Hidden Cubes with a key.</b><span class="d">They can drop Odyle Energy, stones worth selling, and wings that sell very high in the first weeks. Spend your keys early, while the prices are high.</span> <a class="lk-ts" href="https://youtu.be/Bly7GFVX91Y?t=1378" target="_blank" rel="noopener">▶ 22:58</a></div></li>
+            <li><span class="lk-n">14</span><div><b>Nightmare: never let the counter hit 14.</b><span class="d">Entries recharge twice a day and stop at 14. If you can't kill the last boss yet, farm the easier ones, since repeat kills still pay. Spend the points in the Nightmare trade shop.</span> <a class="lk-ts" href="https://youtu.be/Bly7GFVX91Y?t=1498" target="_blank" rel="noopener">▶ 24:58</a></div></li>
+            <li><span class="lk-n">15</span><div><b>Subscribed? Clear the weekly special shop.</b><span class="d">Go to Shop, then Black Cloud Merchants, then Special, and buy everything (Odyle Energy, Nightmare clear tickets and so on) except the Resurrection Spiritstone, which you'll have plenty of. Also buy the energy in Morph's special section. It resets weekly, so don't skip a week.</span> <a class="lk-ts" href="https://youtu.be/Bly7GFVX91Y?t=1589" target="_blank" rel="noopener">▶ 26:29</a></div></li>
+          </ol>
+        </div>
+
+        <div class="lk-group">
+          <h3>Early-game money</h3>
+          <ol class="lk-tips">
+            <li><span class="lk-n">16</span><div><b>Camp field bosses with friends.</b><span class="d">Check the spawn timers under Map, then Exploration, then Field Bosses. Their gold gear drops sell for a fortune, because heavy spenders turn them in to Supply Requests for Abyss Points. Even without gear, the box gives soul-bind fragments.</span> <a class="lk-ts" href="https://youtu.be/Bly7GFVX91Y?t=1680" target="_blank" rel="noopener">▶ 28:00</a></div></li>
+            <li><span class="lk-n">17</span><div><b>Flip the Supply Request stock at weekly reset.</b><span class="d">Log in right as the weekly section resets and buy out the stock (white, green and blue gear, weapons especially), then resell it for about three times the price. There's no world market at launch and the stock differs by server, so demand stays high.</span> <a class="lk-ts" href="https://youtu.be/Bly7GFVX91Y?t=1774" target="_blank" rel="noopener">▶ 29:34</a></div></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="lk-pane" id="lkKinah" role="tabpanel" aria-labelledby="lkTabKinah" hidden>
+      <p class="lk-rule"><b>The 1,000,000 Kinah daily cap is really a loot cap.</b> It applies per character, on your faction's mainland only. Once you hit it, mobs stop dropping loot and only give pet souls. So farm mobs that give <em>little</em> Kinah per kill: you get more kills, and more gold-item drops (about 10–15 per cap), before you hit it. <a class="lk-ts" href="https://youtu.be/L7CDysKzkLw?t=38" target="_blank" rel="noopener">▶ 0:38</a> <a class="lk-ts" href="https://youtu.be/L7CDysKzkLw?t=245" target="_blank" rel="noopener">▶ 4:05</a></p>
+      <div class="lk-locs">
+        <div class="lk-loc" data-f="asmo">
+          <span class="lk-you">Your side</span>
+          <h3>Immortal Isle</h3>
+          <p class="lk-where">Asmodian · mainland · spot 1</p>
+          <div class="lk-stats"><span>Lv 49 mobs</span><span>~300–400 Kinah / kill</span><span>Gold drops</span></div>
+          <ol>
+            <li>Take the story teleport in Western Cantas Valley (the main story unlocks it).</li>
+            <li>Fly up to unlock the next teleport.</li>
+            <li>Ride the wind stream out to the island and farm everything on it.</li>
+          </ol>
+          <a class="lk-ts" href="https://youtu.be/L7CDysKzkLw?t=362" target="_blank" rel="noopener">▶ 6:02</a>
+        </div>
+        <div class="lk-loc" data-f="elyos">
+          <span class="lk-you">Your side</span>
+          <h3>Eternal Isle</h3>
+          <p class="lk-where">Elyos · mainland · spot 2</p>
+          <div class="lk-stats"><span>Lv 49 mobs</span><span>Same mobs as Immortal Isle</span><span>Gold drops</span></div>
+          <ol>
+            <li>Walk or ride to the teleport point the main story opens for you.</li>
+            <li>Fly up and bind at the kisk there, so next time you teleport in.</li>
+            <li>Ride the wind stream (the flying whale) to the island.</li>
+          </ol>
+          <a class="lk-ts" href="https://youtu.be/L7CDysKzkLw?t=651" target="_blank" rel="noopener">▶ 10:51</a>
+        </div>
+        <div class="lk-loc abyss">
+          <h3>Abyss: first ring of islands</h3>
+          <p class="lk-where">Both factions · spot 3 · no Kinah cap · PvP zone</p>
+          <div class="lk-stats"><span>Lv 46 mobs</span><span>Kinah + gear + ~20–25 AP per kill</span><span>Asmodian side: Black Fragments Area</span></div>
+          <p style="margin:8px 0 0;font-size:15px">Come here once you've hit the mainland cap. You will die sometimes; just resurrect and go back. The Abyss Points are the real payout:</p>
+          <div class="lk-flow"><span>Farm AP</span><i>→</i><span>Buy armor / accessory manastones</span><i>→</i><span>Alchemy: recraft 5 → 1</span><i>→</i><span>~20% chance of a crit result</span><i>→</i><span>Sell</span></div>
+          <ul>
+            <li>Taiwan prices: a crit armor stone sells for about 376k, a crit accessory stone about 700k. He expects roughly 1–3M each early on global.</li>
+            <li>Stronger players one-shot these mobs, so AP adds up fast over an hour.</li>
+          </ul>
+          <a class="lk-ts" href="https://youtu.be/L7CDysKzkLw?t=928" target="_blank" rel="noopener">▶ 15:28</a> <a class="lk-ts" href="https://youtu.be/L7CDysKzkLw?t=1058" target="_blank" rel="noopener">▶ 17:38</a>
+        </div>
+      </div>
+      <p class="lk-rule" style="margin-top:14px"><b>Before you farm the Lv 49s:</b> do the blue regional quests for a few rings and bracelets first. The mobs hit hard on fresh level-45 gear.</p>
+    </div>
+
+    <p class="lk-foot">Credit: aLuckyRO (<a href="https://www.youtube.com/@aLuckyRo" target="_blank" rel="noopener">YouTube</a>). The numbers come from the Korean and Taiwanese servers and may change on global. Zone and NPC names were read off his in-game footage.</p>
+  </section>
+
   <section class="lower">
     <div class="panel">
       <h2>Never do this</h2>
@@ -546,7 +703,7 @@ ol.dvsteps li.st-done .sb{color:var(--acc);font-weight:700}
       <ul class="srcs" id="srcs"></ul>
     </div>
   </section>
-  <p class="caveat">Skill picks and unlock levels come from Korean and Taiwanese servers and the September Launch Scale Test. Global launches with a level 45 cap — trust the in-game number when a guide disagrees. Class art is original; no official NC artwork is used. Compiled September 25, 2026.</p>
+  <p class="caveat">Skill picks and unlock levels come from Korean and Taiwanese servers and the September Launch Scale Test. Global launches with a level 45 cap — trust the in-game number when a guide disagrees. Class art is original; no official NC artwork is used. Compiled September 25, 2026; veteran playbook added September 28.</p>
   
 </div>
 
@@ -1099,6 +1256,31 @@ document.querySelectorAll("[data-reset]").forEach(function(b){
   b.addEventListener("click", function(){ var kind = b.getAttribute("data-reset"), lp = loopOf(state.cls); LOOP[kind].forEach(function(it){ delete lp[it.id]; }); touch(); renderLoop(); });
 });
 
+/* ---------------- aLuckyRO playbook ---------------- */
+function renderLucky(){
+  var sec = document.getElementById("playbook"); if(!sec) return;
+  var asm = state.faction === "asmo";
+  sec.setAttribute("data-faction", asm ? "asmo" : "elyos");
+  sec.querySelectorAll(".lk-fx").forEach(function(s){ s.textContent = asm ? s.getAttribute("data-asm") + " (Asmodian)" : s.getAttribute("data-ely") + " (Elyos)"; });
+}
+(function(){
+  var tabs = [document.getElementById("lkTabTips"), document.getElementById("lkTabKinah")];
+  if(!tabs[0]) return;
+  function pick(i, focus){
+    tabs.forEach(function(t, j){
+      var on = i === j; t.setAttribute("aria-selected", String(on)); t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
+    });
+    if(focus) tabs[i].focus();
+    try{ localStorage.setItem(LS_KEY+"-lktab", String(i)); }catch(e){}
+  }
+  tabs.forEach(function(t, i){
+    t.addEventListener("click", function(){ pick(i); });
+    t.addEventListener("keydown", function(e){ if(e.key === "ArrowRight" || e.key === "ArrowLeft"){ e.preventDefault(); pick((i + 1) % tabs.length, true); } });
+  });
+  try{ var saved = +localStorage.getItem(LS_KEY+"-lktab"); if(saved === 1) pick(1); }catch(e){}
+})();
+
 /* ---------------- sources ---------------- */
 function renderSources(){
   var c = CLASSES[state.cls], ul = document.getElementById("srcs"); ul.textContent = "";
@@ -1115,6 +1297,8 @@ function renderSources(){
     ["https://youtu.be/AZMeJDtfRc4", "Don't Start Leveling Until You Watch This", "Spid"],
     ["https://www.youtube.com/watch?v=hNnDfDXrWxM", "Ultimate Cleric Guide PvE Min Maxed for Global", "MrRosaPony"],
     ["https://youtu.be/Zjhy0pauNlE", "15 Most Common Beginner Mistakes", "aLuckyRO"],
+    ["https://www.youtube.com/watch?v=Bly7GFVX91Y", "17 Pro Tips & Tricks From a Veteran KR Player", "aLuckyRO — Veteran playbook tips"],
+    ["https://youtu.be/L7CDysKzkLw", "3 Best Kinah Farming Locations for Elyos & Asmodians", "aLuckyRO — Kinah farming spots"],
     ["https://youtu.be/HMod6Z4GrE0", "Macro Guide: Early-Game Setups", "Grobs"],
     ["https://mein-mmo.de/en/aion-2-beginner-guide-30-tips-to-make-your-start-significantly-easier,1589348/", "Beginner Guide: 30 Tips", "Mein-MMO"]
   ]);
@@ -1522,7 +1706,7 @@ document.getElementById("importFile").addEventListener("change", function(e){
 });
 
 function renderAll(keep){
-  renderScene(); syncHash(); renderPicker(); renderControls(); renderKit(); renderSkills(); renderPlanner(); renderPhases(); renderLoop(); renderSources();
+  renderScene(); syncHash(); renderPicker(); renderControls(); renderKit(); renderSkills(); renderPlanner(); renderPhases(); renderLoop(); renderLucky(); renderSources();
 }
 
 loadLocal(); (function(){ var k = classFromHash(); if(k) state.cls = k; })(); buildMotes(); buildWings(); renderDates(); initPlanner(); renderAll(); initSync();

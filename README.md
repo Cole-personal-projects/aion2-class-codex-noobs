@@ -5,6 +5,7 @@ A leveling checklist from level 1 to 45 for all eight Aion 2 classes, by **Panic
 - Pick your class, main/alt and faction; tick steps off as you level (progress saves in your browser).
 - **Skill point priorities**: ranked actives and passives with target levels by 45.
 - **Daevanion board planner**: the real board layouts; drag the level slider (or press play) to watch your route fill in.
+- **Veteran playbook (after 45)**: aLuckyRO's 17 pro tips and his three best Kinah farming spots for Elyos and Asmodians, with links to the exact moment in each video.
 - Link straight to a class with `#cleric`, `#assassin`, `#sorcerer`, and so on.
 - **Export / Import** moves your progress between devices.
 
