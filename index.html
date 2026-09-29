@@ -422,7 +422,39 @@ ol.dvsteps li.st-done .sb{color:var(--acc);font-weight:700}
 .rt ul.items{padding:0}
 .rt li.item{padding:10px 4px}
 .rt-src{display:block;margin-top:4px}
+.rt-reset{margin:14px 0 0;border:1px solid var(--line);border-radius:14px;padding:10px 12px;background:var(--panel-2)}
+.rt-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
+.rt-when{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;font-size:15px;color:var(--muted)}
+.rt-when.off{opacity:.45;pointer-events:none}
+.rt-when select{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:4px 6px;font:inherit;font-size:14.5px;margin-left:4px}
+.rt-kr{font-size:13px;padding:4px 10px}
+.rt-next{margin:8px 0 0;font-size:14.5px;color:var(--ink)}
+.rt-note{margin:4px 0 0;font-size:13px;color:var(--muted);max-width:90ch}
+.rt-roster{margin-top:16px}
+.rt-rh{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.rt-rh h3{font-family:var(--display);font-weight:400;font-size:19px;margin:0;color:var(--acc)}
+.rt-rh .chip{font-size:13.5px;padding:4px 12px}
+.rt-tablewrap{overflow-x:auto;margin-top:8px;border:1px solid var(--line);border-radius:14px}
+.rt-table{width:100%;border-collapse:collapse;font-size:15px}
+.rt-table th,.rt-table td{text-align:left;padding:8px 10px;border-top:1px solid var(--line);vertical-align:middle}
+.rt-table thead th{border-top:0;font-size:12.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;background:var(--panel-2)}
+.rt-table tr[aria-current="true"]{background:color-mix(in srgb,var(--acc) 10%,transparent)}
+.rt-table tr.idle{opacity:.55}
+.rt-cls{display:flex;align-items:center;gap:8px;background:none;border:0;padding:0;cursor:pointer;color:var(--ink);font:inherit;font-weight:700;text-align:left}
+.rt-cls svg{width:22px;height:22px;color:var(--acc);flex:none}
+.rt-cls small{font-weight:400;color:var(--muted);font-size:12.5px}
+.rt-cls:hover span{text-decoration:underline;text-decoration-color:var(--acc)}
+.rt-cell{white-space:nowrap;min-width:84px}
+.rt-cell b{font-variant-numeric:tabular-nums;font-size:14px;display:block}
+.rt-cell b.full{color:var(--acc)}
+.rt-mini{display:block;height:4px;border-radius:2px;background:var(--line);overflow:hidden;margin-top:3px;width:70px}
+.rt-mini i{display:block;height:100%;background:var(--acc)}
+.rt-left{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.rt-left .tag{font-size:12px}
+.rt-more{font-size:12px;color:var(--muted)}
+.rt-done{font-size:13px;font-weight:700;color:var(--acc)}
 @media (max-width:900px){ .rt-grid{grid-template-columns:1fr} }
+@media (max-width:560px){ .rt-table th,.rt-table td{padding:7px 8px} .rt-table th:nth-child(4),.rt-table td:nth-child(4){min-width:170px} }
 @media (max-width:560px){ .lk{padding:16px 12px} .lk h2{font-size:24px} .lk-groups,.lk-locs{grid-template-columns:1fr} .lk-vids a{max-width:none} .lk-head{flex-direction:column} }
 
 @media (prefers-reduced-motion: reduce){ *{transition:none!important;animation:none!important} }
@@ -696,7 +728,23 @@ ol.dvsteps li.st-done .sb{color:var(--acc);font-weight:700}
 
   <section class="lk rt" id="routine" aria-labelledby="rtTitle">
     <h2 id="rtTitle">Daily &amp; weekly checklist</h2>
-    <p class="sub">Your routine at 45, tracked for <b class="rt-who">Cleric</b>. Switch class above to track each character separately. Ticks save on this device and are included in Export. Global reset times aren't confirmed yet, so clear each list yourself when the server resets.</p>
+    <p class="sub">Your routine at 45, tracked for <b class="rt-who">Cleric</b>. Switch class above, or pick a character in the table below, to track each one separately. Ticks save on this device and are included in Export.</p>
+
+    <div class="rt-reset" role="group" aria-label="Reset schedule">
+      <div class="rt-row">
+        <span class="seglabel">Auto-reset</span>
+        <div class="seg" role="group" aria-label="Auto-reset"><button id="rtAutoOn" aria-pressed="true">On</button><button id="rtAutoOff" aria-pressed="false">Off</button></div>
+        <span id="rtWhen" class="rt-when">
+          <label>Daily at <select id="rtHour" aria-label="Daily reset hour"></select></label>
+          <label>weekly on <select id="rtDay" aria-label="Weekly reset day"></select></label>
+          <label>in <select id="rtTz" aria-label="Reset time zone"></select></label>
+          <button class="theme rt-kr" id="rtKr" type="button" title="Korean servers: 05:00 KST daily, Wednesday weekly">Use KR server time</button>
+        </span>
+      </div>
+      <p class="rt-next" id="rtNext"></p>
+      <p class="rt-note">Global's reset time hasn't been announced yet. The default follows the Korean and Taiwanese pattern (05:00 daily, Wednesday weekly) in your own time zone. Change it here once launch confirms the real time. Lists clear at reset, and the next tick counts toward the new day or week.</p>
+    </div>
+
     <div class="rt-grid">
       <div class="lk-group rt-col">
         <div class="rt-hd"><h3>Daily</h3><span class="rt-n" id="rtDailyN">0 / 0</span><button class="theme rt-clr" data-reset="daily" aria-label="Clear the daily list">New day</button></div>
@@ -709,6 +757,16 @@ ol.dvsteps li.st-done .sb{color:var(--acc);font-weight:700}
         <div class="rt-bar"><i id="rtWeeklyBar"></i></div>
         <p class="rt-ago" id="rtWeeklyAgo"></p>
         <ul class="items" id="loopWeekly"></ul>
+      </div>
+    </div>
+    <div class="rt-roster">
+      <div class="rt-rh"><h3>All characters</h3><button class="chip" id="rtAll" aria-pressed="false" type="button">Show all 8 classes</button></div>
+      <p class="rt-note" style="margin-top:2px">Who still has their weekly left. Click a character to open its checklist.</p>
+      <div class="rt-tablewrap">
+        <table class="rt-table">
+          <thead><tr><th scope="col">Character</th><th scope="col">Daily</th><th scope="col">Weekly</th><th scope="col">Still to do this week</th></tr></thead>
+          <tbody id="rtRoster"></tbody>
+        </table>
       </div>
     </div>
     <p class="lk-foot">▶ links open aLuckyRO's video at the point where he explains that item.</p>
@@ -1022,32 +1080,33 @@ function buildPhases(k, role, faction){
 
 var LOOP = {
  daily:[
-  {id:"l-duty", t:"Five Duty Missions", d:"Reroll for Hidden Cube keys first (the first slot is a guaranteed drop), then Ariel fragments.", v:["Bly7GFVX91Y",621]},
-  {id:"l-night", t:"Nightmare entries", d:"Two charges a day; the counter stops at 14. Can't kill the last boss yet? Repeat the easier ones, they still pay.", v:["Bly7GFVX91Y",1498]},
-  {id:"l-dd", t:"Daily dungeon (Enhance Stones)", d:"14 weekly entries shared across your whole roster."},
-  {id:"l-supply", t:"Supply Requests: daily section", d:"Turn-ins for Abyss Points. The daily section restocks at every server reset."},
-  {id:"l-cmd", t:"Command scrolls", d:"Redraw for keys and Daevanion fragments while the price is low."},
-  {id:"l-field", t:"Field Kina cap (1M, mainland)", d:"Farm low-Kinah mobs so you get more gold drops before the cap; then move to the Abyss, which has no cap.", v:["L7CDysKzkLw",38]},
-  {id:"l-boss", t:"Field boss timers", d:"Map, then Exploration, then Field Bosses. Their gold gear sells high early on.", v:["Bly7GFVX91Y",1680]},
-  {id:"l-cube", t:"Open Hidden Cubes with keys", d:"Never open one free. Early wings and stones from cubes sell high.", v:["Bly7GFVX91Y",1378]},
-  {id:"l-odyle", t:"Odyle Energy not sitting at cap", d:"Spend it on Conquest: unbound Kina."}
+  {id:"l-duty", s:"Duty Missions", t:"Five Duty Missions", d:"Reroll for Hidden Cube keys first (the first slot is a guaranteed drop), then Ariel fragments.", v:["Bly7GFVX91Y",621]},
+  {id:"l-night", s:"Nightmare", t:"Nightmare entries", d:"Two charges a day; the counter stops at 14. Can't kill the last boss yet? Repeat the easier ones, they still pay.", v:["Bly7GFVX91Y",1498]},
+  {id:"l-dd", s:"Daily dungeon", t:"Daily dungeon (Enhance Stones)", d:"14 weekly entries shared across your whole roster."},
+  {id:"l-supply", s:"Supply Requests", t:"Supply Requests: daily section", d:"Turn-ins for Abyss Points. The daily section restocks at every server reset."},
+  {id:"l-cmd", s:"Command scrolls", t:"Command scrolls", d:"Redraw for keys and Daevanion fragments while the price is low."},
+  {id:"l-field", s:"Kina cap", t:"Field Kina cap (1M, mainland)", d:"Farm low-Kinah mobs so you get more gold drops before the cap; then move to the Abyss, which has no cap.", v:["L7CDysKzkLw",38]},
+  {id:"l-boss", s:"Field bosses", t:"Field boss timers", d:"Map, then Exploration, then Field Bosses. Their gold gear sells high early on.", v:["Bly7GFVX91Y",1680]},
+  {id:"l-cube", s:"Hidden Cubes", t:"Open Hidden Cubes with keys", d:"Never open one free. Early wings and stones from cubes sell high.", v:["Bly7GFVX91Y",1378]},
+  {id:"l-odyle", s:"Odyle Energy", t:"Odyle Energy not sitting at cap", d:"Spend it on Conquest: unbound Kina."}
  ],
  weekly:[
-  {id:"w-cmd", t:"12 Command Merchant contracts", d:"The common merchant in your main city (Dawn Legion Base or Nornir Assembly). Enhancement Stones, pet crystals, Abyss Points, cube keys.", v:["Bly7GFVX91Y",1153]},
-  {id:"w-abyss", t:"Abyss Command Merchant and scrolls", d:"The second merchant is in the Abyss. Five scrolls of each of the four grades."},
-  {id:"w-supply", t:"Supply Request stock, right at weekly reset", d:"Buy out the white, green and blue gear (weapons especially) and resell for about 3 times the price. Stock differs by server.", v:["Bly7GFVX91Y",1774]},
-  {id:"w-shop", t:"Weekly special shop (subscription)", d:"Shop, then Black Cloud Merchants, then Special: buy everything except the Resurrection Spiritstone. Also the energy in Morph's special section.", v:["Bly7GFVX91Y",1589]},
-  {id:"w-asc", t:"Ascension Trial ×3", d:"On the last day before reset. Normal, never Easy: about 1,300–1,500 item level.", v:["Bly7GFVX91Y",866]},
-  {id:"w-art", t:"Faction artifact dungeon", d:"Only when your side holds one. Go on the last day, a few hours before reset, when you're strongest.", v:["Bly7GFVX91Y",1307]},
-  {id:"w-pity", t:"Expedition guaranteed boxes you still need", d:"Draupnir, Vakron, Krao."},
-  {id:"w-trans", t:"Transcendence and Season Missions", d:"Five gold transmutation crystals transmute one Unique Arcana."}
+  {id:"w-cmd", s:"12 contracts", t:"12 Command Merchant contracts", d:"The common merchant in your main city (Dawn Legion Base or Nornir Assembly). Enhancement Stones, pet crystals, Abyss Points, cube keys.", v:["Bly7GFVX91Y",1153]},
+  {id:"w-abyss", s:"Abyss merchant", t:"Abyss Command Merchant and scrolls", d:"The second merchant is in the Abyss. Five scrolls of each of the four grades."},
+  {id:"w-supply", s:"Supply stock", t:"Supply Request stock, right at weekly reset", d:"Buy out the white, green and blue gear (weapons especially) and resell for about 3 times the price. Stock differs by server.", v:["Bly7GFVX91Y",1774]},
+  {id:"w-shop", s:"Special shop", t:"Weekly special shop (subscription)", d:"Shop, then Black Cloud Merchants, then Special: buy everything except the Resurrection Spiritstone. Also the energy in Morph's special section.", v:["Bly7GFVX91Y",1589]},
+  {id:"w-asc", s:"Ascension Trial", t:"Ascension Trial ×3", d:"On the last day before reset. Normal, never Easy: about 1,300–1,500 item level.", v:["Bly7GFVX91Y",866]},
+  {id:"w-art", s:"Artifact", t:"Faction artifact dungeon", d:"Only when your side holds one. Go on the last day, a few hours before reset, when you're strongest.", v:["Bly7GFVX91Y",1307]},
+  {id:"w-pity", s:"Expedition boxes", t:"Expedition guaranteed boxes you still need", d:"Draupnir, Vakron, Krao."},
+  {id:"w-trans", s:"Transcendence", t:"Transcendence and Season Missions", d:"Five gold transmutation crystals transmute one Unique Arcana."}
  ]
 };
 
 /* ---------------- state ---------------- */
 var LS_KEY = "aion2-classcodex-v1";
 var DEFAULT_ROLE = {cleric:"main", gladiator:"alt", assassin:"alt"};
-var state = {v:1, cls:"cleric", faction:"elyos", role:{}, done:{}, loop:{}, updatedAt:0};
+var RESET_DEFAULT = {auto:true, hour:5, wday:3, tz:"local"};
+var state = {v:1, cls:"cleric", faction:"elyos", role:{}, done:{}, loop:{}, reset:Object.assign({}, RESET_DEFAULT), updatedAt:0};
 var filters = {must:false, hide:false, cls:false};
 function roleOf(k){ return state.role[k] || DEFAULT_ROLE[k] || "main"; }
 function doneOf(k){ return state.done[k] || (state.done[k] = {}); }
@@ -1063,6 +1122,13 @@ function adopt(s){
     if(s.done && s.done[k]) state.done[k] = Object.assign({}, s.done[k]);
     if(s.loop && s.loop[k]) state.loop[k] = Object.assign({}, s.loop[k]);
   });
+  var r = (s.reset && typeof s.reset === "object") ? s.reset : {};
+  state.reset = {
+    auto: r.auto === undefined ? RESET_DEFAULT.auto : !!r.auto,
+    hour: (r.hour >= 0 && r.hour <= 23) ? Math.floor(r.hour) : RESET_DEFAULT.hour,
+    wday: (r.wday >= 0 && r.wday <= 6) ? Math.floor(r.wday) : RESET_DEFAULT.wday,
+    tz: RESET_TZ.some(function(z){ return z[0] === r.tz; }) ? r.tz : RESET_DEFAULT.tz
+  };
   state.updatedAt = Number(s.updatedAt) || 0;
 }
 function loadLocal(){ try{ var r = localStorage.getItem(LS_KEY); if(r) adopt(JSON.parse(r)); }catch(e){} }
@@ -1276,6 +1342,138 @@ function renderPhases(){
 }
 
 /* ---------------- loop ---------------- */
+/* ---------------- reset clock ---------------- */
+var RESET_TZ = [
+  ["local","Your time zone"],
+  ["Asia/Seoul","Korea (KST)"],
+  ["Asia/Taipei","Taiwan (CST)"],
+  ["UTC","UTC"],
+  ["America/New_York","US Eastern"],
+  ["America/Chicago","US Central"],
+  ["America/Los_Angeles","US Pacific"],
+  ["Europe/London","UK"],
+  ["Europe/Berlin","Central Europe"]
+];
+var WDAYS = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+function tzName(tz){ if(tz !== "local") return tz; try{ return Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC"; }catch(e){ return "UTC"; } }
+var tzFmtCache = {};
+function wallOf(ms, tz){
+  var z = tzName(tz), f = tzFmtCache[z];
+  if(!f){ try{ f = new Intl.DateTimeFormat("en-US", {timeZone:z, hourCycle:"h23", year:"numeric", month:"numeric", day:"numeric", hour:"numeric", minute:"numeric", second:"numeric", weekday:"short"}); }catch(e){ f = new Intl.DateTimeFormat("en-US", {timeZone:"UTC", hourCycle:"h23", year:"numeric", month:"numeric", day:"numeric", hour:"numeric", minute:"numeric", second:"numeric", weekday:"short"}); } tzFmtCache[z] = f; }
+  var o = {}; f.formatToParts(new Date(ms)).forEach(function(p){ o[p.type] = p.value; });
+  var wd = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].indexOf(o.weekday);
+  return {y:+o.year, m:+o.month, d:+o.day, h:+o.hour % 24, mi:+o.minute, s:+o.second, wd:wd};
+}
+/* UTC instant for a wall-clock time (y,m,d,h:00) in tz */
+function instantOf(y, m, d, h, tz){
+  var guess = Date.UTC(y, m-1, d, h, 0, 0);
+  for(var i = 0; i < 2; i++){
+    var w = wallOf(guess, tz), asUTC = Date.UTC(w.y, w.m-1, w.d, w.h, w.mi, w.s);
+    guess = guess - (asUTC - Date.UTC(y, m-1, d, h, 0, 0));
+  }
+  return guess;
+}
+function lastReset(kind, now){
+  var r = state.reset, w = wallOf(now, r.tz), back = kind === "weekly" ? ((w.wd - r.wday + 7) % 7) : 0;
+  var t = instantOf(w.y, w.m, w.d - back, r.hour, r.tz);
+  if(t > now) t = instantOf(w.y, w.m, w.d - back - (kind === "weekly" ? 7 : 1), r.hour, r.tz);
+  return t;
+}
+function nextReset(kind, now){
+  var r = state.reset, last = lastReset(kind, now), w = wallOf(last, r.tz);
+  return instantOf(w.y, w.m, w.d + (kind === "weekly" ? 7 : 1), r.hour, r.tz);
+}
+/* clears lists whose last tick is older than the most recent reset; returns true if anything changed */
+function applyResets(){
+  if(!state.reset || !state.reset.auto) return false;
+  var now = Date.now(), changed = false;
+  ["daily","weekly"].forEach(function(kind){
+    var cut = lastReset(kind, now);
+    ORDER.forEach(function(k){
+      var lp = state.loop[k]; if(!lp) return;
+      var any = LOOP[kind].some(function(it){ return lp[it.id]; });
+      if(any && !(lp["_"+kind] >= cut)){ LOOP[kind].forEach(function(it){ delete lp[it.id]; }); delete lp["_"+kind]; changed = true; }
+    });
+  });
+  if(changed) touch();
+  return changed;
+}
+function fmtWhen(ms){
+  var d = new Date(ms), now = new Date(), same = d.toDateString() === now.toDateString();
+  var tm = new Date(now.getTime() + 86400000).toDateString() === d.toDateString();
+  var day = same ? "today" : tm ? "tomorrow" : d.toLocaleDateString([], {weekday:"short", month:"short", day:"numeric"});
+  return day + ", " + d.toLocaleTimeString([], {hour:"numeric", minute:"2-digit"});
+}
+function fmtIn(ms){
+  var m = Math.max(0, Math.round((ms - Date.now())/60000)), h = Math.floor(m/60), d = Math.floor(h/24);
+  return d >= 1 ? d + "d " + (h % 24) + "h" : h >= 1 ? h + "h " + (m % 60) + "m" : m + "m";
+}
+(function initResetUI(){
+  var hSel = document.getElementById("rtHour"), dSel = document.getElementById("rtDay"), zSel = document.getElementById("rtTz");
+  if(!hSel) return;
+  for(var h = 0; h < 24; h++){ var o = document.createElement("option"); o.value = h; o.textContent = (h < 10 ? "0" : "") + h + ":00"; hSel.appendChild(o); }
+  WDAYS.forEach(function(n, i){ var o = document.createElement("option"); o.value = i; o.textContent = n; dSel.appendChild(o); });
+  RESET_TZ.forEach(function(z){ var o = document.createElement("option"); o.value = z[0]; o.textContent = z[0] === "local" ? z[1] + " (" + tzName("local") + ")" : z[1]; zSel.appendChild(o); });
+  function set(key, val){ state.reset[key] = val; if(key === "auto" && val){ var now = Date.now(); ORDER.forEach(function(k){ var lp = state.loop[k]; if(lp){ ["daily","weekly"].forEach(function(kind){ if(LOOP[kind].some(function(it){ return lp[it.id]; }) && !lp["_"+kind]) lp["_"+kind] = now; }); } }); } touch(); renderLoop(); }
+  hSel.addEventListener("change", function(){ set("hour", +hSel.value); });
+  dSel.addEventListener("change", function(){ set("wday", +dSel.value); });
+  zSel.addEventListener("change", function(){ set("tz", zSel.value); });
+  document.getElementById("rtAutoOn").addEventListener("click", function(){ set("auto", true); });
+  document.getElementById("rtAutoOff").addEventListener("click", function(){ set("auto", false); });
+  document.getElementById("rtKr").addEventListener("click", function(){ state.reset.hour = 5; state.reset.wday = 3; state.reset.tz = "Asia/Seoul"; set("auto", true); });
+  setInterval(function(){ if(applyResets()) renderLoop(); else renderResetInfo(); }, 60000);
+})();
+function renderResetInfo(){
+  var r = state.reset, box = document.getElementById("rtNext"); if(!box) return;
+  document.getElementById("rtHour").value = r.hour; document.getElementById("rtDay").value = r.wday; document.getElementById("rtTz").value = r.tz;
+  document.getElementById("rtAutoOn").setAttribute("aria-pressed", String(!!r.auto)); document.getElementById("rtAutoOff").setAttribute("aria-pressed", String(!r.auto));
+  document.getElementById("rtWhen").classList.toggle("off", !r.auto);
+  document.querySelectorAll(".rt-clr").forEach(function(b){ b.hidden = false; });
+  if(!r.auto){ box.textContent = "Auto-reset is off. Use New day / New week to clear the lists."; return; }
+  var now = Date.now(), nd = nextReset("daily", now), nw = nextReset("weekly", now);
+  box.textContent = "Next daily reset " + fmtWhen(nd) + " (in " + fmtIn(nd) + ") · next weekly " + fmtWhen(nw) + " (in " + fmtIn(nw) + "), shown in your local time.";
+}
+
+/* ---------------- roster overview ---------------- */
+function tracked(k){
+  var d = state.done[k], lp = state.loop[k];
+  return !!((d && Object.keys(d).length) || (lp && Object.keys(lp).some(function(x){ return x.charAt(0) !== "_"; })) || state.role[k] || k === state.cls);
+}
+function renderRoster(){
+  var tb = document.getElementById("rtRoster"); if(!tb) return;
+  tb.textContent = "";
+  var showAll = document.getElementById("rtAll").getAttribute("aria-pressed") === "true";
+  var rows = ORDER.filter(function(k){ return showAll || tracked(k); });
+  rows.forEach(function(k){
+    var c = CLASSES[k], lp = state.loop[k] || {}, tr = el("tr");
+    if(k === state.cls) tr.setAttribute("aria-current", "true");
+    if(!tracked(k)) tr.className = "idle";
+    var th = el("th"); th.scope = "row";
+    var btn = el("button","rt-cls"); btn.type = "button";
+    btn.innerHTML = sig(k); btn.appendChild(el("span",null,c.name)); btn.appendChild(el("small",null,roleOf(k) === "alt" ? "alt" : "main"));
+    btn.setAttribute("aria-label", "Open " + c.name + " checklist");
+    btn.addEventListener("click", function(){ if(state.cls !== k){ state.cls = k; firstPaint = true; touch(); renderAll(); } var sec = document.getElementById("routine"); if(sec) sec.scrollIntoView({behavior:"smooth", block:"start"}); });
+    th.appendChild(btn); tr.appendChild(th);
+    ["daily","weekly"].forEach(function(kind){
+      var n = LOOP[kind].filter(function(it){ return lp[it.id]; }).length, tot = LOOP[kind].length, td = el("td","rt-cell");
+      var bar = el("span","rt-mini"), fill = el("i"); fill.style.width = (100*n/tot) + "%"; bar.appendChild(fill);
+      td.appendChild(el("b",(n === tot ? "full" : null), n + "/" + tot)); td.appendChild(bar); tr.appendChild(td);
+    });
+    var left = LOOP.weekly.filter(function(it){ return !lp[it.id]; }).map(function(it){ return it.s || it.t; });
+    var td3 = el("td"), box = el("div","rt-left"); td3.appendChild(box);
+    if(!left.length) box.appendChild(el("span","rt-done","Week done"));
+    else { left.slice(0, 4).forEach(function(t){ box.appendChild(el("span","tag",t)); }); if(left.length > 4) box.appendChild(el("span","rt-more","+" + (left.length - 4) + " more")); }
+    tr.appendChild(td3); tb.appendChild(tr);
+  });
+  var hid = ORDER.length - rows.length;
+  document.getElementById("rtAll").textContent = showAll ? "Only characters I play" : "Show all 8 classes" + (hid ? " (" + hid + " hidden)" : "");
+}
+(function(){
+  var b = document.getElementById("rtAll"); if(!b) return;
+  try{ if(localStorage.getItem(LS_KEY+"-rosterall") === "1") b.setAttribute("aria-pressed","true"); }catch(e){}
+  b.addEventListener("click", function(){ var on = b.getAttribute("aria-pressed") !== "true"; b.setAttribute("aria-pressed", String(on)); try{ localStorage.setItem(LS_KEY+"-rosterall", on ? "1" : "0"); }catch(e){} renderRoster(); });
+})();
+
 function fmtAgo(ts){
   if(!ts) return "";
   var d = new Date(ts), now = new Date(), days = Math.floor((new Date(now.getFullYear(),now.getMonth(),now.getDate()) - new Date(d.getFullYear(),d.getMonth(),d.getDate()))/86400000);
@@ -1284,6 +1482,7 @@ function fmtAgo(ts){
 }
 function renderLoop(){
   if(!document.getElementById("loopDaily")) return;
+  applyResets();
   var k = state.cls, lp = loopOf(k), c = CLASSES[k];
   document.querySelectorAll(".rt-who").forEach(function(s){ s.textContent = c.name + (roleOf(k) === "alt" ? " (alt)" : " (main)"); });
   ["daily","weekly"].forEach(function(kind){
@@ -1309,6 +1508,7 @@ function renderLoop(){
     document.getElementById(kind === "daily" ? "rtDailyBar" : "rtWeeklyBar").style.width = (100*n/tot) + "%";
     document.getElementById(kind === "daily" ? "rtDailyAgo" : "rtWeeklyAgo").textContent = n ? fmtAgo(lp["_"+kind]) : "";
   });
+  renderResetInfo(); renderRoster();
 }
 document.querySelectorAll("[data-reset]").forEach(function(b){
   b.addEventListener("click", function(){ var kind = b.getAttribute("data-reset"), lp = loopOf(state.cls); LOOP[kind].forEach(function(it){ delete lp[it.id]; }); delete lp["_"+kind]; touch(); renderLoop(); var o = b.textContent; b.textContent = "Cleared"; setTimeout(function(){ b.textContent = o; }, 1400); });
