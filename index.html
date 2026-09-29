@@ -405,6 +405,73 @@ nav.path{top:calc(env(safe-area-inset-top,0px) + 78px)!important}
   html{scroll-padding-top:104px}
   nav.path{top:calc(env(safe-area-inset-top,0px) + 110px)!important}
 }
+/* ---- gear tracker ---- */
+.gr-input{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin:16px 0 4px}
+.gr-il{display:flex;align-items:center;gap:10px;font-weight:700}
+.gr-il span{font-family:var(--display);font-weight:400;font-size:19px;color:var(--acc)}
+.gr-il input{width:120px;font:inherit;font-size:22px;font-weight:800;font-variant-numeric:tabular-nums;padding:6px 10px;border:1.5px solid var(--acc);border-radius:12px;background:var(--panel);color:var(--ink)}
+#grRange{flex:1;min-width:180px;accent-color:var(--acc)}
+.gr-quick{display:flex;gap:6px}
+.gr-quick .theme{font-variant-numeric:tabular-nums}
+.gr-track{position:relative;height:46px;margin:6px 8px 0}
+.gr-track::before{content:"";position:absolute;left:0;right:0;top:20px;height:6px;border-radius:3px;background:var(--line)}
+.gr-fill{position:absolute;left:0;top:20px;height:6px;border-radius:3px;background:var(--acc);width:0;transition:width .25s}
+.gr-tick{position:absolute;top:14px;width:2px;height:18px;background:var(--muted);transform:translateX(-1px);opacity:.7}
+.gr-tick.on{background:var(--acc);opacity:1}
+.gr-tick b{position:absolute;top:20px;left:50%;transform:translateX(-50%);font-size:11px;font-weight:700;color:var(--muted);white-space:nowrap}
+.gr-tick.on b{color:var(--acc)}
+.gr-you{position:absolute;top:0;transform:translateX(-50%);transition:left .25s}
+.gr-you span{display:block;font-size:11px;font-weight:800;background:var(--acc);color:var(--bg);border-radius:999px;padding:1px 7px;white-space:nowrap;position:relative}
+.gr-you span::after{content:"";position:absolute;left:50%;bottom:-5px;transform:translateX(-50%);border:5px solid transparent;border-bottom:0;border-top-color:var(--acc)}
+.gr-summary{margin:14px 0 4px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.gr-card{border:1px solid var(--line);border-radius:14px;padding:10px 14px;background:var(--panel-2)}
+.gr-card small{display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.gr-card b{display:block;font-size:17px;margin-top:2px}
+.gr-card span{display:block;font-size:14px;color:var(--muted);margin-top:2px}
+.gr-card.hi{border-color:var(--acc);background:color-mix(in srgb,var(--acc) 10%,var(--panel-2))}
+.gr-empty{grid-column:1/-1;color:var(--muted);font-size:15px;border:1px dashed var(--line);border-radius:14px;padding:12px 14px}
+.gr-cols{display:grid;grid-template-columns:1fr 1.15fr;gap:14px;margin-top:12px}
+.gr-h{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:4px}
+.gr-h h3{margin:0!important}
+.gr-edit{font-size:13px;padding:4px 10px}
+.gr-edit[aria-pressed="true"]{background:var(--acc);color:var(--bg);border-color:var(--acc)}
+.gr-editnote{font-size:13px;color:var(--muted);margin:4px 0 6px}
+.gr-editnote .theme{font-size:12.5px;padding:2px 9px;margin-left:4px}
+.gr-ladder,.gr-steps{list-style:none;margin:0;padding:0}
+.gr-ladder li{display:grid;grid-template-columns:22px 1fr auto;gap:2px 10px;align-items:start;padding:9px 0;border-top:1px solid var(--line)}
+.gr-ladder li:first-child{border-top:0}
+.gr-ic{width:20px;height:20px;border-radius:50%;display:grid;place-content:center;font-size:12px;font-weight:900;margin-top:2px;border:1.5px solid var(--line);color:var(--muted)}
+.gr-ladder li.ok .gr-ic{background:var(--acc);border-color:var(--acc);color:var(--bg)}
+.gr-ladder li.next .gr-ic{border-color:var(--acc);color:var(--acc)}
+.gr-ladder li.lock{opacity:.6}
+.gr-nm b{display:block;font-size:15.5px}
+.gr-nm span{display:block;font-size:14px;color:var(--muted)}
+.gr-gate{text-align:right;font-variant-numeric:tabular-nums;font-weight:800;font-size:15px;white-space:nowrap}
+.gr-gate small{display:block;font-weight:600;font-size:12px;color:var(--muted)}
+.gr-ladder li.ok .gr-gate small{color:var(--acc)}
+.gr-gate input{width:76px;font:inherit;font-size:14px;font-weight:700;padding:3px 6px;border:1px solid var(--acc);border-radius:8px;background:var(--panel);color:var(--ink);text-align:right}
+.gr-gate .gr-mod{display:block;font-size:11px;color:var(--rose);font-weight:700}
+.gr-steps li{display:grid;grid-template-columns:24px 1fr;gap:10px;padding:10px 0;border-top:1px solid var(--line)}
+.gr-steps li:first-child{border-top:0}
+.gr-steps input{appearance:none;-webkit-appearance:none;margin:2px 0 0;width:22px;height:22px;border:1.5px solid var(--muted);border-radius:7px;display:grid;place-content:center;cursor:pointer;background:transparent}
+.gr-steps input::after{content:"";width:11px;height:6px;border-left:2.5px solid var(--bg);border-bottom:2.5px solid var(--bg);transform:rotate(-45deg) translate(1px,-1px);opacity:0}
+.gr-steps input:checked{background:var(--acc);border-color:var(--acc)}
+.gr-steps input:checked::after{opacity:1}
+.gr-steps label{cursor:pointer}
+.gr-steps .t{font-weight:700;display:block;line-height:1.35}
+.gr-steps .d{color:var(--muted);font-size:15px;display:block;margin-top:2px}
+.gr-steps input:checked + label .t{text-decoration:line-through;text-decoration-color:var(--acc);text-decoration-thickness:2px;opacity:.7}
+.gr-when{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;border-radius:999px;padding:1px 8px;margin-left:6px;vertical-align:2px;border:1px solid var(--line);color:var(--muted)}
+.gr-steps li.now .gr-when{background:var(--acc);border-color:var(--acc);color:var(--bg)}
+.gr-steps li.behind .gr-when{border-color:var(--rose);color:var(--rose)}
+.gr-steps li.now{background:linear-gradient(90deg,color-mix(in srgb,var(--acc) 9%,transparent),transparent 75%);border-radius:10px;padding-left:6px;margin-left:-6px}
+.gr-steps li.later{opacity:.62}
+.gr-steps li.done{opacity:.55}
+.gr-meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:4px}
+.gr-meta .tag{font-size:12px}
+.gr-more{display:block;margin-top:6px;font-size:13.5px;background:none;border:0;color:var(--acc);cursor:pointer;padding:0;font:inherit;font-size:13.5px;text-decoration:underline}
+@media (max-width:900px){ .gr-cols{grid-template-columns:1fr} .gr-summary{grid-template-columns:1fr} }
+@media (max-width:560px){ .gr-il input{width:104px;font-size:20px} .gr-tick b{font-size:10px} .gr-tick.minor b{display:none} }
 /* ---- aLuckyRO playbook ---- */
 .lk{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:22px 22px 18px;margin:26px 0 8px}
 .lk-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 20px;align-items:flex-start}
@@ -488,6 +555,7 @@ nav.path{top:calc(env(safe-area-inset-top,0px) + 78px)!important}
 .rt-left{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
 .rt-left .tag{font-size:12px}
 .rt-more{font-size:12px;color:var(--muted)}
+.rt-nx{display:block;font-size:11.5px;color:var(--muted);white-space:normal;max-width:130px;line-height:1.25;margin-top:2px}
 .rt-done{font-size:13px;font-weight:700;color:var(--acc)}
 @media (max-width:900px){ .rt-grid{grid-template-columns:1fr} }
 @media (max-width:560px){ .rt-table th,.rt-table td{padding:7px 8px} .rt-table th:nth-child(4),.rt-table td:nth-child(4){min-width:170px} }
@@ -505,6 +573,7 @@ nav.path{top:calc(env(safe-area-inset-top,0px) + 78px)!important}
       <a href="#skl" data-sec="skl">Skills</a>
       <a href="#dvp" data-sec="dvp">Daevanion</a>
       <a href="#path" data-sec="path">Path to 45</a>
+      <a href="#gear" data-sec="gear">Gear<i class="new">New</i></a>
       <a href="#playbook" data-sec="playbook">Playbook<i class="new">New</i></a>
       <a href="#routine" data-sec="routine">Checklist<i class="new">New</i></a>
       <a href="#notes" data-sec="notes">Traps &amp; sources</a>
@@ -660,6 +729,38 @@ nav.path{top:calc(env(safe-area-inset-top,0px) + 78px)!important}
     <main id="phases"></main>
   </div>
 
+  <section class="lk gr" id="gear" aria-labelledby="grTitle">
+    <div class="lk-head">
+      <div>
+        <h2 id="grTitle">Gear tracker: what's next at 45</h2>
+        <p class="sub">Enter your item level (character sheet, top right) and see what you can run now, the next gate, and the upgrades to do today. Saved separately for <b class="gr-who">Cleric</b>.</p>
+      </div>
+    </div>
+
+    <div class="gr-input">
+      <label class="gr-il" for="grIl"><span>Item level</span><input type="number" id="grIl" inputmode="numeric" min="0" max="5000" step="10" placeholder="1240"></label>
+      <input type="range" id="grRange" min="0" max="2800" step="10" value="0" aria-label="Item level slider">
+      <div class="gr-quick" role="group" aria-label="Quick adjust"><button type="button" class="theme" data-d="-50">−50</button><button type="button" class="theme" data-d="50">+50</button></div>
+    </div>
+
+    <div class="gr-track" aria-hidden="true"><div class="gr-fill" id="grFill"></div><div id="grTicks"></div><div class="gr-you" id="grYou"><span id="grYouTxt">You</span></div></div>
+
+    <div class="gr-summary" id="grSummary" aria-live="polite"></div>
+
+    <div class="gr-cols">
+      <div class="lk-group">
+        <div class="gr-h"><h3>What you can run</h3><button type="button" class="theme gr-edit" id="grEdit" aria-pressed="false">Correct for global</button></div>
+        <p class="gr-editnote" id="grEditNote" hidden>Type the entry item level you see in the game's Expedition tooltip. Your numbers are saved on this device and override the KR/TW defaults. <button type="button" class="theme" id="grReset">Reset to KR/TW</button></p>
+        <ol class="gr-ladder" id="grLadder"></ol>
+      </div>
+      <div class="lk-group">
+        <div class="gr-h"><h3>Your upgrade path</h3><span class="rt-n" id="grStepN"></span></div>
+        <ol class="gr-steps" id="grSteps"></ol>
+      </div>
+    </div>
+    <p class="lk-foot">Entry gates are Normal Conquest values from the Korean and Taiwanese clients (<a href="https://en.namu.wiki/w/%EC%95%84%EC%9D%B4%EC%98%A82/%EC%9B%90%EC%A0%95" target="_blank" rel="noopener">Namu Wiki</a>, <a href="https://gamerstogether.cz/en/aion-2-draupnir-dungeon-guide/" target="_blank" rel="noopener">Gamers Together</a>). The upgrade order follows <a href="https://mein-mmo.de/en/aion-2-equipment-guide-how-to-quickly-obtain-the-best-gear-in-pve,1586095/" target="_blank" rel="noopener">Mein-MMO's gear guide</a> and aLuckyRO. NC hasn't published global gates yet, so trust the in-game tooltip and use "Correct for global" when it differs.</p>
+  </section>
+
   <section class="lk" id="playbook" data-faction="elyos" aria-labelledby="lkTitle">
     <div class="lk-head">
       <div>
@@ -812,7 +913,7 @@ nav.path{top:calc(env(safe-area-inset-top,0px) + 78px)!important}
       <p class="rt-note" style="margin-top:2px">Who still has their weekly left. Click a character to open its checklist.</p>
       <div class="rt-tablewrap">
         <table class="rt-table">
-          <thead><tr><th scope="col">Character</th><th scope="col">Daily</th><th scope="col">Weekly</th><th scope="col">Still to do this week</th></tr></thead>
+          <thead><tr><th scope="col">Character</th><th scope="col">Item lvl</th><th scope="col">Daily</th><th scope="col">Weekly</th><th scope="col">Still to do this week</th></tr></thead>
           <tbody id="rtRoster"></tbody>
         </table>
       </div>
@@ -1154,7 +1255,7 @@ var LOOP = {
 var LS_KEY = "aion2-classcodex-v1";
 var DEFAULT_ROLE = {cleric:"main", gladiator:"alt", assassin:"alt"};
 var RESET_DEFAULT = {auto:true, hour:5, wday:3, tz:"local"};
-var state = {v:1, cls:"cleric", faction:"elyos", role:{}, done:{}, loop:{}, reset:Object.assign({}, RESET_DEFAULT), updatedAt:0};
+var state = {v:1, cls:"cleric", faction:"elyos", role:{}, done:{}, loop:{}, reset:Object.assign({}, RESET_DEFAULT), ilvl:{}, gear:{}, gates:{}, updatedAt:0};
 var filters = {must:false, hide:false, cls:false};
 function roleOf(k){ return state.role[k] || DEFAULT_ROLE[k] || "main"; }
 function doneOf(k){ return state.done[k] || (state.done[k] = {}); }
@@ -1170,6 +1271,12 @@ function adopt(s){
     if(s.done && s.done[k]) state.done[k] = Object.assign({}, s.done[k]);
     if(s.loop && s.loop[k]) state.loop[k] = Object.assign({}, s.loop[k]);
   });
+  state.ilvl = {}; state.gear = {}; state.gates = {};
+  ORDER.forEach(function(k){
+    var v = s.ilvl && Number(s.ilvl[k]); if(v > 0 && v < 10000) state.ilvl[k] = Math.round(v);
+    if(s.gear && s.gear[k] && typeof s.gear[k] === "object") state.gear[k] = Object.assign({}, s.gear[k]);
+  });
+  if(s.gates && typeof s.gates === "object") Object.keys(s.gates).forEach(function(id){ var v = Number(s.gates[id]); if(v > 0 && v < 10000) state.gates[id] = Math.round(v); });
   var r = (s.reset && typeof s.reset === "object") ? s.reset : {};
   state.reset = {
     auto: r.auto === undefined ? RESET_DEFAULT.auto : !!r.auto,
@@ -1485,7 +1592,7 @@ function renderResetInfo(){
 /* ---------------- roster overview ---------------- */
 function tracked(k){
   var d = state.done[k], lp = state.loop[k];
-  return !!((d && Object.keys(d).length) || (lp && Object.keys(lp).some(function(x){ return x.charAt(0) !== "_"; })) || state.role[k] || k === state.cls);
+  return !!((d && Object.keys(d).length) || (lp && Object.keys(lp).some(function(x){ return x.charAt(0) !== "_"; })) || state.role[k] || (state.ilvl && state.ilvl[k]) || k === state.cls);
 }
 function renderRoster(){
   var tb = document.getElementById("rtRoster"); if(!tb) return;
@@ -1502,6 +1609,10 @@ function renderRoster(){
     btn.setAttribute("aria-label", "Open " + c.name + " checklist");
     btn.addEventListener("click", function(){ if(state.cls !== k){ state.cls = k; firstPaint = true; touch(); renderAll(); } var sec = document.getElementById("routine"); if(sec) sec.scrollIntoView({behavior:"smooth", block:"start"}); });
     th.appendChild(btn); tr.appendChild(th);
+    var ilv = (state.ilvl && state.ilvl[k]) || 0, tdi = el("td","rt-cell");
+    tdi.appendChild(el("b",null, ilv ? Number(ilv).toLocaleString("en-US") : "—"));
+    if(ilv){ var nx = null; GATES.forEach(function(gt){ var v = gateIl(gt.id); if(v > ilv && (!nx || v < gateIl(nx.id))) nx = gt; }); tdi.appendChild(el("small","rt-nx", nx ? "next " + nx.n.replace(/ \(.*\)$/,"") : "all gates open")); }
+    tr.appendChild(tdi);
     ["daily","weekly"].forEach(function(kind){
       var n = LOOP[kind].filter(function(it){ return lp[it.id]; }).length, tot = LOOP[kind].length, td = el("td","rt-cell");
       var bar = el("span","rt-mini"), fill = el("i"); fill.style.width = (100*n/tot) + "%"; bar.appendChild(fill);
@@ -1566,7 +1677,7 @@ document.querySelectorAll("[data-reset]").forEach(function(b){
 function renderNav(){
   var c = CLASSES[state.cls]; if(!c || !document.getElementById("navName")) return;
   document.getElementById("navName").textContent = c.name;
-  document.getElementById("navRole").textContent = (roleOf(state.cls) === "alt" ? "Alt" : "Main") + " · " + (state.faction === "asmo" ? "Asmodian" : "Elyos");
+  var il = (state.ilvl && state.ilvl[state.cls]) || 0; document.getElementById("navRole").textContent = (roleOf(state.cls) === "alt" ? "Alt" : "Main") + " · " + (il ? Number(il).toLocaleString("en-US") + " iL" : (state.faction === "asmo" ? "Asmodian" : "Elyos"));
   document.getElementById("navSig").innerHTML = sig(state.cls);
 }
 (function(){
@@ -1593,6 +1704,134 @@ function renderNav(){
   window.addEventListener("scroll", function(){ if(!ticking){ ticking = true; requestAnimationFrame(spy); } }, {passive:true});
   window.addEventListener("resize", spy);
   window.__navGo = go; window.__navSpy = spy;
+})();
+
+/* ---------------- gear tracker ---------------- */
+/* Entry gates: Normal Conquest, KR/TW client values. Sources: Namu Wiki (KR) and Gamers Together (TW client, Sept 2026); Ascension Trial from Mein-MMO. */
+var GATES = [
+  {id:"krao", n:"Krao Cave", m:"Conquest ★ · solo to 4", il:1000, g:"Accessories · ~300k Kinah full clear"},
+  {id:"drau", n:"Draupnir", m:"Conquest ★ · solo to 4", il:1000, g:"Bakarma set · a guaranteed piece every 14 cubes"},
+  {id:"asc",  n:"Ascension Trial (Normal)", m:"Weekly ×3 · Forgotten Repository", il:1500, g:"aLuckyRO expects ~1,300–1,400 on global. Never spend entries on Easy."},
+  {id:"uru",  n:"Urugugu Canyon", m:"Conquest ★★ · solo to 4", il:1600, g:"Blue gear and accessories · ~405k Kinah"},
+  {id:"vak",  n:"Vakron's Sky Island", m:"Conquest ★★ · needs 2–4 players", il:1600, g:"The big armor upgrade · take it to +10"},
+  {id:"fire", n:"Fire Temple", m:"Conquest ★★★ · solo to 4", il:2200, g:"Hard farm tier"},
+  {id:"horn", n:"Ferocious Horn Den", m:"Conquest ★★★ · solo to 4", il:2200, g:"Hard farm tier"},
+  {id:"h1",   n:"Hard: Krao Cave & Draupnir", m:"Hard Conquest", il:2400, g:"Same bosses, harder hits, better odds"},
+  {id:"h2",   n:"Hard: Urugugu & Vakron", m:"Hard Conquest", il:2500, g:""},
+  {id:"h3",   n:"Hard: Fire Temple & Horn Den", m:"Hard Conquest", il:2600, g:""}
+];
+/* Upgrade path. from/to are item levels or a gate id (so corrected gates move the steps too). */
+var GSTEPS = [
+  {id:"g-1000", auto:true, from:0, to:"krao", t:"Reach item level 1,000", d:"Leftover story and regional quests, sealed dungeons, strongholds and feathers. This is the Krao Cave and Draupnir gate.", src:"Mein-MMO"},
+  {id:"g-drau", from:"drau", to:1300, t:"Farm the Draupnir (Bakarma) set", d:"Six armor pieces. Every 14 cubes you open gives a guaranteed piece of your choice. Early on, open the chest 2× with a subscription or 3× without.", src:"Gamers Together · aLuckyRO", v:["Bly7GFVX91Y",982]},
+  {id:"g-krao", from:"krao", to:1300, t:"Get the Krao Cave accessory", d:"About 7 runs with a subscription. A full clear pays ~300k Kinah either way.", src:"aLuckyRO", v:["Bly7GFVX91Y",1038]},
+  {id:"g-belt", from:"krao", to:1300, t:"Belt from strongholds, Revelation Amulet from feathers", d:"Cheap item level you get while clearing the map anyway.", src:"Mein-MMO"},
+  {id:"g-p10", from:1000, to:1500, t:"Enchant the Draupnir set to +10", d:"It's your main gear until Vakron. Don't soul-bind it yet.", src:"aLuckyRO", v:["Bly7GFVX91Y",1038]},
+  {id:"g-mana", from:1000, to:1500, t:"Manastones in every socket", d:"Armor stones and accessory stones are different; the Abyss Points you farm buy both.", src:"aLuckyRO"},
+  {id:"g-asc", from:"asc", to:"uru", t:"Ascension Trial on Normal every week", d:"Three entries on the last day before reset. A source of Ariel books.", src:"Mein-MMO · aLuckyRO", v:["Bly7GFVX91Y",866]},
+  {id:"g-ap", from:1600, to:1700, t:"Abyss Points into rings, earrings and a necklace", d:"Farm the first ring of Abyss islands (no Kinah cap) and do the Abyss dailies.", src:"Mein-MMO · aLuckyRO", v:["L7CDysKzkLw",928]},
+  {id:"g-arc", from:1700, to:1800, t:"Arcana cards from Transcendence", d:"A basic card is worth about +20 item level, a green set about +40.", src:"Mein-MMO"},
+  {id:"g-vak", from:"vak", to:"fire", t:"Vakron gear to +10", d:"Run Urugugu Canyon and Vakron's Sky Island on Conquest. Vakron needs at least 2 players.", src:"Mein-MMO · MMO Codex"},
+  {id:"g-soul", from:1800, to:"fire", t:"Soul-bind the gear you're keeping", d:"Only on keepers. Feeding a gold item gives a 100% reroll of the stat you pick, so never dissolve gold items.", src:"aLuckyRO", v:["Bly7GFVX91Y",1113]},
+  {id:"g-fire", from:"fire", to:"h1", t:"Fire Temple and Ferocious Horn Den", d:"Upgrade Arcana to blue and craft Unique Arcana alongside.", src:"Mein-MMO"},
+  {id:"g-hard", from:"h1", to:3000, t:"Hard modes", d:"Krao Cave and Draupnir first, then Urugugu and Vakron, then Fire Temple and Horn Den.", src:"Namu Wiki"}
+];
+var gearEdit = false, gearShowAll = false;
+function gateIl(id){ var o = state.gates && state.gates[id]; if(o) return o; for(var i = 0; i < GATES.length; i++) if(GATES[i].id === id) return GATES[i].il; return 0; }
+function lvOf(x){ return typeof x === "string" ? gateIl(x) : x; }
+function fmtN(n){ return Number(n).toLocaleString("en-US"); }
+function ilOf(k){ return (state.ilvl && state.ilvl[k]) || 0; }
+function gearOf(k){ return state.gear[k] || (state.gear[k] = {}); }
+
+function renderGear(){
+  var sec = document.getElementById("gear"); if(!sec) return;
+  var k = state.cls, il = ilOf(k), g = gearOf(k);
+  sec.querySelectorAll(".gr-who").forEach(function(e){ e.textContent = CLASSES[k].name; });
+  var inp = document.getElementById("grIl"), rng = document.getElementById("grRange");
+  if(document.activeElement !== inp) inp.value = il ? il : "";
+  rng.value = Math.min(il, +rng.max);
+
+  /* track */
+  var MAX = 2800, pct = function(v){ return Math.max(0, Math.min(100, 100*v/MAX)); };
+  document.getElementById("grFill").style.width = pct(il) + "%";
+  var ticks = document.getElementById("grTicks"); ticks.textContent = "";
+  var seen = {};
+  GATES.forEach(function(gt){ var v = gateIl(gt.id); if(seen[v]) return; seen[v] = 1;
+    var t = el("span","gr-tick" + (il >= v ? " on" : "") + ([1000,1600,2200].indexOf(v) < 0 ? " minor" : "")); t.style.left = pct(v) + "%"; t.appendChild(el("b",null,fmtN(v))); ticks.appendChild(t); });
+  var you = document.getElementById("grYou"); you.style.left = pct(il) + "%"; you.style.display = il ? "" : "none";
+  document.getElementById("grYouTxt").textContent = "You " + fmtN(il);
+
+  /* ladder */
+  var lad = document.getElementById("grLadder"); lad.textContent = "";
+  var next = null;
+  GATES.slice().sort(function(a,b){ return gateIl(a.id) - gateIl(b.id); }).forEach(function(gt){
+    var v = gateIl(gt.id), ok = il >= v, li = el("li", ok ? "ok" : "lock");
+    if(!ok && !next){ next = gt; li.className = "next"; }
+    li.appendChild(el("span","gr-ic", ok ? "✓" : ""));
+    var nm = el("div","gr-nm"); nm.appendChild(el("b",null,gt.n)); nm.appendChild(el("span",null,gt.m + (gt.g ? " · " + gt.g : ""))); li.appendChild(nm);
+    var gc = el("div","gr-gate");
+    if(gearEdit){
+      var ei = document.createElement("input"); ei.type = "number"; ei.min = 0; ei.step = 10; ei.value = v; ei.setAttribute("aria-label", gt.n + " entry item level");
+      ei.addEventListener("change", function(){ var n = Math.round(+ei.value); if(n > 0 && n !== gt.il) state.gates[gt.id] = n; else delete state.gates[gt.id]; touch(); renderGear(); });
+      gc.appendChild(ei);
+    } else gc.appendChild(document.createTextNode(fmtN(v)));
+    gc.appendChild(el("small",null, ok ? "open" : il ? fmtN(v - il) + " to go" : "item level"));
+    if(state.gates[gt.id]) gc.appendChild(el("span","gr-mod","your number (KR/TW " + fmtN(gt.il) + ")"));
+    li.appendChild(gc); lad.appendChild(li);
+  });
+
+  /* steps */
+  var ul = document.getElementById("grSteps"); ul.textContent = "";
+  var doneN = 0, nowList = [], behind = 0, hiddenLater = 0;
+  GSTEPS.forEach(function(st){
+    var f = lvOf(st.from), t = lvOf(st.to), done = !!g[st.id] || (st.auto && il >= t);
+    if(done) doneN++;
+    var phase = done ? "done" : (il >= t ? "behind" : (il >= f ? "now" : "later"));
+    if(phase === "now") nowList.push(st);
+    if(phase === "behind") behind++;
+    if(phase === "later" && !gearShowAll){ var firstLater = !ul.querySelector("li.later"); if(!firstLater){ hiddenLater++; return; } }
+    var li = el("li", phase), cb = document.createElement("input"); cb.type = "checkbox"; cb.id = "gs-" + k + "-" + st.id; cb.checked = done;
+    cb.addEventListener("change", function(){ if(cb.checked) g[st.id] = 1; else delete g[st.id]; touch(); renderGear(); renderRoster(); });
+    if(st.auto && il >= t){ cb.disabled = true; cb.title = "Done automatically from your item level"; }
+    var lab = document.createElement("label"); lab.htmlFor = cb.id;
+    var tt = el("span","t",st.t);
+    var tag = phase === "now" ? "Do now" : phase === "behind" ? "Catch up" : phase === "later" ? "At " + fmtN(f) : "Done";
+    tt.appendChild(el("span","gr-when",tag)); lab.appendChild(tt);
+    lab.appendChild(el("span","d",st.d));
+    var meta = el("span","gr-meta"); meta.appendChild(el("span","tag",st.src));
+    if(st.v){ var m = Math.floor(st.v[1]/60), sc = st.v[1]%60, a = el("a","lk-ts","▶ " + m + ":" + (sc < 10 ? "0" : "") + sc); a.href = "https://youtu.be/" + st.v[0] + "?t=" + st.v[1]; a.target = "_blank"; a.rel = "noopener"; a.style.marginLeft = "0"; meta.appendChild(a); }
+    lab.appendChild(meta);
+    li.appendChild(cb); li.appendChild(lab); ul.appendChild(li);
+  });
+  if(hiddenLater || gearShowAll){ var li = el("li"); li.style.display = "block"; var b = el("button","gr-more", gearShowAll ? "Hide later steps" : "Show " + hiddenLater + " later step" + (hiddenLater === 1 ? "" : "s")); b.type = "button"; b.addEventListener("click", function(){ gearShowAll = !gearShowAll; renderGear(); }); li.appendChild(b); ul.appendChild(li); }
+  document.getElementById("grStepN").textContent = doneN + " / " + GSTEPS.length + " done";
+
+  /* summary */
+  var sum = document.getElementById("grSummary"); sum.textContent = "";
+  if(!il){ sum.appendChild(el("div","gr-empty","Type your item level above. Just hit 45? You're probably around 800–1,000, and the first goal is 1,000 for Krao Cave and Draupnir.")); }
+  else {
+    var open = GATES.filter(function(gt){ return il >= gateIl(gt.id); });
+    function card(label, big, small, hi){ var c = el("div","gr-card" + (hi ? " hi" : "")); c.appendChild(el("small",null,label)); c.appendChild(el("b",null,big)); if(small) c.appendChild(el("span",null,small)); sum.appendChild(c); }
+    card("You can run", open.length ? open.length + " of " + GATES.length + " gates" : "Nothing yet", open.length ? open.slice(-2).map(function(x){ return x.n; }).join(", ") + (open.length > 2 ? " and more" : "") : "Next up: " + fmtN(gateIl("krao")) + " for Krao Cave and Draupnir");
+    if(next){ var nv = gateIl(next.id), prev = 0; GATES.forEach(function(gt){ var v = gateIl(gt.id); if(v <= il && v > prev) prev = v; });
+      card("Next gate", next.n + " · " + fmtN(nv), fmtN(nv - il) + " item level to go (" + Math.round(100*(il - prev)/Math.max(1, nv - prev)) + "% of the way from " + fmtN(prev) + ")", true); }
+    else card("Next gate", "All open", "Push Hard modes and upgrade Arcana.", true);
+    var focus = nowList.filter(function(st){ return !g[st.id]; });
+    card("Do now", focus.length ? focus[0].t : (behind ? "Catch up on " + behind + " earlier step" + (behind === 1 ? "" : "s") : "Keep farming"), focus.length > 1 ? "+" + (focus.length - 1) + " more in your path" : (behind && focus.length ? behind + " earlier step" + (behind === 1 ? "" : "s") + " to catch up" : ""));
+  }
+  document.getElementById("grEdit").setAttribute("aria-pressed", String(gearEdit));
+  document.getElementById("grEditNote").hidden = !gearEdit;
+}
+(function(){
+  var inp = document.getElementById("grIl"), rng = document.getElementById("grRange"); if(!inp) return;
+  function setIl(v){ v = Math.max(0, Math.min(9999, Math.round(+v || 0))); if(v) state.ilvl[state.cls] = v; else delete state.ilvl[state.cls]; touch(); renderGear(); renderNav(); renderRoster(); }
+  var tmr = null;
+  inp.addEventListener("input", function(){ clearTimeout(tmr); tmr = setTimeout(function(){ setIl(inp.value); }, 250); });
+  inp.addEventListener("change", function(){ clearTimeout(tmr); setIl(inp.value); });
+  rng.addEventListener("input", function(){ setIl(rng.value); });
+  document.querySelectorAll(".gr-quick [data-d]").forEach(function(b){ b.addEventListener("click", function(){ setIl(ilOf(state.cls) + (+b.getAttribute("data-d"))); }); });
+  document.getElementById("grEdit").addEventListener("click", function(){ gearEdit = !gearEdit; renderGear(); });
+  document.getElementById("grReset").addEventListener("click", function(){ state.gates = {}; touch(); renderGear(); });
 })();
 
 /* ---------------- aLuckyRO playbook ---------------- */
@@ -2023,7 +2262,7 @@ function renderSkills(){
 /* ---------------- sharing: deep links, export, import ---------------- */
 function classFromHash(){ var h = (location.hash||"").replace(/^#/,"").toLowerCase(); return CLASSES[h] ? h : null; }
 function syncHash(){ try{ history.replaceState(null, "", "#" + state.cls); }catch(e){} }
-window.addEventListener("hashchange", function(){ var sh = (location.hash||"").replace(/^#/,""); if(["skl","dvp","path","playbook","routine","notes"].indexOf(sh) >= 0){ if(window.__navGo) window.__navGo(sh); syncHash(); return; } var k = classFromHash(); if(k && k !== state.cls){ state.cls = k; firstPaint = true; touch(); renderAll(); } });
+window.addEventListener("hashchange", function(){ var sh = (location.hash||"").replace(/^#/,""); if(["skl","dvp","path","gear","playbook","routine","notes"].indexOf(sh) >= 0){ if(window.__navGo) window.__navGo(sh); syncHash(); return; } var k = classFromHash(); if(k && k !== state.cls){ state.cls = k; firstPaint = true; touch(); renderAll(); } });
 function flash(btn, txt){ var o = btn.textContent; btn.textContent = txt; setTimeout(function(){ btn.textContent = o; }, 1600); }
 document.getElementById("shareBtn").addEventListener("click", function(){
   var url = location.href.split("#")[0] + "#" + state.cls, btn = this;
@@ -2045,10 +2284,10 @@ document.getElementById("importFile").addEventListener("change", function(e){
 });
 
 function renderAll(keep){
-  renderScene(); renderNav(); syncHash(); renderPicker(); renderControls(); renderKit(); renderSkills(); renderPlanner(); renderPhases(); renderLoop(); renderLucky(); renderSources();
+  renderScene(); renderNav(); syncHash(); renderPicker(); renderControls(); renderKit(); renderSkills(); renderPlanner(); renderPhases(); renderLoop(); renderGear(); renderLucky(); renderSources();
 }
 
-var SECTION_HASH = (function(){ var h = (location.hash||"").replace(/^#/,""); return ["skl","dvp","path","playbook","routine","notes"].indexOf(h) >= 0 ? h : null; })();
+var SECTION_HASH = (function(){ var h = (location.hash||"").replace(/^#/,""); return ["skl","dvp","path","gear","playbook","routine","notes"].indexOf(h) >= 0 ? h : null; })();
 loadLocal(); (function(){ var k = classFromHash(); if(k) state.cls = k; })(); buildMotes(); buildWings(); renderDates(); initPlanner(); renderAll(); initSync(); if(window.__navSpy) window.__navSpy(); if(SECTION_HASH && window.__navGo) setTimeout(function(){ window.__navGo(SECTION_HASH); }, 60);
 })();
 </script>
