@@ -1036,7 +1036,7 @@ nav.path{top:calc(env(safe-area-inset-top,0px) + 78px)!important}
         </table>
       </div>
     </div>
-    <p class="lk-foot">▶ links open aLuckyRO's video at the point where he explains that item.</p>
+    <p class="lk-foot">▶ links open the video at the point where that item is explained: aLuckyRO's by default, Kanon's where marked.</p>
   </section>
 
   <section class="lower" id="notes">
@@ -1288,14 +1288,14 @@ function buildPhases(k, role, faction){
    {id:"shake", who:"main", t:"Turn off camera shake, and at level 10 hide the helper speech", d:"Camera shake is in the photo-icon settings. At 10, UI edit lets you hide the helper's speech box that pops up mid-screen on every quest click."},
    {id:"ui", who:"main", t:"Turn on Combat → Autouse", d:"Buff food and scrolls don't fire on their own. Set teleport effects to Dark while you're in there."},
    {id:"nav", who:"main", t:"Open Esc → Content → Navigator once", d:"It lists when each system unlocks: first Ascension and wings at 5, Daevanion and Shugo Festival around 13, second Ascension and Stigmas at 22."},
-   {id:"shugo", trap:true, t:"Don't play Shugo Festival while leveling", d:"You get 3 keys a day and they stack. Rewards at 45 are far better, even if you lose — bank every key."}
+   {id:"shugo", trap:true, t:"Don't play Shugo Festival while leveling", d:"You get 3 keys a day and they stack, up to 12 in the September test. Rewards at 45 are far better, even if you lose, so bank them, but start spending once you're near 12.", link:["https://youtu.be/z5GruOss4F8?t=411","Kanon on the key cap"]}
   ]},
  {id:"p2", n:"3", title:"The detour stretch", lv:"Levels 10–22", time:"About 2–2.5 hours",
   blurb:"The slowest band. Creators split on side content: Spid and MMO Codex do what's on the way; aLuckyRO rushes and cleans up later. The safe middle: do what's close, never detour far.",
   gate:"Level 22 — the Expedition menu is open and Odyle Energy is recharging.",
   items:[
    {id:"early", cls:true, must:true, t:"Spend skill points down your priority list", d:c.early+" The full order, with target levels, is in Skill point priorities above."},
-   {id:"gauge", must:true, t:"Fill the Ascension gauge with side content", d:"The story leaves the gauge around 85%. Each sealed dungeon, stronghold or green quest adds about 3%, so roughly five before the next Ascension. Pick quests that reward accessories — later story dungeons have gear-score gates."},
+   {id:"gauge", must:true, t:"Fill the Ascension gauge with side content", d:"The story leaves the gauge around 85%. Each sealed dungeon, stronghold or green quest adds about 3%, so roughly five before the next Ascension. Pick quests that reward accessories — later story dungeons have gear-score gates.", link:["https://youtu.be/z5GruOss4F8?t=107","Hon's Elyos speed route (Kanon's video, 1:47)"]},
    {id:"sealed", must:"main", t:"Clear the sealed dungeons and strongholds on your way", d:"The ? icons on your minimap. Each gives Daevanion points. Don't cross the map for them."},
    {id:"hub", t:"Grab every side quest at the first big city (~16–17)", d:"Four or five in one stop. Around seven side quests total is what you need while leveling."},
    {id:"board", must:true, t:"Level 12–13: Daevanion opens — learn the node colors", d:"Nezekan opens first (then Zikel at 20, Vaizel at 30, Triniel at 40); all four share one point pool. Grey stat nodes cost 1, green passive +levels 2, blue active +levels 3, orange corners 4. Early on, every class except Templar skips Defense."},
@@ -1340,21 +1340,35 @@ function buildPhases(k, role, faction){
    {id:"msq5", must:true, t:"Finish the campaign chapters to 45", d:"Leftover skill points go into passives."},
    {id:"fire", t:"Fire Temple: only if its weapon suits you", d:"aLuckyRO opens it once for its level-57 weapon if it's your class; Anders skips the reward entirely."},
    {id:"pts", cls:true, t:"What your build should look like at 45", d:"Expect "+c.pts+" skill points by 45. "+c.at45+" You can't max everything, and that's normal."},
+   {id:"rift", t:"Plan for Space-Time Rifts", d:"Some side quests send you into the other faction's land, and a Space-Time Rift is the only way in. One opens every 3 hours, lets a limited number of players through, and gives you an hour inside, so be at a portal (they show on your map) when it opens.", links:[["https://www.aion2timers.com/","Next rift: Aion 2 Timers"],["https://youtu.be/z5GruOss4F8?t=251","Kanon explains rifts"]]},
    {id:"bank", must:true, t:"Arrive with Kina, stones, manastones, Shugo keys and Odyle unspent", d:"All of it is worth far more at 45 than on the way up."}
   ]}
  ].map(function(p){ p.items = p.items.filter(Boolean); return p; });
 }
 
+var VID_BY = {Bly7GFVX91Y:"aLuckyRO", L7CDysKzkLw:"aLuckyRO", LprnWlE26J8:"aLuckyRO", z5GruOss4F8:"Kanon"};
+function vidLinks(v){
+  if(!v) return [];
+  var list = Array.isArray(v[0]) ? v : [v];
+  return list.map(function(x){
+    var who = VID_BY[x[0]] || "", m = Math.floor(x[1]/60), sc = x[1]%60;
+    var a = document.createElement("a"); a.className = "lk-ts"; a.style.marginLeft = "0"; a.style.marginRight = "4px";
+    a.textContent = "\u25B6 " + (who && who !== "aLuckyRO" ? who + " " : "") + m + ":" + (sc < 10 ? "0" : "") + sc;
+    a.href = "https://youtu.be/" + x[0] + "?t=" + x[1]; a.target = "_blank"; a.rel = "noopener"; a.title = (who || "Video") + " explains this";
+    return a;
+  });
+}
 var LOOP = {
  daily:[
-  {id:"l-duty", s:"Duty Missions", t:"Five Duty Missions", d:"Reroll for Hidden Cube keys first (the first slot is a guaranteed drop), then Ariel fragments.", v:["Bly7GFVX91Y",621]},
-  {id:"l-night", s:"Nightmare", t:"Nightmare entries", d:"Two charges a day; the counter stops at 14. Can't kill the last boss yet? Repeat the easier ones, they still pay.", v:["Bly7GFVX91Y",1498]},
+  {id:"l-duty", s:"Duty Missions", t:"Five Duty Missions", d:"Press J, then the Duties tab. Only the first reward slot is guaranteed. Reroll for Hidden Cube keys first; if none shows, take Soul Crystals (rainbow, then turquoise or yellow), then Ariel fragments.", v:[["Bly7GFVX91Y",621],["z5GruOss4F8",303]]},
+  {id:"l-night", s:"Nightmare", t:"Nightmare entries", d:"Two charges a day; the counter stops at 14, so stay at 12 or below. Can't kill the last boss yet? Repeat the easier ones, they still pay. Dying here costs nothing, so keep retrying.", v:[["Bly7GFVX91Y",1498],["z5GruOss4F8",395]]},
   {id:"l-dd", s:"Daily dungeon", t:"Daily dungeon (Enhance Stones)", d:"14 weekly entries shared across your whole roster."},
   {id:"l-supply", s:"Supply Requests", t:"Supply Requests: daily section", d:"Turn-ins for Abyss Points. The daily section restocks at every server reset."},
   {id:"l-cmd", s:"Command scrolls", t:"Command scrolls", d:"Redraw for keys and Daevanion fragments while the price is low."},
   {id:"l-field", s:"Kina cap", t:"Field Kina cap (1M, mainland)", d:"Farm low-Kinah mobs so you get more gold drops before the cap; then move to the Abyss, which has no cap.", v:["L7CDysKzkLw",38]},
   {id:"l-boss", s:"Field bosses", t:"Field boss timers", d:"Map, then Exploration, then Field Bosses. Their gold gear sells high early on.", v:["Bly7GFVX91Y",1680]},
   {id:"l-cube", s:"Hidden Cubes", t:"Open Hidden Cubes with keys", d:"Never open one free. Early wings and stones from cubes sell high.", v:["Bly7GFVX91Y",1378]},
+  {id:"l-shugo", s:"Shugo keys", t:"Shugo keys under the cap", d:"You get 3 a day without a subscription and they stop at 12 (September test, may change). The mini-games pop up every hour; spend keys before you cap.", v:["z5GruOss4F8",411]},
   {id:"l-odyle", s:"Odyle Energy", t:"Odyle Energy not sitting at cap", d:"Spend it on Conquest: unbound Kina."}
  ],
  weekly:[
@@ -1362,7 +1376,7 @@ var LOOP = {
   {id:"w-abyss", s:"Abyss merchant", t:"Abyss Command Merchant and scrolls", d:"The second merchant is in the Abyss. Five scrolls of each of the four grades."},
   {id:"w-supply", s:"Supply stock", t:"Supply Request stock, right at weekly reset", d:"Buy out the white, green and blue gear (weapons especially) and resell for about 3 times the price. Stock differs by server.", v:["Bly7GFVX91Y",1774]},
   {id:"w-shop", s:"Special shop", t:"Weekly special shop (subscription)", d:"Shop, then Black Cloud Merchants, then Special: buy everything except the Resurrection Spiritstone. Also the energy in Morph's special section.", v:["Bly7GFVX91Y",1589]},
-  {id:"w-asc", s:"Ascension Trial", t:"Ascension Trial ×3", d:"On the last day before reset. Normal, never Easy: about 1,300–1,500 item level.", v:["Bly7GFVX91Y",866]},
+  {id:"w-asc", s:"Ascension Trial", t:"Ascension Trial ×3", d:"On the last day before reset. Normal, never Easy: about 1,300–1,500 item level. Don't die in it: dying can cost you the rewards.", v:[["Bly7GFVX91Y",866],["z5GruOss4F8",388]]},
   {id:"w-art", s:"Artifact", t:"Faction artifact dungeon", d:"Only when your side holds one. Go on the last day, a few hours before reset, when you're strongest.", v:["Bly7GFVX91Y",1307]},
   {id:"w-pity", s:"Expedition boxes", t:"Expedition guaranteed boxes you still need", d:"Draupnir, Vakron, Krao."},
   {id:"w-trans", s:"Transcendence", t:"Transcendence and Season Missions", d:"Five gold transmutation crystals transmute one Unique Arcana."}
@@ -1592,7 +1606,7 @@ function renderPhases(){
       lab.appendChild(el("span","t",it.t));
       if(it.d) lab.appendChild(el("span","d",it.d));
       if(it.chain) lab.appendChild(chainEl(it.chain));
-      if(it.link){ var lk = el("a","lk",it.link[1]+" ↗"); lk.href = it.link[0]; lk.target = "_blank"; lk.rel = "noopener"; lab.appendChild(lk); }
+      (it.links || (it.link ? [it.link] : [])).forEach(function(L){ var lk = el("a","lk",L[1]+" ↗"); lk.href = L[0]; lk.target = "_blank"; lk.rel = "noopener"; lab.appendChild(lk); });
       var tags = el("span","tags");
       if(must) tags.appendChild(el("span","tag must","Must-have"));
       if(it.trap) tags.appendChild(el("span","tag avoid","Avoid"));
@@ -1773,11 +1787,7 @@ function renderLoop(){
       lab.appendChild(el("span","t",it.t));
       var d = el("span","d",it.d);
       lab.appendChild(d); li.appendChild(cb); li.appendChild(lab);
-      if(it.v){
-        var m = Math.floor(it.v[1]/60), sec = it.v[1]%60, a = el("a","lk-ts","\u25B6 " + m + ":" + (sec < 10 ? "0" : "") + sec);
-        a.href = "https://youtu.be/" + it.v[0] + "?t=" + it.v[1]; a.target = "_blank"; a.rel = "noopener"; a.title = "aLuckyRO explains this"; a.style.marginLeft = "0";
-        var wrap = el("span","rt-src"); wrap.appendChild(a); lab.appendChild(wrap);
-      }
+      if(it.v){ var wrap = el("span","rt-src"); vidLinks(it.v).forEach(function(a){ wrap.appendChild(a); }); lab.appendChild(wrap); }
       ul.appendChild(li);
     });
     var tot = LOOP[kind].length;
@@ -1840,7 +1850,7 @@ var GATES = [
 ];
 /* Upgrade path. from/to are item levels or a gate id (so corrected gates move the steps too). */
 var GSTEPS = [
-  {id:"g-1000", auto:true, from:0, to:"krao", t:"Reach item level 1,000", d:"Leftover story and regional quests, sealed dungeons, strongholds and feathers. This is the Krao Cave and Draupnir gate.", src:"Mein-MMO"},
+  {id:"g-1000", auto:true, from:0, to:"krao", t:"Reach item level 1,000", d:"Leftover story and regional quests, sealed dungeons, strongholds and feathers. This is the Krao Cave and Draupnir gate. To find what's left: press J and open the Regional tab for side quests; press M, then the Exploration tab, for sealed dungeons and strongholds.", src:"Mein-MMO · Kanon", v:["z5GruOss4F8",221]},
   {id:"g-drau", from:"drau", to:1300, t:"Farm the Draupnir (Bakarma) set", d:"Six armor pieces. Every 14 cubes you open gives a guaranteed piece of your choice. Early on, open the chest 2× with a subscription or 3× without.", src:"Gamers Together · aLuckyRO", v:["Bly7GFVX91Y",982]},
   {id:"g-krao", from:"krao", to:1300, t:"Get the Krao Cave accessory", d:"About 7 runs with a subscription. A full clear pays ~300k Kinah either way.", src:"aLuckyRO", v:["Bly7GFVX91Y",1038]},
   {id:"g-belt", from:"krao", to:1300, t:"Belt from strongholds, Revelation Amulet from feathers", d:"Cheap item level you get while clearing the map anyway.", src:"Mein-MMO"},
@@ -1920,7 +1930,7 @@ function renderGear(){
     tt.appendChild(el("span","gr-when",tag)); lab.appendChild(tt);
     lab.appendChild(el("span","d",st.d));
     var meta = el("span","gr-meta"); meta.appendChild(el("span","tag",st.src));
-    if(st.v){ var m = Math.floor(st.v[1]/60), sc = st.v[1]%60, a = el("a","lk-ts","▶ " + m + ":" + (sc < 10 ? "0" : "") + sc); a.href = "https://youtu.be/" + st.v[0] + "?t=" + st.v[1]; a.target = "_blank"; a.rel = "noopener"; a.style.marginLeft = "0"; meta.appendChild(a); }
+    vidLinks(st.v).forEach(function(a){ meta.appendChild(a); });
     lab.appendChild(meta);
     li.appendChild(cb); li.appendChild(lab); ul.appendChild(li);
   });
@@ -1997,6 +2007,7 @@ function renderSources(){
     ["https://www.youtube.com/watch?v=hNnDfDXrWxM", "Ultimate Cleric Guide PvE Min Maxed for Global", "MrRosaPony"],
     ["https://youtu.be/Zjhy0pauNlE", "15 Most Common Beginner Mistakes", "aLuckyRO"],
     ["https://www.youtube.com/watch?v=LprnWlE26J8", "My Progression Plan from Day 1 to Week 1", "aLuckyRO — Launch plan, gear route"],
+    ["https://www.youtube.com/watch?v=z5GruOss4F8", "Aion 2 Starter Launch Guide in 8 minutes", "Kanon — rifts, Duty rewards, Shugo cap, Hon's Elyos route"],
     ["https://www.youtube.com/watch?v=Bly7GFVX91Y", "17 Pro Tips & Tricks From a Veteran KR Player", "aLuckyRO — Veteran playbook tips"],
     ["https://youtu.be/L7CDysKzkLw", "3 Best Kinah Farming Locations for Elyos & Asmodians", "aLuckyRO — Kinah farming spots"],
     ["https://youtu.be/HMod6Z4GrE0", "Macro Guide: Early-Game Setups", "Grobs"],
