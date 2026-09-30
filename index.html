@@ -227,7 +227,8 @@ ol.ladder{list-style:none;margin:0;padding:0}
 .ln{font-weight:700;display:block;line-height:1.3}
 .ln em{font-style:normal;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-left:8px;color:var(--acc);border:1px solid var(--acc);border-radius:99px;padding:0 6px;vertical-align:2px}
 .lnote{display:block;font-size:13.5px;color:var(--muted);line-height:1.35}
-.lbar{display:grid;grid-template-columns:repeat(10,9px);gap:2px}
+.lbar{--lbw:9px;display:grid;grid-template-columns:repeat(10,var(--lbw));gap:2px}
+.lbar i.dv.on{background:repeating-linear-gradient(135deg,var(--acc) 0 3px,color-mix(in srgb,var(--acc) 45%,transparent) 3px 6px)}
 .lbar i{height:14px;border-radius:2px;background:var(--line)}
 .lbar i.on{background:var(--acc)}
 .lbar i.sp{box-shadow:inset 0 -3px 0 rgba(255,255,255,.55)}
@@ -237,7 +238,7 @@ ol.ladder{list-style:none;margin:0;padding:0}
 .chip1{font-size:13px;border:1px dashed var(--line);border-radius:99px;padding:3px 10px;color:var(--muted)}
 .sklkey{font-size:13px;color:var(--muted);margin:12px 0 0}
 @media (max-width: 900px){ .sklgrid{grid-template-columns:1fr} }
-@media (max-width: 560px){ .skl{padding:16px 12px} .lbar{grid-template-columns:repeat(10,6px)} .lbar i{height:12px} }
+@media (max-width: 560px){ .skl{padding:16px 12px} .lbar{--lbw:6px} .lbar i{height:12px} }
 
 /* ---------- Daevanion planner ---------- */
 .dvp{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:22px 22px 20px;margin:18px 0 8px}
@@ -752,7 +753,7 @@ nav.path{top:calc(env(safe-area-inset-top,0px) + 78px)!important}
 
   <section class="skl" id="skl" aria-labelledby="sklTitle">
     <h2 id="sklTitle">Skill point priorities</h2>
-    <p class="sub">Where your skill points go from 1 to 45, in order. Spend top-down: push the first skill as far as your level allows, then the next. The bar shows the level to aim for by 45 — the marked eighth block is where the first specialty opens.</p>
+    <p class="sub">Where your skill points go from 1 to 45, in order. Spend top-down: push the first skill as far as your level allows, then the next. The bar shows the level to aim for by 45 — the marked eighth block is where the first specialty opens, and striped blocks 11–12 come from Daevanion skill nodes.</p>
     <p class="rule" id="sklRule"></p>
     <div class="sklgrid">
       <div><h3>Actives</h3><ol class="ladder" id="sklAct"></ol></div>
@@ -787,6 +788,7 @@ nav.path{top:calc(env(safe-area-inset-top,0px) + 78px)!important}
         <h3>Route order</h3>
         <ol class="dvsteps" id="dvSteps"></ol>
         <p class="dvsrc">Layouts come from <a href="https://aion2.dev/" target="_blank" rel="noopener">aion2.dev</a>, built from playtest client data (build 25344886), and match <a href="https://talentbuilds.com/aion2/daevanionplanner" target="_blank" rel="noopener">Talentbuilds' planner</a> node for node on all 32 boards; the live global board may differ slightly. Points by level are an estimate built on aLuckyRO's ~160–170 at a fresh 45 — tick "Use my actual point count" to plan with your real number. Adjacent nodes unlock outward from the center, so the planner buys the cheapest path to each target.</p>
+        <p class="dvsrc"><b>Point-saving trick (aLuckyRO):</b> raising a skill with skill points costs 2 per level at first, then 4 once it climbs. Stop one level short of where the price doubles and take that level from the skill's Daevanion node instead — on one skill he saved 4 points. <a href="https://youtu.be/f3gxUdec82U?t=1388" target="_blank" rel="noopener">Watch at 23:08 ↗</a></p>
       </div>
     </div>
   </section>
@@ -1088,22 +1090,22 @@ var CLASSES = {
   ident:"The only true tank. You hold the boss, take the biggest hits and keep it off your healer — every group needs you.",
   pills:[["Difficulty","Easy"],["Solo pace","Slow"],["Groups","Always want you"]],
   L:"Vicious Strike", R:"Pummel",
-  spec:"Vicious Strike: +20% MP restored. Pummel: HP absorb when solo, −20% MP cost when a Cleric is with you.",
+  spec:"Vicious Strike: +20% MP early, switch to HP absorb once your MP pool grows. Pummel: damage when solo or in Nightmare, −20% MP cost in a party.",
   early:"Next come Poach and Warding Strike. Start raising Punishment the moment it arrives at 14 — creators call it the strongest early skill.",
-  late:"Fury first (party PvE and PvP damage), then Punishing Benediction (crit damage) and Insulting Roar (enmity keeps the boss on you). Leftovers into Enhance Health. Impact Hit is the later target; skip defensive passives early — Krao, Draupnir and Urugugu don't need them.",
-  stig:"Taunt is the priority (take it to at least 15 later for the cooldown). Battlefield Banner (attack from defense plus Multi-Hit), Executing Blade (boss debuff), Empyrean Lord's Punishment, Noble Armor, and Doom Shield — it triggers Judgment. The block and shield stigmas are PvP or later content.",
-  mid:"Other actives to 8 as they unlock; Punishment reaches 8 at 32 and 10 at 38. Take Shield Smite's option that removes its MP cost and restores 200 MP.",
-  pts:"about 250", at45:"Vicious Strike, Pummel, Judgment, Annihilate and Punishment at 10. Passives: Fury, Punishing Benediction, Insulting Roar, Enhance Health.",
-  macro:["Battlefield Banner", "Taunt", "Executing Blade", "Empyrean Lord's Punishment", "Vicious Strike / Annihilate", "Shield Smite → Debilitating Smash", "Judgment"],
+  late:"Fury first — party damage, and early content wants offense, not defense. Then Insulting Roar (frontal attack buff; enmity is already capped) and Punishing Benediction (you won't crit early, so it's second tier). Survival Willpower and Block Pain are fine unleveled for now; Impact Hit is mostly PvP. Nothing before Fire Temple Hard needs defensive passives.",
+  stig:"Global has 4 slots, not 6. aLuckyRO's four: Taunt (take it to 15 for −5 s cooldown — holding aggro is your job), Doom Shield (resets Annihilate and triggers Judgment), Executing Blade (+20% on bosses, 30 s cooldown at 5), and Battlefield Banner last (a short damage buff; no need for 5). Skip Empyrean Lord's Punishment, Noble Armor and the defensive and PvP stigmas until Fire Temple Hard.",
+  mid:"Your top three — Vicious Strike, Pummel and Shield Smite — are headed for 12: levels 11–12 come from their Daevanion skill nodes, and 12 is where their cooldown cuts unlock. Take Shield Smite's option that removes its MP cost and restores 200 MP. Punishment reaches 8 at 32 and 10 at 38.",
+  pts:"about 250", at45:"Vicious Strike, Pummel and Shield Smite on the way to 12 through Daevanion nodes, Annihilate next, Punishment and Judgment at 10. Passives: Fury, Insulting Roar, Punishing Benediction.",
+  macro:["Doom Shield", "Annihilate", "Executing Blade", "Battlefield Banner", "Punishment"],
   to20:"Judgment to 20 first, then Vicious Strike, Pummel and Punishment. Warding Strike to 16 for its party Damage Tolerance. Passives: Fury, then Insulting Roar and Impact Hit.",
-  stigEnd:"Take Taunt to at least 15 for the shorter cooldown. The end-game six: Noble Armor, Battlefield Banner, Taunt, Shield of Protection, Doom Shield, Empyrean Lord's Punishment.",
+  stigEnd:"Four slots on global: Taunt to 15 first, then Doom Shield, Executing Blade and Battlefield Banner. Defensive stigmas wait for Fire Temple Hard.",
   daev:["Marchutan","Zikel","Yustiel","Nezekan"], daevNote:"Defense and HP, then Damage Tolerance, then cooldowns.",
   gear:"Accuracy matters more than it looks: a missed skill loses aggro and the boss turns on your Sorcerer or Cleric.",
   tip:"Play in Target mode — Vicious Strike auto-attacking between skills is your mana. Keep Poach out of macros; it walks you around awkwardly.",
-  specAll:"Vicious Strike +20% MP. Pummel: −20% MP with a Cleric, 3% HP absorb solo, fewer-targets damage on bosses. Poach 8: cooldown reset on kills for farming; on bosses you can't pull, pull yourself. Shield Smite: removes its MP cost and restores 200 MP — mandatory, or it drains 15% of your pool. Judgment: HP solo, extra damage in groups. Flash Rampage: HP or MP. Warding Strike: +100 Block early, −5 s cooldown later. Shield Rush 8: +10 m. Annihilate: +100% damage on targets with Incapacitated Immunity (bosses). Punishment: +30% Skill Speed — you're standing still while it charges. Defiance 8.",
-  macroNote:"aLuckyRO's three lines: buffs and Taunt ending on your auto-attack, then Shield Smite into Debilitating Smash, then Judgment. Punishment and Doom Shield by hand; keep Poach off the macro. Drop any of the three MP picks and you'll run dry mid-pull.",
-  skillVid:"https://www.youtube.com/watch?v=RsAWWG741MA",
-  dv:{"act": ["Punishment", "Judgment", "Shield Smite", "Vicious Strike"], "pas": ["Fury", "Insulting Roar", "Enhance Health"], "order": ["Nezekan: Attack", "Nezekan: Combat Speed", "Nezekan: Defense Bonus", "Zikel: Tolerance (static) or Damage Boost (solo)", "Vaizel: Crit Damage", "Accuracy"], "stat": "aLuckyRO's fresh-45 Templar had about 162 points. Attack first — you still quest and farm solo — then Combat Speed so Punishment's charge finishes faster, then Defense Bonus instead of Cooldown Reduction. On Zikel, take Damage Tolerance if you run with a static group and Damage Boost if you don't. Skip Multi-Hit. Accuracy matters: a missed Taunt on Urugugu loses aggro.", "ariel": "Ariel: Damage Tolerance unless your static is strong enough to run offense. Azphel for PvP: Defense and Tolerance.", "vid": "https://www.youtube.com/watch?v=c8_6nYieiT4"},
+  specAll:"Vicious Strike: MP early, HP absorb later; at 12 every hit shortens Warding Strike's cooldown. Pummel: damage solo or in Nightmare, −20% MP in a party; at 12, −1 s on Punishment and you can move while charging it. Shield Smite: removes its MP cost and restores 200 MP (about 12% of your pool every 8 s) — mandatory; at 12 it's an 8 s cooldown that triggers Judgment. Judgment: fires off every shield skill, so spam it. Annihilate 8: +100% damage on CC-immune targets (bosses); 12: −10 s cooldown. Punishment: +30% Skill Speed, or 10% HP if you're struggling in Nightmare. Poach 8: pull and reset on kill for farming, or rush yourself to a CC-immune target to engage first. Warding Strike: your shield; 12 for casual groups. Shield Rush 8 and Debilitating Smash 8 are low priority; Flash Rampage is lowest. Defiance 8 (16 later).",
+  macroNote:"aLuckyRO's newest advice: play your first ~10 days without a macro and learn the class skill by skill — a macro firing on cooldown without gear gets you killed. When you're ready, his stigma chain: Doom Shield → Annihilate → Executing Blade → Battlefield Banner → Punishment.",
+  skillVid:"https://www.youtube.com/watch?v=f3gxUdec82U",
+  dv:{"act": ["Vicious Strike", "Pummel", "Shield Smite", "Punishment"], "pas": ["Fury", "Insulting Roar", "Punishing Benediction"], "order": ["Nezekan: Combat Speed", "Skill nodes: Vicious Strike, Pummel, Shield Smite to 12", "Punishment and Annihilate nodes", "Zikel: Damage Boost (Tolerance in a static)", "Skip Crit Damage and Multi-Hit"], "stat": "aLuckyRO's global Templar build (re-leveled from scratch): Combat Speed, then the shortest path to your skill nodes — Vicious Strike, Pummel and Shield Smite need them to reach 12. Skip Vaizel's Crit Damage and Triniel's Multi-Hit: he tested 30 seconds on a dummy and got zero crits, because early gear has no crit. The global board has the same skill nodes as Korea and Taiwan (12 active, 11 passive per board), just fewer stat nodes.", "ariel": "Ariel: Damage Tolerance unless your static is strong enough to run offense. Azphel for PvP: Defense and Tolerance.", "vid": "https://www.youtube.com/watch?v=c8_6nYieiT4"},
   guide:"https://mmo-codex.com/articles/aion-2-templar-guide/"},
 
  gladiator:{name:"Gladiator", role:"Melee bruiser", weapon:"Greatsword", c:{d:"#EE6F63",l:"#B23A2F"},
@@ -1317,7 +1319,7 @@ function buildPhases(k, role, faction){
    {id:"spec", cls:true, must:true, t:"Specialties for your clicks", d:c.spec},
    (c.specAll ? {id:"specall", cls:true, must:true, t:"Specialty picks for every active, as they reach 8", d:c.specAll} : null),
    {id:"late", cls:true, t:(c.specAll ? "Passive priorities" : "Max the passives that skip the level gate"), d:c.late},
-   {id:"stig", cls:true, must:true, t:"Level 22: first Stigmas", d:c.stig+" The first slot opens at 22 and the second at 27; each stigma costs a shard to learn plus one per level to 5."},
+   {id:"stig", cls:true, must:true, t:"Level 22: first Stigmas", d:c.stig+" Global has 4 stigma slots (Korea and Taiwan have 6), opening at levels 22, 27, 32 and 37 — pick your best four. Each stigma costs a shard to learn plus one per level to 5.", link:["https://youtu.be/f3gxUdec82U?t=1638","aLuckyRO on the 4 global slots"]},
    {id:"macro", cls:true, t:"Build your macro once your stigmas are in", d:(c.macroNote||"Only skills you spam non-stop go in; highest priority at the bottom of the line."), chain:c.macro}
   ]},
  {id:"p4", n:"5", title:"The story carries you", lv:"Levels 22–38", time:"About 2 hours",
@@ -1568,7 +1570,7 @@ function renderKit(){
   var r = el("div"); r.appendChild(el("small",null,"Right click")); r.appendChild(el("b",null,c.R)); m.appendChild(r);
   a.appendChild(m); a.appendChild(el("p","sub",c.spec));
   var b = card("Macro chain"); b.appendChild(chainEl(c.macro)); b.appendChild(el("p","sub", c.macroNote || "10 ms delay under 50 ms ping; 40–50 ms if you're above 80."));
-  var s = card("First Stigmas (level 22)"); s.appendChild(el("p",null,c.stig));
+  var s = card("Stigmas (4 slots on global)"); s.appendChild(el("p",null,c.stig)); s.appendChild(el("p","sub","Slots open at 22, 27, 32 and 37. Korea and Taiwan have 6, so trim any 6-stigma advice to your best four."));
   var t = card("Passive priorities"); t.appendChild(el("p",null,c.late));
   var d = card("Daevanion boards");
   var rr = DV_ROUTES[k][Math.min(DVP.route[k]||0, DV_ROUTES[k].length-1)];
@@ -2007,6 +2009,7 @@ function renderSources(){
     ["https://www.youtube.com/watch?v=hNnDfDXrWxM", "Ultimate Cleric Guide PvE Min Maxed for Global", "MrRosaPony"],
     ["https://youtu.be/Zjhy0pauNlE", "15 Most Common Beginner Mistakes", "aLuckyRO"],
     ["https://www.youtube.com/watch?v=LprnWlE26J8", "My Progression Plan from Day 1 to Week 1", "aLuckyRO — Launch plan, gear route"],
+    ["https://www.youtube.com/watch?v=f3gxUdec82U", "Latest Templar PvE Build for Global", "aLuckyRO — Templar skills to 12, 4 global stigmas, Daevanion point trick"],
     ["https://www.youtube.com/watch?v=z5GruOss4F8", "Aion 2 Starter Launch Guide in 8 minutes", "Kanon — rifts, Duty rewards, Shugo cap, Hon's Elyos route"],
     ["https://www.youtube.com/watch?v=Bly7GFVX91Y", "17 Pro Tips & Tricks From a Veteran KR Player", "aLuckyRO — Veteran playbook tips"],
     ["https://youtu.be/L7CDysKzkLw", "3 Best Kinah Farming Locations for Elyos & Asmodians", "aLuckyRO — Kinah farming spots"],
@@ -2060,7 +2063,7 @@ var DVB_LEVEL = [12,20,30,40];
 var DVB_CORE = ["Combat Speed & Cooldown Reduction","Damage Boost & Damage Tolerance","Critical Damage Boost & Tolerance","Multi-Hit Chance & Resist"];
 var DV_SKILLS = {
  gladiator:["Ruinous Blow","Keen Strike","Overhead Slam","Rending Blow","Blood Absorption","Attack Preparation","Experienced Counterstrike","Murderous Burst","Destructive Impulse"],
- templar:["Punishment","Shield Smite","Judgment","Vicious Strike","Fury","Insulting Roar","Punishing Benediction"],
+ templar:["Vicious Strike","Pummel","Shield Smite","Punishment","Annihilate","Fury","Insulting Roar"],
  ranger:["Deadshot","Gale Arrow","Drill Dart","Tempest Shot","Focused Eye","Hunter's Resolve"],
  assassin:["Heart Gore","Insignia Explosion","Quick Slice","Savage Roar","Rear Smite","Assault Stance","Exploit Weakness","Impact Hit"],
  spiritmaster:["Summon: Water Spirit","Summon: Fire Spirit","Summon: Earth Spirit","Summon: Wind Spirit","Combustion","Elemental Fusion","Spirit Strike","Mental Focus"],
@@ -2082,10 +2085,10 @@ var DV_ROUTES = {
  assassin:[{name:"aLuckyRO", note:"Attack and Combat Speed, Damage Boost, Crit Damage, Multi-Hit — then skill nodes. MP nodes last.", steps:dpsRoute("assassin",true)}],
  ranger:[{name:"aLuckyRO", note:"Attack and Combat Speed, Damage Boost, Crit Damage, all Multi-Hit — then skill nodes.", steps:dpsRoute("ranger",true)}],
  templar:[
-  {name:"Solo leveling", note:"aLuckyRO: Attack, Combat Speed, Defense; Damage Boost on Zikel when you mostly play alone.",
-   steps:[S(0,"st","Attack","Nezekan · Attack nodes"),S(0,"u","Combat Speed","Nezekan · Combat Speed corners"),S(0,"st","Defense","Nezekan · Defense nodes"),S(1,"u","Damage Boost","Zikel · Damage Boost corners"),S(2,"u","Critical Damage Boost","Vaizel · Crit Damage Boost corners")].concat(skillSteps("templar",[0,1,2,3]))},
+  {name:"aLuckyRO (global)", note:"Combat Speed, then the shortest path to your skill nodes (Vicious Strike, Pummel and Shield Smite to 12), then Damage Boost. Skips Crit Damage and Multi-Hit — you won't crit early.",
+   steps:[S(0,"u","Combat Speed","Nezekan · Combat Speed corners")].concat(skillSteps("templar",[0,1,2,3])).concat([S(1,"u","Damage Boost","Zikel · Damage Boost corners")])},
   {name:"Static group", note:"Same, but Damage Tolerance on Zikel when a fixed group relies on you.",
-   steps:[S(0,"st","Attack","Nezekan · Attack nodes"),S(0,"u","Combat Speed","Nezekan · Combat Speed corners"),S(0,"st","Defense","Nezekan · Defense nodes"),S(1,"u","Damage Tolerance","Zikel · Damage Tolerance corners"),S(2,"u","Critical Damage Boost","Vaizel · Crit Damage Boost corners")].concat(skillSteps("templar",[0,1,2,3]))}],
+   steps:[S(0,"u","Combat Speed","Nezekan · Combat Speed corners")].concat(skillSteps("templar",[0,1,2,3])).concat([S(1,"u","Damage Tolerance","Zikel · Damage Tolerance corners")])}],
  sorcerer:[{name:"aLuckyRO", note:"Combat Speed, Attack, Damage Boost, then Cooldown Reduction (Sorcerer gains a lot from it). Skips Triniel's Multi-Hit.",
    steps:[S(0,"u","Combat Speed","Nezekan · Combat Speed corners"),S(0,"st","Attack","Nezekan · Attack nodes"),S(1,"u","Damage Boost","Zikel · Damage Boost corners"),S(0,"u","Cooldown Reduction","Nezekan · Cooldown Reduction corners"),S(2,"u","Critical Damage Boost","Vaizel · Crit Damage Boost corners")].concat(skillSteps("sorcerer",[0,1,2,3]))}],
  spiritmaster:[{name:"aLuckyRO", note:"No Combat Speed (instant casts): Attack, Cooldown Reduction, Damage Boost, Crit Damage, then spirit nodes.",
@@ -2335,10 +2338,10 @@ var SKILLPLAN = {
   pas:[A("Experienced Counterstrike",10,"Straight to 10 at 21."),A("Attack Preparation",10,"Damage, defense, accuracy."),A("Blood Absorption",10,"Your lifesteal."),A("Murderous Burst",10,"Straight to 10 at 25; stacks up."),A("Destructive Impulse",8,"Leftovers — stagger-window damage.")],
   one:["Aerial Snare","Seal, root, leap and resist skills (PvP)"]},
  templar:{
-  rule:"Keep Vicious Strike and Pummel at the cap. Take all three MP specialties (Vicious Strike, Shield Smite, Pummel with a Cleric) or you'll run dry mid-pull.",
-  act:[A("Vicious Strike",10,"Left click. +20% MP.","click"),A("Pummel",10,"Right click. HP solo / −20% MP with a Cleric.","click"),A("Punishment",10,"Strongest early skill. 8 at 32, 10 at 38."),A("Judgment",10,"HP solo, damage in groups."),A("Annihilate",10,"+100% vs bosses (CC-immune)."),A("Shield Smite",8,"No MP cost + 200 MP — mandatory."),A("Poach",8,"Reset on kill; pull yourself to bosses."),A("Warding Strike",8,"+100 Block early."),A("Debilitating Smash",8,"Stun duration."),A("Defiance",8,"HP on trigger.")],
-  pas:[A("Fury",10,"All ten levels at 21 — party damage."),A("Punishing Benediction",10,"Crit damage."),A("Insulting Roar",10,"Enmity keeps the boss on you."),A("Survival Willpower",10,"Straight to 10 at 23."),A("Block Pain",10,"Straight to 10 at 25."),A("Enhance Health",8,"Leftovers.")],
-  one:["Shield Rush (8 only if you want the range)","Defensive passives early"]},
+  rule:"Vicious Strike, Pummel and Shield Smite are headed for 12: levels 11–12 come from their Daevanion skill nodes, and 12 unlocks their cooldown cuts. Take the MP specialties early (Vicious Strike, Shield Smite) or you'll run dry mid-pull.",
+  act:[A("Vicious Strike",12,"Left click. 12: every hit shortens your shield's cooldown. MP early, HP absorb later.","click"),A("Pummel",12,"Right click. 12: −1 s on Punishment and move while charging.","click"),A("Shield Smite",12,"No MP cost + 200 MP. 12: 8 s cooldown, triggers Judgment."),A("Annihilate",12,"+100% on CC-immune bosses at 8; 12 halves its cooldown."),A("Punishment",10,"Your biggest hit. +30% Skill Speed (or 10% HP if you're struggling). 8 at 32, 10 at 38."),A("Judgment",10,"Fires off your shield skills — spam it."),A("Warding Strike",12,"Your shield; triggers Judgment. 12 once the top four are done."),A("Poach",8,"Pull + reset on kill for farming."),A("Shield Rush",8,"Range only."),A("Debilitating Smash",8,"+3 s boss debuff."),A("Defiance",8,"HP after CC; 16 later.")],
+  pas:[A("Fury",10,"#1 — party damage."),A("Insulting Roar",10,"Frontal attack buff; enmity is already capped."),A("Punishing Benediction",8,"Second tier — you won't crit early."),A("Enhance Health",5,"Late game, not early.")],
+  one:["Survival Willpower and Block Pain (fine unleveled early)","Impact Hit (mostly PvP)","Flash Rampage (bosses only)","Crit and Multi-Hit Daevanion nodes"]},
  assassin:{
   rule:"Keep Quick Slice and Savage Roar at the cap. Actives stop at 8 with HP absorb while leveling; Savage Roar and Insignia Explosion go to 10.",
   act:[A("Savage Roar",10,"Right click. +20% Skill Speed.","click"),A("Quick Slice",8,"Left click. +20% MP.","click"),A("Insignia Explosion",10,"Arrives at 14. Multi-Hit specialty."),A("Heart Gore",8,"Arrives at 4. HP absorb now, 16 after 45."),A("Shadowstrike",8,"Caster Crit Damage buff."),A("Shadow Fall",8,"10% HP absorb."),A("Ambush",8,"HP absorb."),A("Flash Slice",8,"More-targets damage."),A("Whirlwind Slice",8,"AoE for farming."),A("Infiltrate",8,"+Range."),A("Defiance",8,"HP on trigger.")],
@@ -2375,7 +2378,9 @@ function ladderRow(x, i, pass){
   if(x.note) mid.appendChild(el("span","lnote",x.note));
   li.appendChild(mid);
   var bar = el("span","lbar"); bar.setAttribute("aria-label","Target level " + x.to);
-  for(var k=1;k<=10;k++){ var seg = el("i", (k <= x.to ? "on" : "") + (k === 8 ? " sp" : "")); bar.appendChild(seg); }
+  var nb = x.to > 10 ? 12 : 10; bar.style.gridTemplateColumns = "repeat(" + nb + ", var(--lbw))";
+  for(var k=1;k<=nb;k++){ var seg = el("i", (k <= x.to ? "on" : "") + (k === 8 ? " sp" : "") + (k > 10 ? " dv" : "")); bar.appendChild(seg); }
+  if(x.to > 10) bar.title = "Levels 11–12 come from Daevanion skill nodes";
   li.appendChild(bar);
   li.appendChild(el("b","lt",String(x.to)));
   return li;
