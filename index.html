@@ -266,6 +266,9 @@ ol.ladder{list-style:none;margin:0;padding:0}
 .dvown input[type=range]{flex:0 1 240px;accent-color:var(--acc)}
 .dvown input[type=range]:disabled{opacity:.4}
 .dvown output{font-variant-numeric:tabular-nums;color:var(--ink);min-width:3ch}
+.dvown-n{display:inline-flex;align-items:center;gap:6px}
+.dvown-n input{width:76px;font:inherit;font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;padding:4px 8px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink)}
+.dvown-n input:focus{border-color:var(--acc)}
 .dvminis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
 .dvmini{border:1px solid var(--line);background:var(--panel-2);border-radius:16px;padding:8px 8px 10px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px}
 .dvmini svg{width:100%;max-width:150px;height:auto}
@@ -774,7 +777,7 @@ nav.path{top:calc(env(safe-area-inset-top,0px) + 78px)!important}
       <div class="dvlv"><label for="dvLevel">Level <output id="dvLevelOut">45</output></label><input type="range" id="dvLevel" min="12" max="45" step="1" value="45"><div class="ticks" aria-hidden="true"><span style="left:0%">12</span><span style="left:24.2%">20</span><span style="left:54.5%">30</span><span style="left:84.8%">40</span><span style="left:100%">45</span></div></div>
       <div class="dvstats"><div><b id="dvPts">165</b><small>points · <span id="dvPtsNote">estimated</span></small></div><div><b id="dvSpent">0</b><small>spent</small></div><div><b id="dvBank">0</b><small>saving</small></div></div>
     </div>
-    <div class="dvown"><label><input type="checkbox" id="dvOwn"> Use my actual point count</label><input type="range" id="dvOwnR" min="0" max="300" value="120" disabled aria-label="Your Daevanion points"><output id="dvOwnOut">120</output></div>
+    <div class="dvown"><label><input type="checkbox" id="dvOwn"> Use my actual point count</label><input type="range" id="dvOwnR" min="0" max="300" value="120" disabled aria-label="Your Daevanion points (slider)"><label class="dvown-n"><input type="number" id="dvOwnN" min="0" max="999" step="1" value="120" inputmode="numeric" aria-label="Your Daevanion points (type a number)"><span>points</span></label><output id="dvOwnOut" hidden>120</output></div>
     <div class="dvminis" id="dvMinis" role="group" aria-label="Choose board"></div>
     <div class="dvmain">
       <div class="dvboard">
@@ -787,7 +790,7 @@ nav.path{top:calc(env(safe-area-inset-top,0px) + 78px)!important}
       <div class="dvside">
         <h3>Route order</h3>
         <ol class="dvsteps" id="dvSteps"></ol>
-        <p class="dvsrc">Layouts come from <a href="https://aion2.dev/" target="_blank" rel="noopener">aion2.dev</a>, built from playtest client data (build 25344886), and match <a href="https://talentbuilds.com/aion2/daevanionplanner" target="_blank" rel="noopener">Talentbuilds' planner</a> node for node on all 32 boards; the live global board may differ slightly. Points by level are an estimate built on aLuckyRO's ~160–170 at a fresh 45 — tick "Use my actual point count" to plan with your real number. Adjacent nodes unlock outward from the center, so the planner buys the cheapest path to each target.</p>
+        <p class="dvsrc">Layouts come from <a href="https://aion2.dev/" target="_blank" rel="noopener">aion2.dev</a>, built from playtest client data (build 25344886), and match <a href="https://talentbuilds.com/aion2/daevanionplanner" target="_blank" rel="noopener">Talentbuilds' planner</a> node for node on all 32 boards; the live global board may differ slightly. Points by level are an estimate built on aLuckyRO's ~160–170 at a fresh 45 — type your real number in the points box (or drag the slider) to plan with it. Adjacent nodes unlock outward from the center, so the planner buys the cheapest path to each target.</p>
         <p class="dvsrc"><b>Point-saving trick (aLuckyRO):</b> raising a skill with skill points costs 2 per level at first, then 4 once it climbs. Stop one level short of where the price doubles and take that level from the skill's Daevanion node instead — on one skill he saved 4 points. <a href="https://youtu.be/f3gxUdec82U?t=1388" target="_blank" rel="noopener">Watch at 23:08 ↗</a></p>
       </div>
     </div>
@@ -813,13 +816,13 @@ nav.path{top:calc(env(safe-area-inset-top,0px) + 78px)!important}
     <div class="lk-head">
       <div>
         <h2 id="grTitle">Gear tracker: what's next at 45</h2>
-        <p class="sub">Enter your item level (character sheet, top right) and see what you can run now, the next gate, and the upgrades to do today. Saved separately for <b class="gr-who">Cleric</b>.</p>
+        <p class="sub">Enter your item level (gear score, on your character sheet) and see what you can run now, the next gate, and the upgrades to do today. Item level opens content; combat power is your real strength. Saved separately for <b class="gr-who">Cleric</b>.</p>
       </div>
     </div>
 
     <div class="gr-input">
       <label class="gr-il" for="grIl"><span>Item level</span><input type="number" id="grIl" inputmode="numeric" min="0" max="5000" step="10" placeholder="1240"></label>
-      <input type="range" id="grRange" min="0" max="2800" step="10" value="0" aria-label="Item level slider">
+      <input type="range" id="grRange" min="0" max="3000" step="10" value="0" aria-label="Item level slider">
       <div class="gr-quick" role="group" aria-label="Quick adjust"><button type="button" class="theme" data-d="-50">−50</button><button type="button" class="theme" data-d="50">+50</button></div>
     </div>
 
@@ -838,7 +841,7 @@ nav.path{top:calc(env(safe-area-inset-top,0px) + 78px)!important}
         <ol class="gr-steps" id="grSteps"></ol>
       </div>
     </div>
-    <p class="lk-foot">Entry gates are Normal Conquest values from the Korean and Taiwanese clients (<a href="https://en.namu.wiki/w/%EC%95%84%EC%9D%B4%EC%98%A82/%EC%9B%90%EC%A0%95" target="_blank" rel="noopener">Namu Wiki</a>, <a href="https://gamerstogether.cz/en/aion-2-draupnir-dungeon-guide/" target="_blank" rel="noopener">Gamers Together</a>). Party sizes for Krao Cave and Urugugu Canyon are from aLuckyRO's Taiwanese client footage. The upgrade order follows <a href="https://mein-mmo.de/en/aion-2-equipment-guide-how-to-quickly-obtain-the-best-gear-in-pve,1586095/" target="_blank" rel="noopener">Mein-MMO's gear guide</a> and aLuckyRO's launch plan. NC hasn't published global gates yet, so trust the in-game tooltip and use "Correct for global" when it differs.</p>
+    <p class="lk-foot">Entry gates are Normal Conquest values from the Korean and Taiwanese clients (<a href="https://en.namu.wiki/w/%EC%95%84%EC%9D%B4%EC%98%A82/%EC%9B%90%EC%A0%95" target="_blank" rel="noopener">Namu Wiki</a>, <a href="https://gamerstogether.cz/en/aion-2-draupnir-dungeon-guide/" target="_blank" rel="noopener">Gamers Together</a>). Party sizes for Krao Cave and Urugugu Canyon are from aLuckyRO's Taiwanese client footage. The upgrade order follows <a href="https://www.youtube.com/watch?v=hOyoQ_OXdWE" target="_blank" rel="noopener">FRESHY's 2,200 gear score route</a>, <a href="https://mein-mmo.de/en/aion-2-equipment-guide-how-to-quickly-obtain-the-best-gear-in-pve,1586095/" target="_blank" rel="noopener">Mein-MMO's gear guide</a> and aLuckyRO's launch plan. NC hasn't published global gates yet, so trust the in-game tooltip and use "Correct for global" when it differs.</p>
   </section>
 
   <section class="lk" id="playbook" data-faction="elyos" aria-labelledby="lkTitle">
@@ -1348,7 +1351,7 @@ function buildPhases(k, role, faction){
  ].map(function(p){ p.items = p.items.filter(Boolean); return p; });
 }
 
-var VID_BY = {Bly7GFVX91Y:"aLuckyRO", L7CDysKzkLw:"aLuckyRO", LprnWlE26J8:"aLuckyRO", z5GruOss4F8:"Kanon"};
+var VID_BY = {Bly7GFVX91Y:"aLuckyRO", L7CDysKzkLw:"aLuckyRO", LprnWlE26J8:"aLuckyRO", z5GruOss4F8:"Kanon", hOyoQ_OXdWE:"FRESHY"};
 function vidLinks(v){
   if(!v) return [];
   var list = Array.isArray(v[0]) ? v : [v];
@@ -1364,7 +1367,7 @@ var LOOP = {
  daily:[
   {id:"l-duty", s:"Duty Missions", t:"Five Duty Missions", d:"Press J, then the Duties tab. Only the first reward slot is guaranteed. Reroll for Hidden Cube keys first; if none shows, take Soul Crystals (rainbow, then turquoise or yellow), then Ariel fragments.", v:[["Bly7GFVX91Y",621],["z5GruOss4F8",303]]},
   {id:"l-night", s:"Nightmare", t:"Nightmare entries", d:"Two charges a day; the counter stops at 14, so stay at 12 or below. Can't kill the last boss yet? Repeat the easier ones, they still pay. Dying here costs nothing, so keep retrying.", v:[["Bly7GFVX91Y",1498],["z5GruOss4F8",395]]},
-  {id:"l-dd", s:"Daily dungeon", t:"Daily dungeon (Enhance Stones)", d:"14 weekly entries shared across your whole roster."},
+  {id:"l-dd", s:"Daily dungeon", t:"Daily dungeons", d:"14 weekly entries shared across your whole roster. Run the Enhance Stone one when you're short on stones; take pets from the other one.", v:["hOyoQ_OXdWE",634]},
   {id:"l-supply", s:"Supply Requests", t:"Supply Requests: daily section", d:"Turn-ins for Abyss Points. The daily section restocks at every server reset."},
   {id:"l-cmd", s:"Command scrolls", t:"Command scrolls", d:"Redraw for keys and Daevanion fragments while the price is low."},
   {id:"l-field", s:"Kina cap", t:"Field Kina cap (1M, mainland)", d:"Farm low-Kinah mobs so you get more gold drops before the cap; then move to the Abyss, which has no cap.", v:["L7CDysKzkLw",38]},
@@ -1843,31 +1846,40 @@ var GATES = [
   {id:"drau", n:"Draupnir", m:"Conquest ★ · 1–5 players", il:1000, g:"Bakarma set · a guaranteed piece every 14 cubes"},
   {id:"asc",  n:"Ascension Trial (Normal)", m:"Weekly ×3 · Forgotten Repository", il:1500, g:"aLuckyRO expects ~1,300–1,400 on global. Never spend entries on Easy."},
   {id:"uru",  n:"Urugugu Canyon", m:"Conquest ★★ · 2–5 players", il:1600, g:"Blue gear and accessories · ~405k Kinah · aLuckyRO expects ~1,400 on global"},
-  {id:"vak",  n:"Vakron's Sky Island", m:"Conquest ★★ · 2–5 players", il:1600, g:"The big armor upgrade · take it to +10"},
+  {id:"vak",  n:"Vakron's Sky Island", m:"Conquest ★★ · 2–5 players", il:1600, g:"Tier-2 yellow armor, the big upgrade · FRESHY had tier 2 open at 1,500"},
   {id:"fire", n:"Fire Temple", m:"Conquest ★★★", il:2200, g:"Best Kinah and Arcana · save your main's Odyle Energy for it"},
   {id:"horn", n:"Ferocious Horn Den", m:"Conquest ★★★", il:2200, g:"Best Kinah and Arcana alongside Fire Temple"},
   {id:"h1",   n:"Hard: Krao Cave & Draupnir", m:"Hard Conquest", il:2400, g:"Same bosses, harder hits, better odds"},
   {id:"h2",   n:"Hard: Urugugu & Vakron", m:"Hard Conquest", il:2500, g:""},
-  {id:"h3",   n:"Hard: Fire Temple & Horn Den", m:"Hard Conquest", il:2600, g:""}
+  {id:"h3",   n:"Hard: Fire Temple & Horn Den", m:"Hard Conquest", il:2600, g:""},
+  {id:"tr4",  n:"Transcendence stage 4", m:"Transcendence", il:2700, g:"Higher-tier Arcana"},
+  {id:"ludra",n:"Ludra Sanctuary", m:"Raid", il:2800, g:"Season 1 raid"}
 ];
 /* Upgrade path. from/to are item levels or a gate id (so corrected gates move the steps too). */
 var GSTEPS = [
-  {id:"g-1000", auto:true, from:0, to:"krao", t:"Reach item level 1,000", d:"Leftover story and regional quests, sealed dungeons, strongholds and feathers. This is the Krao Cave and Draupnir gate. To find what's left: press J and open the Regional tab for side quests; press M, then the Exploration tab, for sealed dungeons and strongholds.", src:"Mein-MMO · Kanon", v:["z5GruOss4F8",221]},
-  {id:"g-drau", from:"drau", to:1300, t:"Farm the Draupnir (Bakarma) set", d:"Six armor pieces. Every 14 cubes you open gives a guaranteed piece of your choice. Early on, open the chest 2× with a subscription or 3× without.", src:"Gamers Together · aLuckyRO", v:["Bly7GFVX91Y",982]},
+  {id:"g-1000", auto:true, from:0, to:"krao", t:"Reach item level 1,000", d:"At 45 you're usually around 850–950. The fastest +80: two quests on your map reward Clash Rune chests, worth +40 each once equipped. Still short? Side quests that give blue accessories. To find what's left: press J, Regional tab for side quests; press M, Exploration tab for sealed dungeons and strongholds.", src:"FRESHY · Kanon", v:[["hOyoQ_OXdWE",252],["z5GruOss4F8",221]]},
+  {id:"g-wpn", from:850, to:1200, t:"Finish the story: yellow weapon to +5", d:"The last main-story chapter hands you a yellow weapon. Enhance it to +5 right away.", src:"FRESHY", v:["hOyoQ_OXdWE",275]},
+  {id:"g-map", from:"krao", to:1500, t:"Clear the map: sealed dungeons, strongholds, green quests, feathers", d:"Sealed dungeons give Kinah, Daevanion and skill points. Strongholds give belt materials, 190 feathers give amulet materials, and green side quests give the best blue accessories. A Space-Time Rift every 3 hours opens the other faction's map; about 2½ rifts clears it. Do Shugo and invasion pop-ups when you see them.", src:"FRESHY", v:[["hOyoQ_OXdWE",305],["hOyoQ_OXdWE",337]]},
+  {id:"g-belt", from:"krao", to:1500, t:"Belt and amulet to yellow with Substance Morph", d:"Once you have the stronghold and feather materials, upgrade both in Substance Morph.", src:"FRESHY · Mein-MMO", v:["hOyoQ_OXdWE",367]},
+  {id:"g-brace", from:1200, to:1500, t:"Next Ascension quest: yellow bracelet to +5", d:"With the map cleared and this bracelet you should pass 1,500, which FRESHY reached on day one.", src:"FRESHY", v:["hOyoQ_OXdWE",388]},
+  {id:"g-drau", from:"drau", to:1300, t:"Farm the Draupnir (Bakarma) set", d:"aLuckyRO's route. Six armor pieces, and every 14 cubes gives a guaranteed piece of your choice. Open the chest 2× with a subscription or 3× without. (FRESHY skips this and goes straight to Vakron at 1,500.)", src:"Gamers Together · aLuckyRO", v:["Bly7GFVX91Y",982]},
   {id:"g-krao", from:"krao", to:1300, t:"Get the Krao Cave accessory", d:"About 7 runs with a subscription. A full clear pays ~300k Kinah either way.", src:"aLuckyRO", v:["Bly7GFVX91Y",1038]},
-  {id:"g-belt", from:"krao", to:1300, t:"Belt from strongholds, Revelation Amulet from feathers", d:"Cheap item level you get while clearing the map anyway.", src:"Mein-MMO"},
-  {id:"g-p10", from:1000, to:1500, t:"Enchant the Draupnir set to +10", d:"It's your main gear until Vakron. Don't soul-bind it yet.", src:"aLuckyRO", v:["Bly7GFVX91Y",1038]},
+  {id:"g-p10", from:1000, to:1500, t:"Enchant the Draupnir set to +10", d:"Only if you're farming Draupnir. It's your main gear until Vakron; don't soul-bind it yet.", src:"aLuckyRO", v:["Bly7GFVX91Y",1038]},
   {id:"g-mana", from:1000, to:1500, t:"Manastones in every socket", d:"Armor stones and accessory stones are different; the Abyss Points you farm buy both.", src:"aLuckyRO"},
   {id:"g-genus", from:1000, to:1600, t:"Pets: finish the three levels, then Genus Insight to 10", d:"Genus Insight is under Pets. Only lock analysis stats once an insight hits level 10, then lock the good rolls and re-analyze the rest.", src:"aLuckyRO", v:["LprnWlE26J8",1031]},
-  {id:"g-alch", from:1000, to:2200, t:"Level Alchemy on the side", d:"Recraft materials in big overnight batches. They sell at a profit, and you'll want Alchemy for crafted gear later.", src:"aLuckyRO", v:["LprnWlE26J8",777]},
   {id:"g-asc", from:"asc", to:"uru", t:"Ascension Trial on Normal every week", d:"Three entries on the last day before reset. A source of Ariel books.", src:"Mein-MMO · aLuckyRO", v:["Bly7GFVX91Y",866]},
-  {id:"g-ap", from:1600, to:1700, t:"Abyss Points into rings, earrings and a necklace", d:"Farm the first ring of Abyss islands (no Kinah cap) and do the Abyss dailies.", src:"Mein-MMO · aLuckyRO", v:["L7CDysKzkLw",928]},
+  {id:"g-vak", from:"vak", to:"fire", t:"Vakron's Sky Island: farm the tier-2 yellow armor", d:"Run Exploration 3 times and open its cube to unlock the Condensed Cube, but leave it unclaimed until you know your last missing piece. Then spam Conquest (2+ players): 21 clears opens the Condensed Chest with 2 guaranteed pieces. Enhance each new piece to +5 straight away.", src:"FRESHY · Mein-MMO", v:[["hOyoQ_OXdWE",411],["hOyoQ_OXdWE",429]]},
+  {id:"g-alts", from:1500, to:2200, t:"Take alts to 45 and 1,400", d:"Run the same 1,000 → 1,400 loop on each alt so they can farm tier-2 expeditions every day. Their unbound Kinah funds your main.", src:"FRESHY", v:["hOyoQ_OXdWE",481]},
+  {id:"g-ap", from:1600, to:1800, t:"200,000 Abyss Points for tier-1 accessories", d:"Do the Abyss weekly contracts (take stigma shards, Abyss Points and pet crystals) and farm the first ring of islands. At ~200k, buy 2 rings, 2 earrings and a necklace and +5 them. aLuckyRO says PvP gear is removed on global, so check what the shop actually sells.", src:"FRESHY · aLuckyRO", v:[["hOyoQ_OXdWE",521],["hOyoQ_OXdWE",552]]},
   {id:"g-myst", from:"asc", to:1900, t:"Mysterious Crystals into Arcana", d:"The Ascension Trial's seasonal challenge quest gives Mysterious Crystals. Five plus about 2M Kinah transmutes an Arcana card, worth roughly +100 item level.", src:"aLuckyRO", v:["LprnWlE26J8",664]},
-  {id:"g-arc", from:1700, to:1800, t:"Arcana cards from Transcendence", d:"A basic card is worth about +20 item level, a green set about +40.", src:"Mein-MMO"},
-  {id:"g-vak", from:"vak", to:"fire", t:"Vakron gear to +10", d:"Run Urugugu Canyon and Vakron's Sky Island on Conquest (both need 2+ players). If you're going for crafted gear later, stop at +10 with simple manastones.", src:"Mein-MMO · MMO Codex"},
+  {id:"g-opt", from:1800, to:2200, t:"Optimize: manastone rolls, Theostones, +7", d:"A few manastone rolls per piece for 1–2 green stats (don't chase perfect yet), Theostones on your weapon and guard, then push everything from +5 to +7. Keep Clash Runes at +2: they can break.", src:"FRESHY", v:["hOyoQ_OXdWE",586]},
+  {id:"g-misc", from:1500, to:2200, t:"Pantheon statues, top Nightmare, PvE board crystals", d:"Check the Pantheon for better statues (free item level), clear the highest Nightmare you can, buy Daevanion crystals for the PvE board in the shop, and take pets from the daily dungeon that isn't the Enhance Stone one.", src:"FRESHY", v:["hOyoQ_OXdWE",613]},
+  {id:"g-alch", from:1000, to:2200, t:"Level Alchemy on the side", d:"Recraft materials in big overnight batches. They sell at a profit, and you'll want crafting for the best weapon later.", src:"aLuckyRO", v:["LprnWlE26J8",777]},
   {id:"g-soul", from:1800, to:"fire", t:"Soul-bind the gear you're keeping", d:"Only on keepers. Feeding a gold item gives a 100% reroll of the stat you pick, so never dissolve gold items.", src:"aLuckyRO", v:["Bly7GFVX91Y",1113]},
-  {id:"g-fire", from:"fire", to:"h1", t:"Fire Temple and Ferocious Horn Den", d:"Upgrade Arcana to blue and craft Unique Arcana alongside.", src:"Mein-MMO"},
-  {id:"g-hard", from:"h1", to:3000, t:"Hard modes", d:"Krao Cave and Draupnir first, then Urugugu and Vakron, then Fire Temple and Horn Den.", src:"Namu Wiki"}
+  {id:"g-fire", from:"fire", to:"h1", t:"Horn Den gear, Fire Temple accessories, start crafting", d:"Ferocious Horn Den drops Nuakum gear, the best non-crafted gear in season 1, so optimize stats on every piece. Fire Temple has the best PvE accessories. A crafted weapon is the best weapon, so start leveling crafting.", src:"FRESHY · Mein-MMO", v:["hOyoQ_OXdWE",671]},
+  {id:"g-arc", from:"fire", to:"tr4", t:"Transcendence stage 2–3 for Arcana", d:"A basic card is worth about +20 item level and a green set about +40, so this is a big jump. Stage 4 opens at 2,700.", src:"Mein-MMO · FRESHY", v:["hOyoQ_OXdWE",705]},
+  {id:"g-hard", from:"h1", to:3000, t:"Hard modes", d:"Krao Cave and Draupnir first, then Urugugu and Vakron, then Fire Temple and Horn Den.", src:"Namu Wiki"},
+  {id:"g-cp", from:"fire", to:3200, t:"Past 2,200: chase combat power, not item level", d:"Item level only opens doors; combat power is how strong you actually are. From here, item level follows as your power grows. Next doors: 2,700 for Transcendence stage 4 and 2,800 for the Ludra Sanctuary raid.", src:"FRESHY", v:["hOyoQ_OXdWE",735]}
 ];
 var gearEdit = false, gearShowAll = false;
 function gateIl(id){ var o = state.gates && state.gates[id]; if(o) return o; for(var i = 0; i < GATES.length; i++) if(GATES[i].id === id) return GATES[i].il; return 0; }
@@ -1885,7 +1897,7 @@ function renderGear(){
   rng.value = Math.min(il, +rng.max);
 
   /* track */
-  var MAX = 2800, pct = function(v){ return Math.max(0, Math.min(100, 100*v/MAX)); };
+  var MAX = 3000, pct = function(v){ return Math.max(0, Math.min(100, 100*v/MAX)); };
   document.getElementById("grFill").style.width = pct(il) + "%";
   var ticks = document.getElementById("grTicks"); ticks.textContent = "";
   var seen = {};
@@ -1941,7 +1953,7 @@ function renderGear(){
 
   /* summary */
   var sum = document.getElementById("grSummary"); sum.textContent = "";
-  if(!il){ sum.appendChild(el("div","gr-empty","Type your item level above. Just hit 45? You're probably around 800–1,000, and the first goal is 1,000 for Krao Cave and Draupnir.")); }
+  if(!il){ sum.appendChild(el("div","gr-empty","Type your item level above. Just hit 45? You're probably around 850–950, and the first goal is 1,000 for Krao Cave and Draupnir.")); }
   else {
     var open = GATES.filter(function(gt){ return il >= gateIl(gt.id); });
     function card(label, big, small, hi){ var c = el("div","gr-card" + (hi ? " hi" : "")); c.appendChild(el("small",null,label)); c.appendChild(el("b",null,big)); if(small) c.appendChild(el("span",null,small)); sum.appendChild(c); }
@@ -2009,6 +2021,7 @@ function renderSources(){
     ["https://www.youtube.com/watch?v=hNnDfDXrWxM", "Ultimate Cleric Guide PvE Min Maxed for Global", "MrRosaPony"],
     ["https://youtu.be/Zjhy0pauNlE", "15 Most Common Beginner Mistakes", "aLuckyRO"],
     ["https://www.youtube.com/watch?v=LprnWlE26J8", "My Progression Plan from Day 1 to Week 1", "aLuckyRO — Launch plan, gear route"],
+    ["https://www.youtube.com/watch?v=hOyoQ_OXdWE", "The Fastest Way to Reach 2,200 Gear Score", "FRESHY — gear tracker route from 850 to 2,800"],
     ["https://www.youtube.com/watch?v=f3gxUdec82U", "Latest Templar PvE Build for Global", "aLuckyRO — Templar skills to 12, 4 global stigmas, Daevanion point trick"],
     ["https://www.youtube.com/watch?v=z5GruOss4F8", "Aion 2 Starter Launch Guide in 8 minutes", "Kanon — rifts, Duty rewards, Shugo cap, Hon's Elyos route"],
     ["https://www.youtube.com/watch?v=Bly7GFVX91Y", "17 Pro Tips & Tricks From a Veteran KR Player", "aLuckyRO — Veteran playbook tips"],
@@ -2306,8 +2319,21 @@ function initPlanner(){
   var lv = document.getElementById("dvLevel");
   lv.addEventListener("input", function(){ stopPlay(); DVP.level = +lv.value; renderPlanner(); });
   var own = document.getElementById("dvOwn"), ownR = document.getElementById("dvOwnR"), ownOut = document.getElementById("dvOwnOut");
-  own.addEventListener("change", function(){ DVP.useOwn = own.checked; ownR.disabled = !own.checked; renderPlanner(); });
-  ownR.addEventListener("input", function(){ DVP.own = +ownR.value; ownOut.textContent = DVP.own; renderPlanner(); });
+  var ownN = document.getElementById("dvOwnN");
+  function saveOwn(){ try{ localStorage.setItem(LS_KEY+"-dvown", JSON.stringify({use:DVP.useOwn, n:DVP.own})); }catch(e){} }
+  function setOwn(n, from){
+    n = Math.max(0, Math.min(999, Math.round(+n || 0)));
+    DVP.own = n; ownOut.textContent = n;
+    if(from !== "range") ownR.value = Math.min(n, +ownR.max);
+    if(from !== "num") ownN.value = n;
+    if(!DVP.useOwn){ DVP.useOwn = true; own.checked = true; ownR.disabled = false; }
+    saveOwn(); renderPlanner();
+  }
+  own.addEventListener("change", function(){ DVP.useOwn = own.checked; ownR.disabled = !own.checked; saveOwn(); renderPlanner(); });
+  ownR.addEventListener("input", function(){ setOwn(ownR.value, "range"); });
+  ownN.addEventListener("input", function(){ if(ownN.value === "") return; setOwn(ownN.value, "num"); });
+  ownN.addEventListener("change", function(){ setOwn(ownN.value, ""); });
+  try{ var so = JSON.parse(localStorage.getItem(LS_KEY+"-dvown") || "null"); if(so && so.n >= 0){ DVP.own = Math.min(999, so.n|0); DVP.useOwn = !!so.use; own.checked = DVP.useOwn; ownR.disabled = !DVP.useOwn; ownR.value = Math.min(DVP.own, +ownR.max); ownN.value = DVP.own; ownOut.textContent = DVP.own; } }catch(e){}
   document.getElementById("dvRoute").addEventListener("change", function(e){ DVP.route[state.cls] = +e.target.value; renderPlanner(); });
   document.getElementById("dvPlay").addEventListener("click", function(){
     if(DVP.playing){ stopPlay(); return; }
