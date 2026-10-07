@@ -110,6 +110,8 @@ button,select,input{font:inherit;color:inherit}
 .kcard p{margin:0;font-size:15.5px}
 .kcard .sub{color:var(--muted);font-size:14.5px;margin-top:6px}
 .kcard.wide{grid-column:1/-1}
+.kcard.src{border-color:color-mix(in srgb,var(--acc) 55%,var(--line));background:color-mix(in srgb,var(--acc) 7%,var(--panel))}
+.kcard.src a{color:var(--acc);font-weight:600}
 .a45{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px 22px;margin-top:4px}
 .a45 b{display:block;font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:3px}
 .a45 p{font-size:15px}
@@ -768,7 +770,7 @@ nav.path{top:calc(env(safe-area-inset-top,0px) + 78px)!important}
         <div class="sklone"><b>Leave at 1:</b><span id="sklOne" style="display:contents"></span></div>
       </div>
     </div>
-    <p class="sklkey">Skill levels are gated by character level, so you can't finish a line early — keep your two mouse-button skills at the cap every level, then fill down the list. Sources: aLuckyRO's skills-and-stigmas guide for each class, plus berdugz for Sorcerer and MMO Codex for unlock levels.</p>
+    <p class="sklkey">Skill levels are gated by character level, so you can't finish a line early — keep your two mouse-button skills at the cap every level, then fill down the list. <span id="sklSrc">Sources: aLuckyRO's skills-and-stigmas guide for each class and MMO Codex for unlock levels.</span></p>
   </section>
   <section class="dvp" id="dvp" aria-labelledby="dvpTitle">
     <div class="dvp-head">
@@ -1184,29 +1186,36 @@ var CLASSES = {
  sorcerer:{name:"Sorcerer", role:"Caster DPS", weapon:"Spellbook", c:{d:"#F59A52",l:"#B3561A"},
   ident:"The biggest numbers in the game, bought with glass armor and long animation locks. Commit at the wrong moment and you can't dodge.",
   pills:[["Difficulty","Most demanding DPS"],["Solo pace","Good AoE"],["Defense","Glass"]],
-  L:"Flame Arrow", R:"Ice Chain",
-  spec:"Flame Arrow: +MP restored — its three-hit chain is your mana button; at 12 it also adds a 5% fire damage boost for 10 seconds. Ice Chain: +20% Skill Speed, or the MP-cost cut if you keep running dry (berdugz takes the MP cut while leveling). At 12 every Ice Chain takes time off Winter's Shackles, your big damage buff.",
-  early:"aLuckyRO's global build sorts actives into three tiers: top priority to 12, mid to 10, low stays at 8. Top: Flame Arrow, Ice Chain, Firestorm, Blaze, Flame Scattershot, Wish of Concentration, and Hellfire once you have the points. Levels 11–12 come from Daevanion skill nodes. On the way up, berdugz's order still works: Flame Arrow, Ice Chain, Firestorm, Bittercold Wind and Blaze to 8 first; Hellfire arrives at 14.",
-  late:"Robe of Flame first — your main damage passive (PvE damage and a double-damage chance), and the one Element Enhancement multiplies. Grace of Enhancement next: aLuckyRO now ranks it top priority, because it adds PvE damage while your MP is above 25% and Element Enhancement 15 multiplies it too. Then Vitality Evaporation (bonus damage on targets under 60% HP) and Fire Mark (makes Blaze restore MP). Absorb Essence is where creators split: berdugz raises it first for mana while leveling; aLuckyRO calls it situational. Robe of Earth's crit bonus and Robe of Cold's defense can wait — you won't crit early. Grace of Resistance and Revitalization Contract are PvP. Turn in feathers — aLuckyRO's run went from 234 to 258 skill points.",
-  stig:"Global has 4 slots, not 6. aLuckyRO's four: Element Enhancement first and highest — take it to 15 (level 10 makes Robe of Flame 1.5× stronger, level 15 does the same for Grace of Enhancement), Cold Storm and Fire Wall to 5 (damage-over-time zones; most bosses stand still), and Delayed Explosion (low cooldown, restores MP). Divine Burst is pointless in PvE (30-second cooldown). Glacial Smite to 10 only for farming mobs. Steel Barrier only for hard 1-v-1 fights or PvP. Berdugz runs the same four, with Fire Wall and Cold Storm at 5 and the other two at 1.",
-  mid:"Your top skills are headed for 12: levels 11–12 come from their Daevanion skill nodes. Wish of Concentration at 12 gives +10% attack and +10% Combat Speed. Hellfire to 12 if you have the points (10 otherwise) — 12 opens the slot for +30% Skill Speed and a fire damage-over-time. Keep Hellfire off the macro — a macro fires it with one charge.",
-  pts:"238 (258 with feathers)", at45:"Flame Arrow, Ice Chain, Firestorm, Blaze, Flame Scattershot and Wish of Concentration heading to 12; Hellfire at 10–12; Bittercold Wind, Winter's Shackles and Frost at 8. Passives: Robe of Flame, Grace of Enhancement, Vitality Evaporation, Fire Mark.",
-  macro:["Wish of Concentration", "Element Enhancement", "Winter's Shackles", "Hellfire (hold)", "Fire Wall", "Cold Storm", "Delayed Explosion", "Firestorm", "Bittercold Wind"],
-  to20:"The mid-game goal is level 16 on your core skills — Daevanion gets them to about 14, then rings, weapon and guard, and Arcana add the rest. Wish of Concentration first: its 16 specialty knocks 10 s off every skill already on cooldown. Then Blaze (16: −3 s on Wish), Flame Arrow, Hellfire, Firestorm, Bittercold Wind and Winter's Shackles. shr1kn's 1,800–2,600 build pushes Firestorm, Blaze, Hellfire and Wish of Concentration to 20. Robe of Flame is the passive to push (16 by 1,200 gear score). Ice Chain is for mobs only — both berdugz and shr1kn leave it out of boss fights.",
-  stigEnd:"Element Enhancement to 15 first, then Cold Storm, Fire Wall and Delayed Explosion to 10 (shr1kn at 1,200–1,800 gear score) and all four toward 20 after that. Swap in Steel Barrier when telegraphs one-shot you (cast it under ~50% HP), and Divine Burst for stagger checks — never during invulnerability or an existing stagger.",
-  daev:["Nezekan","Zikel","Vaizel","Ariel"], daevNote:"Combat Speed and Attack, Damage Boost, then Critical Damage.",
-  gear:"shr1kn's 1,200–1,800 kit: Vakron armor, Star Dragon Lord Spellbook and Guard, Aulamus accessories — all +10 — plus Clash Runes and Ascension Bracelets. Manastones: Attack and Crit everywhere. Look for Perfect Chance, Double Chance and +Robe of Flame on armor; Combat Speed and Damage Boost on weapon and guard; rings that add Firestorm, Blaze, Hellfire or Wish levels. Arcana: Chalice and Parchment of Vigor for those four, Mirror, Bell and Compass of Magic for the passives, all at +3. End game: Combat Speed and Cooldown Reduction above everything (berdugz).",
-  tip:"Sorcerer is a cooldown class: it can feel weak early and mid-game, and your gear stats should chase cooldown reduction later. Only commit to a full Hellfire charge when the boss will stay put. Keep MP above 50% — more mana means more damage (Robe of Earth and Grace of Enhancement both key off it); when you're dry, spam Flame Arrow. Fire Wall and Cold Storm debuffs stay on the boss even if it walks out of the zones.",
-  specAll:"aLuckyRO's picks. Firestorm: −50% MP cost (it's 250 MP without it); 12: each hit takes 2 s off Hellfire. Bittercold Wind 8: +1 s duration (12 is PvP). Blaze: HP absorb solo or in Nightmare, the delayed extra explosion in a group; 12: guaranteed Multi-Hit. Flame Scattershot: 12 for guaranteed Multi-Hit; at 8 pick MP, HP or mobility. Frost: −5 s cooldown or +200 MP. Winter's Shackles 8: the PvE damage boost — 12 adds little. Frost Burst: HP absorb. Wish of Concentration 12: +10% attack and +10% Combat Speed (or the MP options if mana is your problem). Hellfire 12: +30% Skill Speed and fire damage over time — hold its key for all three charges. Defiance 8 for 20% HP.",
-  macroNote:"aLuckyRO's rotation, played by hand — he says skip macros for your first days and learn the class. Three buffs, a fully charged Hellfire, your stigmas, then Firestorm (each hit takes 2 s off Hellfire's cooldown) and Bittercold Wind, with Flame Arrow and Ice Chain auto-attacking in between; add Blaze once Fire Mark is up. Recast Hellfire every time it's back. Berdugz's boss macro if you want one: Element Enhancement → Fire Wall → Cold Storm → Delayed Explosion, then Firestorm → Bittercold Wind → Winter's Shackles → Blaze, then Wish of Concentration and Flame Arrow — Hellfire never in it (5k with one charge versus 35k held to three).",
+  L:"Flame Arrow",
+  R:"M2 macro",
+  spec:"shr1kn plays M1 + M2: hold Flame Arrow on left click, then hold the macro on right click, and keep both pressed so the macro fills Flame Arrow's animation gaps. Flame Arrow specialties: +50% Multi-Hit (8) and +5% Fire Damage Boost for 10 s (12) while leveling; from 1,200 gear score the 16 pick (resets Blaze) replaces the Multi-Hit one.",
+  clicksT:"Level Flame Arrow and set up your M2 macro",
+  clicksD:"shr1kn's setup: Flame Arrow on left click (M1), and a macro of Element Enhancement → Winter's Shackles → Blaze on right click (M2). Hold both together so the macro fills Flame Arrow's animation gaps.",
+  early:"Follow shr1kn's priority order: Robe of Flame, Firestorm, Blaze, Hellfire, Wish of Concentration, Bittercold Wind, Winter's Shackles, Flame Arrow, then Fire Mark, Robe of Cold, Robe of Earth and Revitalization Contract, then Defiance, Frost Burst and Frost. Ice Chain stays at 1 and Flame Scattershot at 2.",
+  late:"shr1kn's passive order: Robe of Flame first, then Fire Mark, Robe of Cold, Robe of Earth and Revitalization Contract, then Vitality Evaporation and Absorb Essence. His leveling build has all six of Robe of Flame, Fire Mark, Robe of Cold, Robe of Earth, Revitalization Contract and Vitality Evaporation at 14 (with Daevanion). Grace of Resistance, Grace of Enhancement and Cold Snap come last.",
+  stig:"shr1kn's four, slotted from the start: Element Enhancement (10 while leveling — at 10 it multiplies Robe of Flame by 1.5), Cold Storm, Fire Wall and Delayed Explosion (1 each while leveling, 10 each by 1,200–1,800 gear score). Steel Barrier and Divine Burst are manual casts in his notes: Steel Barrier when your HP drops below about 50%; Divine Burst for heavy Stagger Gauge damage, never during invulnerability, a phase change or an existing stagger.",
+  mid:"Keep the top of shr1kn's list at its cap: Firestorm, Blaze, Hellfire and Wish of Concentration first, then Bittercold Wind, Winter's Shackles and Flame Arrow. Levels above 10 come from Daevanion skill nodes, so follow his board in the planner.",
+  ptsD:"shr1kn's leveling build (0–1,200 gear score): Blaze, Hellfire, Winter's Shackles, Bittercold Wind and Wish of Concentration at 14; Firestorm and Flame Arrow at 13; Frost, Frost Burst and Defiance at 12; Element Enhancement at 10. Passives: Robe of Flame, Fire Mark, Robe of Cold, Robe of Earth, Revitalization Contract and Vitality Evaporation at 14. Levels above 10 come from Daevanion skill nodes and gear. Ice Chain 1, Flame Scattershot 2.",
+  pts:"",
+  at45:"",
+  macro:["Element Enhancement", "Winter's Shackles", "Blaze"],
+  macroTitle:"M2 macro (shr1kn)",
+  macroNote:"Hold this on right click while holding Flame Arrow on left click (about 10 ms between steps). Cast by hand: Wish of Concentration before you start weaving (after its level-16 specialty: Hellfire first, then Wish to cut the remaining cooldowns); Delayed Explosion, then a max-charge Hellfire into its damage-taken debuff, then Hellfire every time it's back; Flame Scattershot through every stagger window. Ice Chain joins the macro from 2,600 gear score.",
+  specAll:"shr1kn's leveling picks. Firestorm: +20% Skill Speed (8), −2 s Hellfire cooldown per fireball (12). Blaze: delayed damage after 3 s (8), Multi-Hit on hit (12). Hellfire: +30% Skill Speed and mobile casting (8). Winter's Shackles: +20% PvE Damage Boost for 5 s and mobile (8). Bittercold Wind: +1 s duration and mobile (8). Wish of Concentration: +10% additional Attack (8), +10% Combat Speed (12). Frost: −5 s cooldown and resets Frost Burst (8). Frost Burst: absorbs 7% HP and mobile (8). Defiance 12.",
+  tip:"Keep left and right click held together — gaps in Flame Arrow's animation are lost damage. Save Steel Barrier for when you drop under about 50% HP, and never waste Divine Burst during invulnerability, a phase change or a stagger that's already running.",
+  to20:"1,200–1,800: Firestorm, Blaze, Hellfire, Winter's Shackles, Flame Arrow, Bittercold Wind and Wish of Concentration to 16, with the new 16 picks — Wish: −10 s on all skill cooldowns; Blaze: −3 s on Wish; Flame Arrow: resets Blaze; Hellfire and Winter's Shackles: −15 s cooldown; Firestorm: +15% damage per fireball (up to +75%). Robe of Flame 16. 1,800–2,600: Firestorm, Blaze, Hellfire and Wish to 20; Ice Chain to 12 (−1 s Winter's Shackles per hit, −20% MP cost); Robe of Flame 18. 2,600+: all seven to 20 and Robe of Flame 20.",
+  stigEnd:"1,200–1,800: Element Enhancement 15 (also multiplies Grace of Enhancement by 1.5), Cold Storm, Fire Wall and Delayed Explosion 10. 1,800–2,600: Element Enhancement and Delayed Explosion 20 (Delayed Explosion becomes AoE at 15), Cold Storm and Fire Wall 15. 2,600+: all four at 20.",
+  gear:"shr1kn's 1,200–1,800 kit: Vakron armor, Star Dragon Lord Spellbook and Guard, Aulamus accessories — all +10 — plus Clash Runes and Ascension Bracelets. Manastones: Attack and Crit everywhere. Armor: Perfect Chance, Double Chance and +Robe of Flame; weapon and guard: Combat Speed, Weapon Damage Boost and Damage Boost; rings: +Firestorm, Blaze, Hellfire and Wish of Concentration. Arcana at +3: Chalice and Parchment of Vigor (Firestorm, Blaze, Hellfire, Wish), Mirror, Bell and Compass of Magic (passives, Bittercold Wind, Winter's Shackles).",
+  after45:[["Rotation", "Delayed Explosion, then a max-charge Hellfire into its damage-taken debuff; Hellfire every time it's back, wherever you're standing. Hold M1 + M2 the whole time. Once Wish of Concentration has its 16 pick, cast Hellfire first and then Wish to cut every remaining cooldown by 10 s. Flame Scattershot through every stagger window."]],
+  after45src:"All from shr1kn's questlog.gg Sorcerer builds — open them for the exact numbers in each gear-score bracket.",
+  buildBy:{"name": "shr1kn", "note": "This Sorcerer guide follows shr1kn's questlog.gg builds exactly — skill levels and order, specialties, the M2 macro, stigmas, Daevanion boards and gear for every gear-score bracket. Other creators' builds are kept separate below (Daevanion routes and Sources) and are never mixed in.", "links": [["https://questlog.gg/aion-2/en/skill-builder/ETAwyX1VQmEy?build-id=9241", "Skill builds"], ["https://questlog.gg/aion-2/en/daevanion-planner/ETAwyX1VQmEy?build-id=3211", "Daevanion boards"], ["https://questlog.gg/aion-2/en/character-builder/PerceptionOfTheVictory?build-id=10380", "Gear and Arcana"]]},
+  srcFirst:[["https://questlog.gg/aion-2/en/skill-builder/ETAwyX1VQmEy?build-id=9241", "Sorcerer skill builds, 0 to 3,400+ gear score", "shr1kn on questlog.gg — the build this guide follows"], ["https://questlog.gg/aion-2/en/daevanion-planner/ETAwyX1VQmEy?build-id=3211", "Sorcerer Daevanion boards by gear score", "shr1kn on questlog.gg"], ["https://questlog.gg/aion-2/en/character-builder/PerceptionOfTheVictory?build-id=10380", "Sorcerer gear and Arcana by gear score", "shr1kn on questlog.gg"]],
   skillVid:"https://www.youtube.com/watch?v=C6-9zLLRiDE",
-  after45:[["Rotation at skill level 16", "Buff (Wish of Concentration, Element Enhancement), Delayed Explosion, then a fully charged Hellfire. Cast Wish of Concentration again — its 16 specialty takes 10 s off Hellfire and everything else — fire Hellfire again, then run the macro. shr1kn's weaving: hold Flame Arrow (left click) and the macro key together; his macro is only Element Enhancement → Winter's Shackles → Blaze (Ice Chain joins at 2,600). Flame Scattershot only inside stagger windows."]],
-  after45src:"From berdugz's Beginner to Advanced Skill Progression video and shr1kn's questlog.gg Sorcerer builds (skills, Daevanion and gear for every gear-score bracket).",
-  macroTitle:"Rotation (play it by hand first)",
-  skillVidD:"aLuckyRO — skills to 12, 4 global stigmas, Daevanion, rotation",
   skillVidT:"Latest Sorcerer PvE Build for Global",
-  extra:[["https://www.youtube.com/watch?v=TT4UXgPzz4A", "Sorcerer Beginner to Advanced Skill Progression", "berdugz — Taiwan-server Sorcerer, ~900k Combat Power"], ["https://questlog.gg/aion-2/en/skill-builder/ETAwyX1VQmEy?build-id=8398", "Sorcerer Skill Builds by gear score (0 to 3,400+)", "shr1kn on questlog.gg — skill levels, specialties, macro and weaving"], ["https://questlog.gg/aion-2/en/character-builder/PerceptionOfTheVictory?build-id=10380", "Sorcerer gear, Arcana and Daevanion by gear score", "shr1kn on questlog.gg — character builder"], ["https://www.youtube.com/watch?v=s-pYR_fmMDk", "Sorcerer Guide For Skills & Stigmas (6-stigma version)", "aLuckyRO — older Korean/Taiwan build"]],
-  dv:{"act": ["Hellfire", "Wish of Concentration", "Blaze", "Firestorm"], "pas": ["Robe of Earth", "Robe of Flame"], "order": ["Nezekan: Combat Speed", "Nezekan: Attack", "Zikel: Damage Boost", "Nezekan: Cooldown Reduction", "Vaizel: Crit Damage", "Accuracy", "Skill nodes"], "stat": "aLuckyRO (global): fill the central lanes first — Combat Speed on Nezekan (global nodes give about 1–1.5%, versus 2.5% in Taiwan), then Damage Boost — and then buy the skill nodes closest to those lanes: Ice Chain, Firestorm, Flame Arrow, Flame Scattershot and Robe of Flame. Every board holds one node for each skill, so take each from whichever board has it nearest your lane (he took Flame Arrow from Vaizel). Skip Vaizel's Crit and Triniel's Multi-Hit early: you don't crit yet, and your Multi-Hit skills are guaranteed at 12. Resets are cheap, so fix mistakes freely. Berdugz: never take Crit Tolerance, Crit Resist or Multi-Hit Resist nodes — they do nothing in PvE.", "ariel": "Ariel: damage lines first. Azphel's two PvP Damage Boost lines are free from Abyss campaign quests and Abyss feathers.", "vid": "https://www.youtube.com/watch?v=Qm92b5V1QVw"},
+  skillVidD:"aLuckyRO — a separate build (not used in this guide)",
+  extra:[["https://www.youtube.com/watch?v=TT4UXgPzz4A", "Sorcerer Beginner to Advanced Skill Progression", "berdugz — a separate build (not used in this guide)"], ["https://www.youtube.com/watch?v=s-pYR_fmMDk", "Sorcerer Guide For Skills & Stigmas (6-stigma version)", "aLuckyRO — older Korean/Taiwan build"]],
+  daev:["Nezekan","Zikel","Vaizel","Triniel"], daevNote:"Combat Speed and Attack, Damage Boost, then Critical Damage.",
+  dv:{"stat": "shr1kn's exact boards are in the planner below, one route per gear-score bracket: Leveling (268 points across the four boards), 1,200–1,800 (401) and 1,800+ (416). questlog.gg shows higher totals from 1,200 on (436, 481, 511) because they include the Azphel PvP board, which this planner doesn't draw; his four PvE boards are the same from 1,800 up. While leveling he takes skill nodes on every board plus Damage Boost and Damage Tolerance on Zikel and Crit Damage Boost on Vaizel; by 1,200 gear score he adds Combat Speed and Cooldown Reduction on Nezekan, Crit Damage Tolerance on Vaizel and the Multi-Hit corners on Triniel.", "vid": "https://www.youtube.com/watch?v=Qm92b5V1QVw"},
   guide:"https://mmo-codex.com/articles/aion-2-sorcerer-guide/"},
 
  spiritmaster:{name:"Spiritmaster", role:"Pet caster", weapon:"Orb", c:{d:"#5FD0E0",l:"#15788A"},
@@ -1302,7 +1311,7 @@ function buildPhases(k, role, faction){
   gate:"Wings from the first Ascension, both clicks at their max allowed level, settings fixed.",
   items:[
    {id:"msq", must:true, t:"Follow the yellow main story quests", d:"Yellow quests give the bulk of the XP. First-timers land around 7 hours to 45; experienced players 3–5."},
-   {id:"clicks", cls:true, must:true, t:"Level "+c.L+" and "+c.R+" first", d:"Your left and right click: no cooldown, and "+c.L+" restores MP. A skill can rise one level every three character levels, so keep both at the cap."},
+   {id:"clicks", cls:true, must:true, t:(c.clicksT || ("Level "+c.L+" and "+c.R+" first")), d:(c.clicksD || ("Your left and right click: no cooldown, and "+c.L+" restores MP. A skill can rise one level every three character levels, so keep both at the cap."))},
    {id:"shake", who:"main", t:"Turn off camera shake, and at level 10 hide the helper speech", d:"Camera shake is in the photo-icon settings. At 10, UI edit lets you hide the helper's speech box that pops up mid-screen on every quest click."},
    {id:"ui", who:"main", t:"Turn on Combat → Autouse", d:"Buff food and scrolls don't fire on their own. Set teleport effects to Dark while you're in there."},
    {id:"nav", who:"main", t:"Open Esc → Content → Navigator once", d:"It lists when each system unlocks: first Ascension and wings at 5, Daevanion and Shugo Festival around 13, second Ascension and Stigmas at 22."},
@@ -1357,7 +1366,7 @@ function buildPhases(k, role, faction){
   items:[
    {id:"msq5", must:true, t:"Finish the campaign chapters to 45", d:"Leftover skill points go into passives."},
    {id:"fire", t:"Fire Temple: only if its weapon suits you", d:"aLuckyRO opens it once for its level-57 weapon if it's your class; Anders skips the reward entirely."},
-   {id:"pts", cls:true, t:"What your build should look like at 45", d:"Expect "+c.pts+" skill points by 45. "+c.at45+" You can't max everything, and that's normal."},
+   {id:"pts", cls:true, t:"What your build should look like at 45", d:(c.ptsD || ("Expect "+c.pts+" skill points by 45. "+c.at45+" You can't max everything, and that's normal."))},
    {id:"rift", t:"Plan for Space-Time Rifts", d:"Some side quests send you into the other faction's land, and a Space-Time Rift is the only way in. One opens every 3 hours, lets a limited number of players through, and gives you an hour inside, so be at a portal (they show on your map) when it opens.", links:[["https://www.aion2timers.com/","Next rift: Aion 2 Timers"],["https://youtu.be/z5GruOss4F8?t=251","Kanon explains rifts"]]},
    {id:"bank", must:true, t:"Arrive with Kina, stones, manastones, Shugo keys and Odyle unspent", d:"All of it is worth far more at 45 than on the way up."}
   ]}
@@ -1580,6 +1589,10 @@ function matchDark(){
 function renderKit(){
   var k = state.cls, c = CLASSES[k], kit = document.getElementById("kit"); kit.textContent = "";
   function card(title, extra){ var d = el("div","kcard" + (extra ? " " + extra : "")); d.appendChild(el("h3",null,title)); kit.appendChild(d); return d; }
+  if(c.buildBy){
+    var bb = card("Build: " + c.buildBy.name, "wide src"); bb.appendChild(el("p",null,c.buildBy.note));
+    var bl = el("p","sub"); c.buildBy.links.forEach(function(x, i){ var lk = el("a",null,x[1] + " ↗"); lk.href = x[0]; lk.target = "_blank"; lk.rel = "noopener"; if(i) bl.appendChild(document.createTextNode(" · ")); bl.appendChild(lk); }); bb.appendChild(bl);
+  }
   var a = card("Your mouse buttons");
   var m = el("div","mouse");
   var l = el("div"); l.appendChild(el("small",null,"Left click")); l.appendChild(el("b",null,c.L)); m.appendChild(l);
@@ -2027,11 +2040,11 @@ function renderLucky(){
 /* ---------------- sources ---------------- */
 function renderSources(){
   var c = CLASSES[state.cls], ul = document.getElementById("srcs"); ul.textContent = "";
-  var list = [
+  var list = (c.srcFirst || []).concat([
     [c.guide, c.name + " Guide: Skills, Stigmas and Build", "MMO Codex — build order, specialties, stigmas"],
     [c.dv.vid, c.name + " Guide: Devanion Setup & Priorities for Early Game", "aLuckyRO — early-game Daevanion"],
     (c.skillVid ? [c.skillVid, c.skillVidT || (c.name + " Guide For Skills & Stigmas"), c.skillVidD || "aLuckyRO — skills, stigmas, macro"] : null),
-  ].concat(c.extra || []).concat([
+  ]).concat(c.extra || []).concat([
     ["https://aion2.dev/", "Aion2.dev — The AION 2 Fieldbook", "Daevanion board layouts from playtest client data"],
     ["https://talentbuilds.com/aion2/daevanionplanner", "Daevanion Point Planner", "Talentbuilds — layouts cross-checked, all 32 boards match"],
     ["https://mmo-codex.com/articles/aion-2-leveling-guide/", "Leveling Guide: Level 1 to 45 Fast", "MMO Codex"],
@@ -2113,6 +2126,8 @@ function dpsRoute(k, withTri){
   if(withTri) r.push(S(3,"u","Multi-Hit Chance","Triniel · Multi-Hit Chance corners"));
   return r.concat(skillSteps(k,[0,1,2,3])).concat([S(1,"st","Attack","Zikel · Attack nodes"),S(2,"st","Attack","Vaizel · Attack nodes")]);
 }
+var SHR1KN_DV = [["8,7;8,6;8,5;9,6;10,6;10,7;11,6;12,6;12,7;12,8;11,8;11,9;11,10;8,8;8,9;8,10;8,11;8,12;7,12;6,12;5,12;4,12;4,11;4,10;6,7;6,8;5,8;4,8;4,7;4,6;3,6;2,6;2,7;2,8;3,5;3,4;4,4;4,3;4,2;11,5;11,4;10,4", "7,8;6,8;5,8;4,8;4,9;3,9;2,9;2,10;2,11;2,12;8,8;9,8;9,9;9,10;8,10;7,6;6,6;5,5;5,4;6,4;6,3;6,2;5,2;4,2;3,2;2,2;7,3;8,3;8,2;9,2;10,2;11,2;12,2;12,3;12,4;12,12;4,4;3,4;12,10;12,11;5,6;6,9;10,3;12,9;12,8;12,7;12,6;12,5", "6,7;6,6;5,6;4,6;3,6;3,5;3,4;4,4;4,3;2,2;8,7;8,6;8,5;8,4;8,8;8,9;8,10;8,11;8,12;9,11;10,12;11,12;12,12;9,8;10,8;6,12;6,11;6,10;5,11;4,11;4,10;10,7;10,6;11,6;12,6;12,5;4,2;3,2;7,12;12,11;10,11;12,10;2,4", "8,7;8,6;8,5;7,5;6,5;8,8;8,9;6,4;6,3;6,2;6,1;7,1;5,3;4,3;3,3;2,3;4,5;4,6;3,6;2,6;8,10;8,11;8,12;8,13;7,13;6,12;7,11;5,12;4,12;4,13;4,4;6,11;9,11;10,11;10,10"], ["8,7;8,6;8,5;8,8;10,7;8,9;8,10;8,11;8,12;7,12;6,12;5,12;4,12;4,11;4,10;6,7;6,8;5,8;4,8;4,7;4,6;3,6;2,6;2,7;2,8;3,5;3,4;9,6;10,6;11,6;12,6;2,12;12,7;12,8;11,8;11,9;11,10;12,10;12,11;12,12;11,12;10,12;11,5;11,4;12,2;3,2;4,2;10,4;8,4;8,3;8,2;7,2;9,2;10,2;11,2;4,4;4,3;6,9;3,12;2,2;2,3;5,10;7,9", "7,8;6,8;5,8;4,8;4,9;3,9;2,9;2,10;2,11;2,12;8,8;9,8;9,9;9,10;8,10;7,6;5,4;6,4;6,3;6,2;5,2;4,2;3,2;2,2;7,3;8,3;8,2;9,2;10,2;11,2;12,2;12,3;12,4;12,12;4,4;3,4;12,10;12,11;12,9;12,8;10,3;3,12;4,12;4,11;6,9;12,7;8,6;8,4;8,5;2,8;12,5;12,6", "6,7;6,6;5,6;4,6;3,6;3,5;3,4;4,4;4,3;2,2;8,7;8,6;8,5;8,4;8,8;8,9;8,10;8,11;8,12;9,11;10,12;11,12;12,12;9,8;10,8;6,12;6,11;6,10;5,11;4,11;4,10;3,10;2,10;2,11;2,12;10,7;10,6;11,6;12,6;12,5;12,4;12,3;12,2;4,2;3,2;7,12;12,11;10,11;12,10;11,2;10,2;6,5;2,4;11,4;12,7;4,12", "8,7;8,6;8,5;7,5;6,5;8,8;8,9;6,4;6,3;6,2;6,1;7,1;5,3;4,3;3,3;2,3;4,5;4,6;3,6;2,6;8,10;8,11;8,12;8,13;7,13;6,12;7,11;5,12;4,12;4,13;4,4;6,11;9,11;10,11;10,10;10,12;10,13;11,13;12,13;13,13;13,12;13,11;12,11;8,1;8,2;13,1;10,9;10,8;11,8;12,8;13,8;13,7;13,6;11,6;10,6;10,5;12,5;12,4;12,3;1,6;1,7;1,3;1,2;1,1;3,13;2,13;1,13;8,3;13,3;13,2;12,6"], ["8,7;8,6;8,5;8,8;10,7;8,9;8,10;8,11;8,12;7,12;6,12;5,12;4,12;4,11;4,10;6,7;6,8;5,8;4,8;4,7;4,6;3,6;2,6;2,7;2,8;3,5;3,4;9,6;10,6;11,6;12,6;2,2;2,12;12,7;12,8;11,8;11,9;11,10;12,10;12,11;12,12;11,12;10,12;11,5;11,4;12,2;3,2;4,2;10,4;8,4;8,3;8,2;7,2;9,2;10,2;11,2;4,4;4,3;6,9;3,12;2,3;5,10;7,9;10,11", "7,8;6,8;5,8;4,8;4,9;3,9;2,9;2,10;2,11;2,12;8,8;9,8;9,9;9,10;8,10;7,6;5,4;6,4;6,3;6,2;5,2;4,2;3,2;2,2;7,3;8,3;8,2;9,2;10,2;11,2;12,2;12,3;12,4;12,12;4,4;3,4;12,10;12,11;12,9;12,8;10,3;3,12;4,12;4,11;6,9;12,7;8,6;8,4;8,5;2,8;12,6;6,10;6,11;6,12;12,5;10,10", "6,7;6,6;5,6;4,6;3,6;3,5;3,4;4,4;4,3;2,2;8,7;8,6;8,5;8,4;8,8;8,9;8,10;8,11;8,12;9,11;10,12;11,12;12,12;9,8;10,8;6,12;6,11;6,10;5,11;4,11;4,10;3,10;2,10;2,11;2,12;10,7;10,6;11,6;12,6;12,5;12,4;12,3;12,2;4,2;3,2;7,12;12,11;10,11;12,10;11,2;10,2;6,5;2,4;11,4;12,7;4,12;9,6;10,4", "8,7;8,6;8,5;7,5;6,5;8,8;8,9;6,4;6,3;6,2;6,1;7,1;5,3;4,3;3,3;2,3;4,5;4,6;3,6;2,6;8,10;8,11;8,12;8,13;7,13;6,12;7,11;5,12;4,12;4,13;4,4;6,11;9,11;10,11;10,10;10,12;10,13;11,13;12,13;13,13;13,12;13,11;12,11;8,1;8,2;13,1;10,9;10,8;11,8;12,8;13,8;13,7;13,6;11,6;10,6;10,5;12,5;12,4;12,3;1,6;1,7;1,3;1,2;1,1;3,13;2,13;1,13;8,3;13,3;13,2;12,6;1,8;2,8"]];
+function exactRoute(sets, who){ return [0,1,2,3].map(function(b){ var o = {}; sets[b].split(";").forEach(function(k){ o[k] = 1; }); return {b:b, set:o, label:DVB_NAMES[b] + " · " + who + "'s nodes"}; }); }
 var DV_ROUTES = {
  gladiator:[{name:"aLuckyRO", note:"Offense first: Attack and Combat Speed, Damage Boost, Crit Damage, Multi-Hit — then skill nodes.", steps:dpsRoute("gladiator",true)}],
  assassin:[{name:"aLuckyRO", note:"Attack and Combat Speed, Damage Boost, Crit Damage, Multi-Hit — then skill nodes. MP nodes last.", steps:dpsRoute("assassin",true)}],
@@ -2123,11 +2138,12 @@ var DV_ROUTES = {
   {name:"Static group", note:"Same, but Damage Tolerance on Zikel when a fixed group relies on you.",
    steps:[S(0,"u","Combat Speed","Nezekan · Combat Speed corners")].concat(skillSteps("templar",[0,1,2,3])).concat([S(1,"u","Damage Tolerance","Zikel · Damage Tolerance corners")])}],
  sorcerer:[
-  {name:"aLuckyRO (global)", note:"Central lanes first — Combat Speed, then Damage Boost — then the nearest skill nodes: Ice Chain, Firestorm, Flame Arrow, Flame Scattershot, Robe of Flame. Skips Crit Damage and Multi-Hit early.",
+  {name:"shr1kn · Leveling (0–1,200 GS)", note:"shr1kn's exact board while leveling — 268 points. Use your own point count below to see how far you are.", steps:exactRoute(SHR1KN_DV[0], "shr1kn")},
+  {name:"shr1kn · Early game (1,200–1,800 GS)", note:"shr1kn's exact board at 1,200–1,800 gear score — 401 points on these four boards (plus 35 on the Azphel PvP board).", steps:exactRoute(SHR1KN_DV[1], "shr1kn")},
+  {name:"shr1kn · Mid game and up (1,800+ GS)", note:"shr1kn's exact board from 1,800 gear score on — 416 points on these four boards (his late and end-game boards only add Azphel PvP points).", steps:exactRoute(SHR1KN_DV[2], "shr1kn")},
+  {name:"aLuckyRO (separate build)", note:"Not part of shr1kn's build. Central lanes first — Combat Speed, then Damage Boost — then the nearest skill nodes: Ice Chain, Firestorm, Flame Arrow, Flame Scattershot, Robe of Flame. Skips Crit Damage and Multi-Hit early.",
    steps:[S(0,"u","Combat Speed","Nezekan · Combat Speed corners"),S(1,"u","Damage Boost","Zikel · Damage Boost corners")].concat([0,1,2,3].map(function(b){ return S(b,"sk",["Ice Chain","Firestorm","Flame Arrow","Flame Scattershot","Robe of Flame","Wish of Concentration","Blaze","Hellfire"],DVB_NAMES[b]+" · your skill nodes"); }))},
-  {name:"shr1kn (questlog)", note:"All corners on every board — Combat Speed and Cooldown Reduction, Damage Boost, Crit Damage, Multi-Hit — threaded with skill nodes; about 436 points by 1,800 gear score.",
-   steps:[S(0,"u","Combat Speed","Nezekan · Combat Speed corners"),S(0,"u","Cooldown Reduction","Nezekan · Cooldown Reduction corners"),S(1,"u","Damage Boost","Zikel · Damage Boost corners"),S(2,"u","Critical Damage Boost","Vaizel · Crit Damage Boost corners"),S(3,"u","Multi-Hit Chance","Triniel · Multi-Hit Chance corners")].concat([0,1,2,3].map(function(b){ return S(b,"sk",["Robe of Flame","Firestorm","Blaze","Hellfire","Wish of Concentration","Bittercold Wind","Winter's Shackles","Flame Arrow","Fire Mark","Robe of Earth","Absorb Essence"],DVB_NAMES[b]+" · your skill nodes"); }))},
-  {name:"Cooldown build", note:"aLuckyRO's earlier route: Combat Speed, Attack, Damage Boost, then Cooldown Reduction (Sorcerer gains a lot from it). Skips Triniel's Multi-Hit.",
+  {name:"aLuckyRO · older cooldown build", note:"Not part of shr1kn's build. aLuckyRO's earlier route: Combat Speed, Attack, Damage Boost, then Cooldown Reduction (Sorcerer gains a lot from it). Skips Triniel's Multi-Hit.",
    steps:[S(0,"u","Combat Speed","Nezekan · Combat Speed corners"),S(0,"st","Attack","Nezekan · Attack nodes"),S(1,"u","Damage Boost","Zikel · Damage Boost corners"),S(0,"u","Cooldown Reduction","Nezekan · Cooldown Reduction corners"),S(2,"u","Critical Damage Boost","Vaizel · Crit Damage Boost corners")].concat(skillSteps("sorcerer",[0,1,2,3]))}],
  spiritmaster:[{name:"aLuckyRO", note:"No Combat Speed (instant casts): Attack, Cooldown Reduction, Damage Boost, Crit Damage, then spirit nodes.",
    steps:[S(0,"st","Attack","Nezekan · Attack nodes"),S(0,"u","Cooldown Reduction","Nezekan · Cooldown Reduction corners"),S(1,"u","Damage Boost","Zikel · Damage Boost corners"),S(2,"u","Critical Damage Boost","Vaizel · Crit Damage Boost corners")].concat(skillSteps("spiritmaster",[0,1,2,3])).concat([S(0,"u","Combat Speed","Nezekan · Combat Speed (last)")])}],
@@ -2161,6 +2177,7 @@ var GRAPH_CACHE = {};
 function graphs(k){ if(!GRAPH_CACHE[k]) GRAPH_CACHE[k] = [0,1,2,3].map(function(b){ return boardGraph(k,b); }); return GRAPH_CACHE[k]; }
 
 function isTarget(step, o){
+  if(step.set) return !!step.set[o.r + "," + o.c];
   if(step.u) return o.g === "u" && o.t === step.u;
   if(step.st) return o.g === "c" && o.t === step.st;
   if(step.sk) return (o.g === "l" || o.g === "r") && step.sk.indexOf(o.t) >= 0;
@@ -2177,6 +2194,7 @@ function pathTo(G, owned, step, avoid){
     }
     u.nb.forEach(function(v){
       if(done[v.i]) return;
+      if(step.set && !owned[v.i] && !step.set[v.r + "," + v.c]) return;
       var w = owned[v.i] ? 0 : v.cost + (avoid.indexOf(v.t) >= 0 ? 25 : 0) + 0.001;
       if(dist[v.i] === undefined || dist[u.i] + w < dist[v.i]){ dist[v.i] = dist[u.i] + w; prev[v.i] = u; q.push(v); }
     });
@@ -2406,10 +2424,10 @@ var SKILLPLAN = {
   pas:[A("Focused Eye",10,"Your top passive."),A("Hunter's Resolve",10,"Second."),A("Hunter's Soul",10,"Straight to 10 at 25.")],
   one:["Marking Shot","Suppressing Arrow","Wind Vigor and Revitalization Contract (little PvE value)"]},
  sorcerer:{
-  rule:"aLuckyRO (global): three tiers — top skills to 12 (levels 11–12 come from Daevanion skill nodes, and 12 is where the key specialties unlock), mid to 10, low stays at 8. On the way up, berdugz's order still works: Flame Arrow, Ice Chain, Firestorm, Bittercold Wind and Blaze to 8 first.",
-  act:[A("Flame Arrow",12,"Left click. MP restore; 12 adds +5% fire damage for 10 s.","click"),A("Ice Chain",12,"Right click. Skill Speed (or MP cost if you run dry); 12 cuts Winter's Shackles' cooldown. Mobs only after 45 — berdugz and shr1kn drop it on bosses.","click"),A("Firestorm",12,"−50% MP cost; 12: each hit takes 2 s off Hellfire."),A("Wish of Concentration",12,"Your buff. 12: +10% attack and +10% Combat Speed."),A("Blaze",12,"HP absorb solo, delayed explosion in groups; 12: guaranteed Multi-Hit."),A("Flame Scattershot",12,"Spam it when the boss staggers; 12: guaranteed Multi-Hit."),A("Hellfire",12,"Arrives at 14. 12 if you have the points (else 10): +30% Skill Speed and a fire DoT."),A("Bittercold Wind",8,"+1 s duration; 12 is PvP."),A("Winter's Shackles",8,"PvE damage boost at 8; 12 adds little."),A("Frost",8,"−5 s cooldown or +200 MP."),A("Frost Burst",8,"HP absorb."),A("Defiance",8,"20% HP on trigger.")],
-  pas:[A("Robe of Flame",10,"#1 — Element Enhancement multiplies it."),A("Grace of Enhancement",10,"PvE damage above 25% MP; Element Enhancement 15 multiplies it."),A("Vitality Evaporation",10,"Straight to 10 at 25; bonus on targets under 60% HP."),A("Fire Mark",10,"Makes Blaze restore MP."),A("Absorb Essence",8,"MP on every hit — berdugz raises it first; aLuckyRO calls it situational."),A("Cold Snap",8,"Bonus on slowed or frozen targets.")],
-  one:["Robe of Earth (its crit bonus barely matters early)","Robe of Cold (defense you don't need yet)","Grace of Resistance, Revitalization Contract (PvP)","Divine Burst stigma (pointless in PvE)"]},
+  rule:"shr1kn's leveling build (0–1,200 gear score), in his priority order. Levels above 10 come from Daevanion skill nodes and gear; striped blocks mark those.",
+  act:[A("Firestorm",13,"8: +20% Skill Speed. 12: −2 s Hellfire cooldown per fireball."),A("Blaze",14,"8: delayed damage after 3 s. 12: Multi-Hit on hit. In the M2 macro."),A("Hellfire",14,"8: +30% Skill Speed and cast while moving. Max charge, by hand."),A("Wish of Concentration",14,"8: +10% additional Attack. 12: +10% Combat Speed. By hand, before you start."),A("Bittercold Wind",14,"8: +1 s duration and cast while moving."),A("Winter's Shackles",14,"8: +20% PvE Damage Boost for 5 s and cast while moving. In the M2 macro."),A("Flame Arrow",13,"Left click. 8: +50% Multi-Hit. 12: +5% Fire Damage Boost for 10 s.","click"),A("Defiance",12,""),A("Frost Burst",12,"8: absorbs 7% HP and cast while moving."),A("Frost",12,"8: −5 s cooldown and resets Frost Burst.")],
+  pas:[A("Robe of Flame",14,"First on his list."),A("Fire Mark",14,""),A("Robe of Cold",14,""),A("Robe of Earth",14,""),A("Revitalization Contract",14,""),A("Vitality Evaporation",14,"")],
+  one:["Ice Chain (1)","Flame Scattershot (2)","Absorb Essence, Grace of Resistance, Grace of Enhancement, Cold Snap (1 while leveling)"]},
  spiritmaster:{
   rule:"Keep Cold Shock and Combustion at the cap. While leveling, only the Water Spirit gets points — the other three stay at 1 until later.",
   act:[A("Combustion",10,"Right click. No cooldown, casts on the move.","click"),A("Cold Shock",8,"Left click. +20% MP.","click"),A("Summon: Water Spirit",10,"Your leveling spirit — mana back per hit."),A("Elemental Fusion",10,"Cast it every time it lights up."),A("Dimensional Control",8,"Multi-Hit."),A("Jointstrike: Curse",8,"Early damage."),A("Rapid Scattershot",8,"Only on staggered bosses."),A("Summon: Fire Spirit",10,"At 45 — packs of mobs."),A("Summon: Earth Spirit",10,"At 45."),A("Summon: Wind Spirit",10,"At 45."),A("Defiance",8,"HP on trigger.")],
@@ -2421,7 +2439,7 @@ var SKILLPLAN = {
   pas:[A("Wind's Promise",10,"Straight to 10 at 25."),A("Attack Preparation",10,"10 at 37."),A("Inspiring Spell",10,"Crit and perfect chance."),A("Earth's Promise",10,"Straight to 10 at 21."),A("Survival Willpower",10,"Straight to 10 at 23.")],
   one:["Tremor Crush and Wave Blow early","Crossguard (trash for Chanter)","Blessing of Life (trade it away early)"]}
 };
-function ladderRow(x, i, pass){
+function ladderRow(x, i, pass, nbMax){
   var li = el("li","lrow" + (x.tag === "click" ? " click" : ""));
   li.appendChild(el("span","lr",String(i+1)));
   var mid = el("span","lm");
@@ -2431,9 +2449,9 @@ function ladderRow(x, i, pass){
   if(x.note) mid.appendChild(el("span","lnote",x.note));
   li.appendChild(mid);
   var bar = el("span","lbar"); bar.setAttribute("aria-label","Target level " + x.to);
-  var nb = x.to > 10 ? 12 : 10; bar.style.gridTemplateColumns = "repeat(" + nb + ", var(--lbw))";
+  var nb = nbMax || (x.to > 12 ? 16 : (x.to > 10 ? 12 : 10)); bar.style.gridTemplateColumns = "repeat(" + nb + ", var(--lbw))";
   for(var k=1;k<=nb;k++){ var seg = el("i", (k <= x.to ? "on" : "") + (k === 8 ? " sp" : "") + (k > 10 ? " dv" : "")); bar.appendChild(seg); }
-  if(x.to > 10) bar.title = "Levels 11–12 come from Daevanion skill nodes";
+  if(x.to > 10) bar.title = "Levels above 10 come from Daevanion skill nodes and gear";
   li.appendChild(bar);
   li.appendChild(el("b","lt",String(x.to)));
   return li;
@@ -2444,8 +2462,10 @@ function renderSkills(){
   document.getElementById("sklRule").textContent = P.rule;
   var a = document.getElementById("sklAct"), p = document.getElementById("sklPas"), o = document.getElementById("sklOne");
   a.textContent = ""; p.textContent = ""; o.textContent = "";
-  P.act.forEach(function(x,i){ a.appendChild(ladderRow(x,i)); });
-  P.pas.forEach(function(x,i){ p.appendChild(ladderRow(x,i,true)); });
+  var nbMax = P.act.concat(P.pas).reduce(function(m,x){ return Math.max(m, x.to > 12 ? 16 : (x.to > 10 ? 12 : 10)); }, 10);
+  P.act.forEach(function(x,i){ a.appendChild(ladderRow(x,i,false,nbMax)); });
+  P.pas.forEach(function(x,i){ p.appendChild(ladderRow(x,i,true,nbMax)); });
+  var ss = document.getElementById("sklSrc"), cc = CLASSES[state.cls]; if(ss){ if(!ss.dataset.def) ss.dataset.def = ss.textContent; ss.textContent = cc.buildBy ? ("Source: " + cc.buildBy.name + "'s questlog.gg skill builds — nothing from other creators is mixed in.") : ss.dataset.def; }
   P.one.forEach(function(x){ o.appendChild(el("span","chip1",x)); });
 }
 
