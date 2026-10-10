@@ -3,6 +3,7 @@
 A leveling checklist from level 1 to 45 for all eight Aion 2 classes, by **PanicMonkeyxx**.
 
 - Pick your class, main/alt and faction; tick steps off as you level (progress saves in your browser).
+- **Systems guide**: Kanon's in-depth PvE progression guide reorganized into ten chapter tabs (gear, stat lines, skills, enhancing, Arcana, Daevanion, Pet Genus, wings, closet, damage math), each linked back to its chapter in his Google Doc.
 - **Creator builds**: Sorcerer follows shr1kn's questlog.gg build; Cleric has a build switcher — aLuckyRO, MrRosaPony or BoredAF — and each build is shown on its own, never mixed.
 - **Skill point priorities**: ranked actives and passives with target levels by 45.
 - **Daevanion board planner**: the real board layouts; drag the level slider (or press play) to watch your route fill in.
